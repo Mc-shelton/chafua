@@ -1,34 +1,36 @@
+import {React,useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Views from './src/views/view';
+import Home from './src/views/Home';
+import BottomNav from './src/components/bottomNav';
+import TopHeader from './src/components/topHeader';
+import props from './src/props/props';
+
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
+  useEffect(()=>{
+    console.log(props.categList)
+  })
   return (
     <NavigationContainer>
+      <TopHeader/>
     <Stack.Navigator>
-      <Stack.Screen
-      name = 'View'
-      component = {Views}
+      <Stack.Screen 
+      name = 'Home'
+      component = {Home}
       options={headerNone}
       />
     </Stack.Navigator>
+    <BottomNav/>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 const headerNone = {
   headerShown:false
