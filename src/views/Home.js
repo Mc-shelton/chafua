@@ -6,19 +6,22 @@ import {
   TextInput,
   ScrollView,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import props from "../props/props";
 
-function Home() {
+function Home({navigation}) {
   return (
     <View style={{
       border:'2px solid red',
       height:'100%',
       overflow:'hidden'
     }}>
+      
       <TextInput
         placeholder="search bar"
         style={[styles.search, { outline: "none" }]}
+        onSubmitEditing={()=>navigation.navigate('Cart')}
       />
       <View style={styles.advert}></View>
       <View>
@@ -33,7 +36,10 @@ function Home() {
           Categories
         </Text>
       </View>
-      <View style={styles.categBox}>
+      <ScrollView style={styles.categBox}
+      horizontal={true}
+      showsHorizontalScrollIndicator={false}
+      >
         <View style={styles.categMiniBox}>
           <Text
             style={{
@@ -84,23 +90,31 @@ function Home() {
           </Text>
           <View style={styles.categIcon}></View>
         </View>
-      </View>
+      </ScrollView>
       <View style={styles.trending}>
         <h4 style={{ margin: 0,paddingBottom:'8px' }}>Trending</h4>
         <FlatList
           data={props.categList}
-          // key={props.categList.id}
+          keyExtractor={item => item.id}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
           renderItem={(item) => {
             return (
-              <View style={styles.item}>
+              <TouchableOpacity style={styles.item} 
+              onPress={()=>{
+                navigation.navigate('Details')
+              }}
+              
+              >
+
                 <View
                   style={{
                     borderBottom: "2px solid red",
-                    height: "60px",
+                    height: "100px",
                     borderRadius: "15px",
                   }}
                 ></View>
-              </View>
+              </TouchableOpacity>
             );
           }}
           flexDirection="true"
@@ -138,12 +152,12 @@ const styles = StyleSheet.create({
   categMiniBox: {
     border: "2px solid red",
     minWidth: "85px",
-    paddingLeft: "3px",
+    paddingRight: "3px",
     height: "40px",
     borderRadius: "15px",
     marginLeft: "10px",
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     alignItems: "center",
     justifyContent: "flex-end",
   },
@@ -151,8 +165,8 @@ const styles = StyleSheet.create({
     border: "2px solid red",
     height: "35px",
     width: "35px",
-    marginLeft: "5px",
-    marginRight: "2px",
+    marginRight: "5px",
+    marginLeft: "2px",
     borderRadius: "100%"
   },
   trending: {
@@ -162,11 +176,13 @@ const styles = StyleSheet.create({
   },
   item: {
     border: "2px solid red",
-    height: "100px",
-    width: "90px",
+    height: "200px",
+    width: "150px",
     borderRadius: "15px",
     marginTop: "20px",
     overflow: "hidden",
+    backgroundColor:'white',
+    marginLeft:'7%'
 
   },
 });
