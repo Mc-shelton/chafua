@@ -9,22 +9,36 @@ import {
   TouchableOpacity,
 } from "react-native";
 import props from "../props/props";
+import TopHeader from "../components/topHeader";
+import BottomNav from "../components/bottomNav";
 
 function Home({navigation}) {
   return (
+    <View 
+    style={{
+      height:'100%',
+      overflow:'hidden',
+      border:'2px solid red'
+
+    }}
+    >
+
+      {/* {true?<TopHeader props={navigation} />:<></>} */}
+      <TopHeader props={{ navigation: navigation, title: "Home" }} />
+
     <View style={{
       border:'2px solid red',
-      height:'100%',
+      // height:'0',
       overflow:'hidden'
     }}>
       
       <TextInput
         placeholder="search bar"
         style={[styles.search, { outline: "none" }]}
-        onSubmitEditing={()=>navigation.navigate('Cart')}
+        onSubmitEditing={()=>navigation.navigate('Search')}
       />
       <View style={styles.advert}></View>
-      <View>
+      <View >
         <Text
           style={{
             fontSize: "20px",
@@ -91,8 +105,9 @@ function Home({navigation}) {
           <View style={styles.categIcon}></View>
         </View>
       </ScrollView>
-      <View style={styles.trending}>
-        <h4 style={{ margin: 0,paddingBottom:'8px' }}>Trending</h4>
+    </View>
+    <View style={styles.trending}>
+        <h4 style={{ margin: 0,paddingBottom:'20px' }}>Trending</h4>
         <FlatList
           data={props.categList}
           keyExtractor={item => item.id}
@@ -112,6 +127,7 @@ function Home({navigation}) {
                     borderBottom: "2px solid red",
                     height: "100px",
                     borderRadius: "15px",
+                    paddingTop:"9%"
                   }}
                 ></View>
               </TouchableOpacity>
@@ -120,7 +136,10 @@ function Home({navigation}) {
           flexDirection="true"
         />
       </View>
+    <BottomNav props={navigation} />
+
     </View>
+
   );
 }
 
@@ -170,16 +189,18 @@ const styles = StyleSheet.create({
     borderRadius: "100%"
   },
   trending: {
-    marginTop:'5px',
+    // marginTop:'5px',
     paddingLeft: "5px",
-    height:'50%',
+    // paddingTop: "15px",
+    height:'42%  ',
+    border:'2px solid red'
   },
   item: {
     border: "2px solid red",
     height: "200px",
     width: "150px",
     borderRadius: "15px",
-    marginTop: "20px",
+    marginBottom: "20px",
     overflow: "hidden",
     backgroundColor:'white',
     marginLeft:'7%'

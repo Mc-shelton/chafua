@@ -2,17 +2,17 @@ import React from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { Directions } from "react-native-gesture-handler";
 
-function TopHeader({props,navigation}) {
-  console.log(navigation)
+function TopHeader({props}) {
+  console.log(props)
   return (
     <View style={styles.main}>
-        <View style={styles.leftPane}><Text style={styles.title}>Home</Text></View>
+        <View style={styles.leftPane}><Text style={styles.title}>{props.title}</Text></View>
       <View style={styles.rightPane}>
         <View style={[styles.icons,styles.avator]}></View>
         <View style={[styles.icons,styles.notify]}></View>
         <TouchableOpacity style={[styles.icons,styles.cart]}
         onPress={()=>{
-          navigation.navigate('Details')
+          props.navigation.navigate('Cart')
         }
         }
         >
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     height: "70px",
     display:'flex',
     flexDirection:'row',
+    backgroundColor:'white'
     // paddingBottom:'10px'
   },
   leftPane:{

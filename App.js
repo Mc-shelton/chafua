@@ -1,4 +1,4 @@
-import {React,useEffect} from 'react';
+import {React,useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native'
@@ -17,6 +17,16 @@ import BottomNav from './src/components/bottomNav';
 import TopHeader from './src/components/topHeader';
 
 import props from './src/props/props';
+import DelMessage from './src/views/delMessage';
+import Orders from './src/views/orders';
+import LandPage from './src/views/landPage';
+import LogIn from './src/views/logIn';
+import ForgotPass from './src/views/forgotPass';
+import Confirm from './src/views/confirm';
+import SignUp from './src/views/signUp';
+import Profile from './src/views/Profile';
+import MyAddress from './src/views/myAddress';
+import AddNewAddress from './src/views/addNewAddress';
 
 
 const Stack = createNativeStackNavigator()
@@ -25,11 +35,15 @@ export default function App({navigation}) {
   useEffect(()=>{
     console.log(props.categList)
   })
+
+  const [isLoggedIn, setisLoggedIn] = useState(true)
+
+  if(isLoggedIn){
   return (
     <NavigationContainer>
-      {true?<TopHeader />:<></>}
+      {/* {true?<TopHeader props={navigation} />:<></>} */}
     <Stack.Navigator 
-    initialRouteName = 'Search'
+    initialRouteName = 'Home'
     >
 
       <Stack.Screen 
@@ -93,10 +107,81 @@ export default function App({navigation}) {
         headerShown:false
       }}
       />
+      <Stack.Screen 
+      name = 'DelMessage'
+      component = {DelMessage}
+      options={{
+        headerShown:false
+      }}
+      />
+      <Stack.Screen 
+      name = 'Orders'
+      component = {Orders}
+      options={{
+        headerShown:false
+      }}
+      />
+      <Stack.Screen 
+      name = 'Profile'
+      component = {Profile}
+      options={{
+        headerShown:false
+      }}
+      />
+      <Stack.Screen 
+      name = 'MyAddress'
+      component = {MyAddress}
+      options={{
+        headerShown:false
+      }}
+      />
+      <Stack.Screen 
+      name = 'AddNewAddress'
+      component = {AddNewAddress}
+      options={{
+        headerShown:false
+      }}
+      />
     </Stack.Navigator>
-    {true?<BottomNav/>:<></>}
     </NavigationContainer>
-  );
+  );}
+  else{
+return(
+    <NavigationContainer>
+    <Stack.Navigator 
+    initialRouteName = 'LandPage'
+    >
+
+      <Stack.Screen 
+      name = 'LandPage'
+      component = {LandPage}
+      options={{headerShown:false}}
+
+      />
+      <Stack.Screen 
+      name = 'LogIn'
+      component = {LogIn}
+      options={{headerShown:false}}
+      />
+      <Stack.Screen 
+      name = 'ForgotPass'
+      component = {ForgotPass}
+      options={{headerShown:false}}
+      />
+      <Stack.Screen 
+      name = 'Confirm'
+      component = {Confirm}
+      options={{headerShown:false}}
+      />
+      <Stack.Screen 
+      name = 'SignUp'
+      component = {SignUp}
+      options={{headerShown:false}}
+      />
+      </Stack.Navigator>
+      </NavigationContainer>
+)
+  }
 }
 
 

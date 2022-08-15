@@ -1,30 +1,74 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import BottomNav from "../components/bottomNav";
+import { globalStyles } from "../components/commonStyles";
 import TopHeader from "../components/topHeader";
 import props from "../props/props";
 
-import { globalStyles } from "../components/commonStyles";
-
-function Cart({navigation}) {
-  const [cAlert, setcAlert] = useState(true);
-  useEffect(()=>{
-    setTimeout(() => {
-      setcAlert(false)
-    }, 2000);
-  })
+function Orders({ navigation }) {
+  const [cAlert, setcAlert] = useState(false);
+  console.log(cAlert);
   return (
     <View style={styles.main} showsVerticalScrollIndicator={false}>
-      {/* <TopHeader props={navigation}/> */}
-      <TopHeader props={{ navigation: navigation, title: "Cart" }} />
-     
+      <TopHeader props={{ navigation: navigation, title: "Orders" }} />
+      <View
+        style={[
+          globalStyles.container,
+          {
+            marginTop: "20px",
+            flexDirection: "row",
+          },
+        ]}
+      >
+        <View style={[globalStyles.container, styles.buttons]}>
+          <Text
+            style={{
+              fontSize: "18px",
+            }}
+          >
+            current
+          </Text>
+        </View>
+        <View style={[globalStyles.container, styles.buttons]}>
+          <Text
+            style={{
+              fontSize: "18px",
+            }}
+          >
+            complete
+          </Text>
+        </View>
+        <View style={[globalStyles.container, styles.buttons]}>
+          <Text
+            style={{
+              fontSize: "18px",
+            }}
+          >
+            canceled
+          </Text>
+        </View>
+      </View>
       <FlatList
         data={props.categList}
         renderItem={() => {
           return (
-            <TouchableOpacity style={styles.cartItem}
-            onPress={()=>navigation.navigate('CartDetails')}
-            onLongPress={()=>alert('remove?')}
+            <TouchableOpacity
+              style={styles.cartItem}
+              onPress={() => {
+                setcAlert(true);
+                setTimeout(() => {
+                  // alert()
+                  setcAlert(false);
+                }, 2000);
+              }}
+              onLongPress={() => alert("cancel?")}
             >
               <View
                 style={{
@@ -92,93 +136,11 @@ function Cart({navigation}) {
           marginLeft: "5%",
           marginTop: "0px",
           paddingBottom: "100px",
-    // border:'2px solid red'
-
+          // border:'2px solid red'
         }}
         showsHorizontalScrollIndicator={false}
       />
       {/* </View> */}
-      <View
-        style={{
-          position: "fixed",
-          bottom: "50px",
-          width: "100%",
-          backgroundColor: "white",
-          paddingTop: "10px",
-          paddingBottom: "10px",
-          border: "2px solid red",
-        }}
-      >
-        <View style={styles.totalBox}>
-          <Text style={{
-            fontSize:'20px'
-          }}>Delivery time</Text>
-          <View style={
-            {
-                position:'absolute',
-                display:'flex',
-                right:'10px',
-                marginTop:'-5px',
-                flexDirection:'row',
-                alignItems:'center'
-            }
-          }>
-            <View 
-            style={{
-                height:'40px',
-                width:'40px',
-                border:'2px solid red',
-                borderRadius:'100%'
-
-            }}
-            />
-            <Text style={{
-                marginLeft:'5px',
-                fontSize:'17px',
-                fontWeight:'bold'
-            }}>25 mins</Text>
-          </View>
-          <Text
-          style={{
-            marginTop:'16px'
-          }}
-          >Total Price</Text>
-          <Text
-          style={{
-            fontSize:'40px'
-          }}
-          >
-            90
-            <span
-              style={{
-                fontSize: "20px",
-                color: "red",
-                fontWeight: "bold",
-              }}
-            >
-              /=
-            </span>
-          </Text>
-          <TouchableOpacity
-          style={{
-            height:'40px',
-            width:'150px',
-            border:'2px solid red',
-            borderRadius:'15px',
-            position:'absolute',
-            bottom:'20px',
-            backgroundColor:'red',
-            color:'white',
-            alignItems:'center',
-            justifyContent:'center',
-            right:'20px'
-          }}
-          onPress={()=>{
-            navigation.navigate('AddAddress')
-          }}
-          ><p>Check Out</p></TouchableOpacity>
-        </View>
-      </View>
 
       {cAlert ? (
         <View
@@ -201,13 +163,13 @@ function Cart({navigation}) {
               color: "white",
             }}
           >
-            Long press to remove
+            Long press to cancel
           </Text>
         </View>
       ) : (
         <></>
       )}
-      <BottomNav props={navigation}/>
+      <BottomNav props={navigation} />
     </View>
   );
 }
@@ -225,20 +187,14 @@ const styles = StyleSheet.create({
     marginLeft: "5%",
     borderRadius: "20px",
     backgroundColor: "white",
-    padding:'20px'
+    padding: "20px",
   },
   buttons: {
-    border: "2px solid red",
-    height: "45px",
-    width: "45px",
+    paddingLeft: "20px",
+    paddingRight: "20px",
     borderRadius: "10px",
-    transform: "rotate(45deg)",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: "30px",
-    position: "fixed",
-    marginLeft: "20px",
-    zIndex: "3",
+    marginLeft: "5px",
+    height: "35px",
   },
   cartItem: {
     border: "2px solid red",
@@ -252,4 +208,4 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 });
-export default Cart;
+export default Orders;

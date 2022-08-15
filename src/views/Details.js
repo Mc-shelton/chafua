@@ -1,6 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
+import BottomNav from "../components/bottomNav";
+
 function Details({navigation}) {
   return (
     <View style={styles.main}>
@@ -141,6 +143,8 @@ function Details({navigation}) {
             ></TouchableOpacity>
         </View>
       </View>
+    <BottomNav props={navigation} />
+
     </View>
   );
 }
@@ -149,6 +153,7 @@ function Details({navigation}) {
 const styles = StyleSheet.create({
   main: {
     border: "2px solid red",
+    height:'100%'
   },
   buttons: {
     border: "2px solid red",

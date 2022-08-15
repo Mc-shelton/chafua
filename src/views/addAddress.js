@@ -1,87 +1,99 @@
 import React from "react";
-import { View, StyleSheet, Text,FlatList, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import BackButton from "../components/backButton";
+import { globalStyles } from "../components/commonStyles";
 
 import props from "../props/props";
 
-function AddAddress({navigation}) {
+function AddAddress({ navigation }) {
   return (
-    <View style={{
-        height:'100%',
-        backgroundColor:'white'
-    }}>
-      <TouchableOpacity
-      onPress={()=>navigation.goBack()}
-      style={styles.buttons}>
-        <View
-          style={{
-            borderLeft: "3px solid black",
-            borderBottom: "3px solid black",
-            height: "13px",
-            marginLeft: "5px",
-            width: "13px",
-          }}
-        />
-      </TouchableOpacity>
-      <Text
-        style={{
-          textAlign: "center",
-          //   marginTop: "-1px",
-          fontSize: "20px",
-          position: "fixed",
-          width: "100%",
-          height: "100px",
-          backgroundColor: "white",
-          paddingTop: "45px",
-          zIndex: "2",
-        }}
-      >
-        Choose Address
-      </Text>
-      
+    <View
+      style={{
+        height: "100%",
+        backgroundColor: "white",
+      }}
+    >
+      <BackButton props={{navigation:navigation, title:'Choose Address'}}/>
       <FlatList
         data={props.categList}
-        renderItem={() => {
+        renderItem={(ind) => {
           return (
-            <View style={styles.cartItem}>
-                <View style={{
-                    border:'2px solid red',
-                    height:'25px',
-                    width:'25px',
-                    borderRadius:'100%',
-                    position:'absolute',
-                    right:'15px',
-                    top:'20px',
-                    // display:'flex',
-                    // justifyContent:'center',
-                    // alignItems:'center',
-                    padding:"1px"
-                }}><View style={{
-                    backgroundColor:"white",
-                    height:'100%',
-                    width:'100%',
-                    borderRadius:'100%',
+            <TouchableOpacity 
+            style={globalStyles.cartItem}
+            onPress={(event)=>{
+              console.log(ind.index)
+              const bulb = document.getElementsByClassName('bulb')
+              console.log(bulb)
+            
+            }
 
-                }}></View></View>
-              <Text
-              style={{
-                fontSize:'20px'
-              }}
-              >Title of my Address</Text>
-              <Text
-              style={{
-                fontSize:'20px',
-                color:'grey',
-                marginTop:'10px'
-              }}
-              >Hostel</Text>
-              <Text
-              style={{
-                fontSize:'20px',
-                color:'grey',
+            }
 
-              }}
-              >C14</Text>
-            </View>
+            >
+              <View
+                style={{
+                  border: "2px solid red",
+                  height: "25px",
+                  width: "25px",
+                  borderRadius: "100%",
+                  position: "absolute",
+                  right: "15px",
+                  top: "20px",
+                  // display:'flex',
+                  // justifyContent:'center',
+                  // alignItems:'center',
+                  padding: "1px",
+                }}
+              >
+                <View
+                className = {'bulb'}
+                  style={{
+                    backgroundColor: "white",
+                    height: "100%",
+                    width: "100%",
+                    borderRadius: "100%",
+                  }}
+                ></View>
+              </View>
+              <Text
+                style={{
+                  fontSize: "20px",
+                }}
+              >
+                Title of my Address
+              </Text>
+              <Text
+                style={{
+                  fontSize: "20px",
+                  color: "grey",
+                  marginTop: "10px",
+                }}
+              >
+                Hostel
+              </Text>
+              <Text
+                style={{
+                  fontSize: "20px",
+                  color: "grey",
+                }}
+              >
+                C14
+              </Text>
+              <Text
+                style={{
+                  fontSize: "20px",
+                  color: "grey",
+                }}
+              >
+                0741741381
+              </Text>
+            </TouchableOpacity>
           );
         }}
         style={{
@@ -89,45 +101,166 @@ function AddAddress({navigation}) {
           marginLeft: "5%",
           marginTop: "90px",
           paddingBottom: "5px",
-          height:'90%'
+          height: "90%",
         }}
         showsHorizontalScrollIndicator={false}
       />
-      <View style={{
-        backgroundColor:'white',
-        border:"2px solid red",
-        height:'350px',
-        display:'flex',
-        // justifyContent:'center',
-        alignItems:'center'
-      }}>
-        <View style={
+      <View
+        style={{
+          backgroundColor: "white",
+          border: "2px solid red",
+          height: "350px",
+          display: "flex",
+          // justifyContent:'center',
+          alignItems: "center",
+        }}
+      >
+        <View
+          style={{
+            border: "2px solid red",
+            marginTop: "30px",
+            height: "35px",
+            width: "200px",
+            borderRadius: "10px",
+          }}
+        >
+          <Text
+            style={{
+              color: "red",
+              fontSize: "15px",
+              textAlign: "center",
+              marginTop: "8px",
+            }}
+          >
+            + Add New Address
+          </Text>
+        </View>
+
+        <View
+          style={[
             {
-                border:'2px solid red',
-                marginTop:'30px',
-                height:'35px',
-                width:'200px',
-                borderRadius:'10px',
-            }
-        }><Text style={{
-            color:'red',
-            fontSize:'15px',
-            textAlign:'center',
-            marginTop:'8px'
-        }}>+ Add New Address</Text></View>
-      <View style={{
-        height:'35px',
-        borderRadius:'10px',
-        width:'70%',
-        backgroundColor:'red',
-        marginTop:'50px'
-      }}><Text style={{
-        color:'white',
-        textAlign:'center',
-        fontSize:'20px',
-        fontWeight:'bold',
-        marginTop:'7px'
-      }}>Done</Text></View>
+              border: "2px solid red",
+              height: "140px",
+              padding: "20px",
+              overflow: "hidden",
+              width: "80%",
+              borderRadius: "15px",
+              marginTop: "20px",
+            },
+          ]}
+        >
+          <View
+            style={[
+              {
+                // alignSelf:'flex-end'
+                position: "absolute",
+              },
+            ]}
+          >
+            <Text
+              style={{
+                fontSize: "18px",
+              }}
+            >
+              Items Price
+            </Text>
+            <Text
+              style={{
+                fontSize: "18px",
+              }}
+            >
+              Delivery Fees
+            </Text>
+            <Text
+              style={{
+                fontSize: "18px",
+              }}
+            >
+              Tin Fees
+            </Text>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: "23px",
+                color: "red",
+                marginTop: "10px",
+              }}
+            >
+              Total
+            </Text>
+          </View>
+          <View
+            style={[
+              {
+                // justifySelf:'flex-end'
+                position: "absolute",
+                right: "10px",
+              },
+            ]}
+          >
+            <Text
+              style={{
+                fontSize: "18px",
+              }}
+            >
+              90.00
+            </Text>
+            <Text
+              style={{
+                fontSize: "18px",
+              }}
+            >
+              90.00
+            </Text>
+            <Text
+              style={{
+                fontSize: "18px",
+              }}
+            >
+              90.00
+            </Text>
+            <Text
+              style={{
+                fontSize: "23px",
+                fontWeight: "bold",
+                color: "red",
+                marginTop: "10px",
+              }}
+            >
+              270.00{" "}
+              <span
+                style={{
+                  fontSize: "14px",
+                }}
+              >
+                /=
+              </span>
+            </Text>
+          </View>
+        </View>
+        <TouchableOpacity
+          style={{
+            height: "35px",
+            borderRadius: "10px",
+            width: "70%",
+            backgroundColor: "red",
+            marginTop: "50px",
+          }}
+
+          onPress={()=>{navigation.navigate('DelMessage')}}
+        >
+          <Text
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontSize: "20px",
+              fontWeight: "bold",
+              marginTop: "7px",
+            }}
+          >
+            Done
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -145,18 +278,6 @@ const styles = StyleSheet.create({
     position: "fixed",
     marginLeft: "20px",
     zIndex: "3",
-  },
-  cartItem: {
-    border: "2px solid red",
-    height: "120px",
-    borderRadius: "20px",
-    marginTop: "20px",
-    // display: "flex",
-    // justifyContent:'center',
-    // flexDirection: "row",
-    // alignItems: "center",
-    padding:'20px',
-    overflow: "hidden",
   },
 });
 export default AddAddress;
