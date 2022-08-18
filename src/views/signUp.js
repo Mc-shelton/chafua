@@ -6,13 +6,14 @@ import {
   TouchableOpacity,
   CheckBox,
   Link,
-  Linking
+  Linking,
 } from "react-native";
 import BackButton from "../components/backButton";
 import { globalStyles } from "../components/commonStyles";
-
+import axios from 'axios'
 import Picker from "react-native-picker-select";
 import SelectDropdown from "react-native-select-dropdown";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const countries = ["Egypt", "Ireland"];
 
 function SignUp({ navigation }) {
@@ -27,16 +28,32 @@ function SignUp({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignIn = () => {
-    console.log(Email);
-    console.log(Phone);
-    console.log(Name);
-    console.log(Institution);
-    console.log(confirmPassword);
-    console.log(Password);
-
     if (Email != "" && Password != "" && confirmPassword != "" && Institution != "" && Name != "" && Phone != "") {
       if(Password===confirmPassword){
-        console.log("start session from here");
+        axios({
+          method:'POST',
+          url:'http://localhost/chafua/signUp.php',
+          data:{
+            Email:Email,
+            Phone:Phone,
+            Name:Name,
+            Institution:Institution,
+            Password:Password
+          },
+
+        }).then(async(response)=>{
+          try{
+            console.log(response.data.Name)
+           if(response.data.Name != undefined){
+
+           await AsyncStorage.setItem('user', response.data)
+           
+        }else{
+          console.log('none')
+        }}catch(e){
+          console.log(e)
+        }
+        })
       }else{
         alert("Passwords din't match")
       }
