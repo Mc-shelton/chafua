@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native-web";
 import BackButton from "../components/backButton";
 import { globalStyles } from "../components/commonStyles";
+import Logo from "../components/logo";
 
 function Confirm({ navigation }) {
   console.log(navigation);
@@ -15,18 +16,16 @@ function Confirm({ navigation }) {
       ]}
     >
       <BackButton props={{ navigation: navigation, title: "" }} />
-      <View
-        style={{
-          height: "35%",
-          border: "2px solid red",
-          marginTop: "100px",
-        }}
-      />
-      <View style={[globalStyles.container]}>
+      <Logo/>
+
+      <View style={[globalStyles.container,{
+        marginTop:'30%',
+        border:'none'
+      }]}>
         <Text
           style={{
             fontSize: "25px",
-            color: "red",
+            color: "rgb(74, 4, 4)",
           }}
         >
           Check you mail
@@ -50,7 +49,9 @@ function Confirm({ navigation }) {
           style={[globalStyles.container, globalStyles.LButtons]}
           onPress={()=>{navigation.navigate('LandPage')}}
         >
-          <Text style={[globalStyles.bText]}>Done</Text>
+          <Text style={[globalStyles.bText,{
+            color:"rgb(74, 4, 4)"
+          }]}>Done</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -1,10 +1,21 @@
-import React from "react";
-import { TouchableOpacity, View,Text } from "react-native";
+import React,{useState} from "react";
+import { TouchableOpacity, View,Text, ImageBackground } from "react-native";
 import { TextInput } from "react-native-web";
 import BackButton from "../components/backButton";
 import { globalStyles } from "../components/commonStyles";
 
+import logo from '../../assets/icons/logo.png'
+import Logo from "../components/logo";
 function ForgotPass({navigation}){
+  const [Email, setEmail] = useState("");
+
+  const handleRecover = ()=>{
+    if(Email != ''){
+        console.log('handle recover password')
+    }else{
+        alert('Field is empty')
+    }
+  }
     return(
         <View 
         style={[{
@@ -12,26 +23,31 @@ function ForgotPass({navigation}){
             ,backgroundColor:'white'
         }]}>
             <BackButton props={{navigation:navigation, title:''}}/>
-            <View style={{
-                height:'35%'
-                ,border:'2px solid red'
-                ,marginTop:'100px'
-            }}/>
-            <View style={[globalStyles.container,]}>
+            <Logo/>
+            <View style={[globalStyles.container,{
+                marginTop:'50px'
+                ,border:'none'
+            }]}>
 
             <Text style={{
                 fontSize:'28px'
-                ,color:'red'
+                ,color:'rgb(74, 4, 4)'
+                ,marginBottom:'10px'
             }}>Forgot Password</Text>
             <Text style={[globalStyles.iText,{
                 width:'80%'
                 ,textAlign:'center'
                 ,marginBottom:'15%'
             }]}>Enter your registered email or phone number</Text>
-            <TextInput style={[globalStyles.LButtons]} placeholder='Email or Phone'/>
-            <TouchableOpacity onPress={()=>{
-                navigation.navigate('Confirm')
-            }} style={[globalStyles.container,globalStyles.LButtons]}><Text style={[globalStyles.bText]}>Submit</Text></TouchableOpacity>
+            <TextInput style={[globalStyles.LButtons,{
+                outline:'none'
+            }]} placeholder='Email'
+            
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
+            />
+            <TouchableOpacity onPress={handleRecover} style={[globalStyles.container,globalStyles.LButtons]}><Text style={[globalStyles.bText,{color:'rgb(74, 4, 4)'}]}>Submit</Text></TouchableOpacity>
             </View>
         </View>
     )

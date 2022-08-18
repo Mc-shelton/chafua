@@ -12,8 +12,8 @@ function BackButton({props}){
     >
       <View
         style={{
-          borderLeft: "3px solid black",
-          borderBottom: "3px solid black",
+          borderLeft: "3px solid rgb(74, 4, 4)",
+          borderBottom: "3px solid rgb(74, 4, 4)",
           height: "13px",
           marginLeft: "5px",
           width: "13px",

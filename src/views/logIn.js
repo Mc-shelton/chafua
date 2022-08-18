@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   TouchableOpacity,
@@ -10,6 +10,22 @@ import BackButton from "../components/backButton";
 import { globalStyles } from "../components/commonStyles";
 
 function LogIn({ navigation }) {
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+
+  const handleLogIn = () => {
+    console.log(Email)
+    console.log(Password)
+
+    if(Email != '' && Password != ''){
+      console.log('start session from here')
+    }else{
+      alert('Some fields are not filled')
+    }
+  };
+
+
+
   return (
     <View
       style={{
@@ -23,7 +39,8 @@ function LogIn({ navigation }) {
           globalStyles.container,
           {
             marginTop: "100px",
-            height: "85%",
+            paddingTop: "30%",
+            border: "none",
             backgroundColor: "white",
           },
         ]}
@@ -31,7 +48,7 @@ function LogIn({ navigation }) {
         <Text
           style={{
             fontSize: "27px",
-            color: "red",
+            color: "rgb(94, 4, 4)",
             // marginTop: "20px",
           }}
         >
@@ -51,13 +68,27 @@ function LogIn({ navigation }) {
             globalStyles.iText,
             {
               marginTop: "70px",
+              outline: "none",
             },
           ]}
           placeholder="Email or Phone"
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
         />
         <TextInput
-          style={[globalStyles.LButtons, globalStyles.iText]}
+          style={[
+            globalStyles.LButtons,
+            globalStyles.iText,
+            {
+              outline: "none",
+            },
+          ]}
+          secureTextEntry={true}
           placeholder="Password"
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
         />
         <TouchableOpacity
           style={{
@@ -65,13 +96,14 @@ function LogIn({ navigation }) {
             alignSelf: "flex-end",
             marginRight: "30px",
           }}
-          onPress={() => {
-            navigation.navigate("ForgotPass");
+          onPress={() => {  
+    navigation.navigate("ForgotPass");
+
           }}
         >
           <Text
             style={{
-              color: "red",
+              color: "rgb(74, 4, 4)",
               fontSize: "15px",
             }}
           >
@@ -79,7 +111,7 @@ function LogIn({ navigation }) {
           </Text>
         </TouchableOpacity>
 
-        <View
+        <TouchableOpacity
           style={[
             globalStyles.container,
             globalStyles.LButtons,
@@ -87,9 +119,13 @@ function LogIn({ navigation }) {
               marginTop: "50px",
             },
           ]}
+
+          onPress={handleLogIn}
         >
-          <Text style={[globalStyles.bText]}>Login</Text>
-        </View>
+          <Text style={[globalStyles.bText, { color: "rgb(74, 4, 4)" }]}>
+            Login
+          </Text>
+        </TouchableOpacity>
         <Text
           style={[
             globalStyles.iText,
@@ -102,7 +138,7 @@ function LogIn({ navigation }) {
           <TouchableOpacity
             onPress={() => navigation.navigate("SignUp")}
             style={{
-              color: "red",
+              color: "rgb(74, 4, 4)",
             }}
           >
             <Text style={[globalStyles.iText]}>Sign Up</Text>
@@ -115,7 +151,7 @@ function LogIn({ navigation }) {
 
 const styles = StyleSheet.create({
   buttons: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     height: "45px",
     width: "45px",
     borderRadius: "10px",

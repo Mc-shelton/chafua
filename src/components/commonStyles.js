@@ -6,7 +6,7 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: "white",
   },
   buttons: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     height: "45px",
     width: "45px",
     borderRadius: "10px",
@@ -20,23 +20,23 @@ export const globalStyles = StyleSheet.create({
   },
   container: {
     borderRadius: "15px",
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
   LButtons: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     width: "90%",
     borderRadius: "15px",
     height: "50px",
     paddingLeft: "10px",
     marginTop: "15px",
-    // outLine:'none'
   },
   bText: {
     fontSize: "18px",
     fontWeight: "bold",
+    
   },
   iText: {
     fontSize: "18px",
@@ -53,7 +53,7 @@ export const globalStyles = StyleSheet.create({
     zIndex: "2",
   },
   paddedButton: {
-    backgroundColor: "red",
+    backgroundColor: "rgb(74, 4, 4)",
     marginTop: "20px",
     padding: "10px",
     paddingLeft: "30px",
@@ -63,7 +63,7 @@ export const globalStyles = StyleSheet.create({
   },
 
   cartItem: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     borderRadius: "20px",
     marginTop: "20px",
     padding: "20px",
