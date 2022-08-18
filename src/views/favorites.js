@@ -1,14 +1,17 @@
 import React from "react";
-import { View, StyleSheet, Text,FlatList } from "react-native";
+import { View, StyleSheet, Text,FlatList, TouchableOpacity } from "react-native";
+import BottomNav from "../components/bottomNav";
 
 import props from "../props/props";
 
-function Favorites() {
+function Favorites({navigation}) {
   return (
     <View style={{
         height:'100%'
     }}>
-      <View style={styles.buttons}>
+      <TouchableOpacity
+      onPress={()=>navigation.goBack()}
+       style={styles.buttons}>
         <View
           style={{
             borderLeft: "3px solid black",
@@ -18,7 +21,7 @@ function Favorites() {
             width: "13px",
           }}
         />
-      </View>
+      </TouchableOpacity>
       <Text
         style={{
           textAlign: "center",
@@ -39,7 +42,11 @@ function Favorites() {
         data={props.categList}
         renderItem={() => {
           return (
-            <View style={styles.cartItem}>
+            <TouchableOpacity
+            onPress={()=>{
+              navigation.navigate('Details')
+            }}
+            style={styles.cartItem}>
               <View
                 style={{
                   border: "2px solid red",
@@ -98,7 +105,7 @@ function Favorites() {
                   </span>
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         }}
         style={{
@@ -110,6 +117,7 @@ function Favorites() {
         }}
         showsHorizontalScrollIndicator={false}
       />
+      <BottomNav props={navigation}/>
     </View>
   );
 }

@@ -1,35 +1,61 @@
 import React from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image, ImageBackground } from "react-native";
 import { globalStyles } from "../components/commonStyles";
+import { LinearGradient } from "expo-linear-gradient";
+
+import logo from '../../assets/icons/logo.png'
+import image1 from '../../assets/images/image2.jfif'
+
 
 function LandPage({props,navigation}) {
     console.log(props)
   return (
-    <View
+    
+    <ImageBackground
+    source={image1}
       style={[
         globalStyles.container,
         {
+          border:'none',
           borderRadius: "0",
           height: "100%",
           backgroundColor: "white",
         },
       ]}
-    >
-      <View
+      imageStyle={{
+        // top:'200px'
+        resizeMode:'cover',
+        height:'55%'
+        // ,width:'80'
+      }}
+    ><LinearGradient
+    // end={{x: 0, y: 0.8}}
+    colors={[  'transparent','#ffffff']}
+    style={{
+       position: 'absolute',
+       left: 0,
+       right: 0,
+       top: 0,
+       height: '56%'
+    }}
+ />
+      <ImageBackground
+      source={logo}
         style={[
           globalStyles.container,
           {
             height: "150px",
             width: "150px",
             // marginTop: "100px",
+            backgroundColor:'rgb(255, 255, 255)'
           },
         ]}
-      ></View>
+      ></ImageBackground>
       <Text
         style={{
           fontSize: "30px",
           color: "red",
-          marginTop: "40%",
+          marginTop: "60%",
         }}
       >
         Welcome,
@@ -39,7 +65,7 @@ function LandPage({props,navigation}) {
           fontSize: "20px",
           width: "80%",
           marginTop: "10px",
-          marginBottom: "30%",
+          marginBottom: "10%",
           textAlign: "center",
         }}
       >
@@ -64,7 +90,7 @@ function LandPage({props,navigation}) {
       style={[globalStyles.container, styles.pgButtons]}>
         <Text style={{ fontSize: "18px", fontWeight: "bold" }}>Sign Up</Text>
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 }
 

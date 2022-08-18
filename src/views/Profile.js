@@ -49,7 +49,7 @@ function Profile({ navigation }) {
       </Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("LogIn");
+          navigation.navigate("EditProfile");
         }}
         style={[
           {
@@ -65,7 +65,9 @@ function Profile({ navigation }) {
       >
         <Text style={{ fontSize: "18px", color: "white" }}>Edit Profile</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[globalStyles.LButtons, { justifyContent: "center" }]}>
+      <TouchableOpacity 
+      onPress={()=>{navigation.navigate('Favorites')}}
+      style={[globalStyles.LButtons, { justifyContent: "center" }]}>
         <Text style={[globalStyles.iText]}>My Favorites</Text>
       </TouchableOpacity>
       <TouchableOpacity 

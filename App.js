@@ -27,6 +27,8 @@ import SignUp from './src/views/signUp';
 import Profile from './src/views/Profile';
 import MyAddress from './src/views/myAddress';
 import AddNewAddress from './src/views/addNewAddress';
+import EditProfile from './src/views/editProfile';
+import Views from './src/views/view';
 
 
 const Stack = createNativeStackNavigator()
@@ -36,7 +38,7 @@ export default function App({navigation}) {
     console.log(props.categList)
   })
 
-  const [isLoggedIn, setisLoggedIn] = useState(true)
+  const [isLoggedIn, setisLoggedIn] = useState(false)
 
   if(isLoggedIn){
   return (
@@ -138,6 +140,20 @@ export default function App({navigation}) {
       <Stack.Screen 
       name = 'AddNewAddress'
       component = {AddNewAddress}
+      options={{
+        headerShown:false
+      }}
+      />
+      <Stack.Screen 
+      name = 'EditProfile'
+      component = {EditProfile}
+      options={{
+        headerShown:false
+      }}
+      />
+      <Stack.Screen 
+      name = 'Views'
+      component = {Views}
       options={{
         headerShown:false
       }}
