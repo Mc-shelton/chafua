@@ -1,10 +1,39 @@
-import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useRef, useState } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import BottomNav from "../components/bottomNav";
 import { globalStyles } from "../components/commonStyles";
 
 function Profile({ navigation }) {
   // console.log(route)
+
+  const [logBox, setLogBox] = useState(false);
+  const [user, setUser] = useState([]);
+
+  const userData = useRef(0);
+  // console.log('asddf')
+  useEffect(() => {
+
+  var storeUser;
+  const getUser = async()=>{
+
+    storeUser = await AsyncStorage.getItem('user')
+    storeUser = JSON.parse(storeUser)
+    // setUser(storeUser)
+  return storeUser
+  }
+
+  getUser().then((res)=>{
+    // console.log(res)
+    userData.current = res
+
+    // console.log(userData.current)
+  })
+
+  });
+  // console.log('store', user )
+  
+  // setUser(userData)
   return (
     <View
       style={[
@@ -16,12 +45,57 @@ function Profile({ navigation }) {
         },
       ]}
     >
-      <View>
-        <Text>Are you sure?</Text>
-        <TouchableOpacity>
-          <Text>Log out</Text>
-        </TouchableOpacity>
-      </View>
+      {logBox ? (
+        <View
+          style={[
+            globalStyles.container,
+            {
+              padding: "50px",
+              position: "fixed",
+              backgroundColor: "white",
+              zIndex: "3",
+            },
+          ]}
+        >
+          <Text style={[globalStyles.iText]}>Are you sure?{userData.current.Name} </Text>
+          <TouchableOpacity
+            onPress={async () => {
+               AsyncStorage.clear();
+              window.location.reload();
+            }}
+            style={[
+              globalStyles.container,
+              {
+                padding: "5px",
+                paddingLeft: "30px",
+                paddingRight: "30px",
+                marginTop: "20px",
+              },
+            ]}
+          >
+            <Text style={[globalStyles.bText]}>Log out</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+
+          onPress={()=>{
+            setLogBox(false)
+          }}
+            style={[
+              globalStyles.container,
+              {
+                padding: "5px",
+                paddingLeft: "30px",
+                paddingRight: "30px",
+                marginTop: "10px",
+              },
+            ]}
+          >
+            <Text style={[globalStyles.bText]}>cancel</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <></>
+      )}
       <View
         style={[
           globalStyles.container,
@@ -38,7 +112,7 @@ function Profile({ navigation }) {
           marginTop: "30px",
         }}
       >
-        Shelton Omondi
+        {userData.current.Name}
       </Text>
       <Text
         style={{
@@ -49,9 +123,13 @@ function Profile({ navigation }) {
           textAlign: "center",
         }}
       >
-        sheltonnito@gmail.com
+        {/* sheltonnito@gmail.com */}
+        {userData.current.Email}
+
         <br />
-        0741741381
+        {/* 0741741381 */}
+        {userData.current.Name}
+
       </Text>
       <TouchableOpacity
         onPress={() => {
@@ -71,24 +149,31 @@ function Profile({ navigation }) {
       >
         <Text style={{ fontSize: "18px", color: "white" }}>Edit Profile</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
-      onPress={()=>{navigation.navigate('Favorites')}}
-      style={[globalStyles.LButtons, { justifyContent: "center" }]}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Favorites");
+        }}
+        style={[globalStyles.LButtons, { justifyContent: "center" }]}
+      >
         <Text style={[globalStyles.iText]}>My Favorites</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
-      onPress={()=>{navigation.navigate('AddNewAddress')}}
-      style={[globalStyles.LButtons, { justifyContent: "center" }]}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("AddNewAddress");
+        }}
+        style={[globalStyles.LButtons, { justifyContent: "center" }]}
+      >
         <Text style={[globalStyles.iText]}>My AddAddress</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
-      onPress={()=>{
-
-      }}
-      style={[globalStyles.LButtons, { justifyContent: "center" }]}>
+      <TouchableOpacity
+        onPress={() => {
+          setLogBox(true)
+        }}
+        style={[globalStyles.LButtons, { justifyContent: "center" }]}
+      >
         <Text style={[globalStyles.iText]}>Log Out</Text>
       </TouchableOpacity>
-      <BottomNav props={(navigation)}/>
+      <BottomNav props={navigation} />
     </View>
   );
 }

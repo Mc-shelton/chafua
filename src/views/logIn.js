@@ -33,7 +33,8 @@ function LogIn({ navigation }) {
         try{
          if(response.data.Name != undefined){
 
-         await AsyncStorage.setItem('user', response.data)
+          let data = JSON.stringify(response.data)
+         await AsyncStorage.setItem('user', data)
          await AsyncStorage.setItem('isLoggedIn', true)
          
          window.location.reload()

@@ -62,7 +62,15 @@ class App extends Component {
     return (
       <NavigationContainer>
         {/* {true?<TopHeader props={navigation} />:<></>} */}
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator
+         >
+         <Stack.Screen
+           name="Profile"
+           component={Profile}
+           options={{
+             headerShown: false,
+           }}
+         />
           <Stack.Screen
             name="Home"
             component={Home}
@@ -134,13 +142,6 @@ class App extends Component {
           <Stack.Screen
             name="Orders"
             component={Orders}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Profile"
-            component={Profile}
             options={{
               headerShown: false,
             }}

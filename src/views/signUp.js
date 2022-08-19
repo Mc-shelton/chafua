@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import BackButton from "../components/backButton";
 import { globalStyles } from "../components/commonStyles";
-import axios from 'axios'
+import axios from "axios";
 import Picker from "react-native-picker-select";
 import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -28,34 +28,42 @@ function SignUp({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignIn = () => {
-    if (Email != "" && Password != "" && confirmPassword != "" && Institution != "" && Name != "" && Phone != "") {
-      if(Password===confirmPassword){
+    if (
+      Email != "" &&
+      Password != "" &&
+      confirmPassword != "" &&
+      Institution != "" &&
+      Name != "" &&
+      Phone != ""
+    ) {
+      if (Password === confirmPassword) {
         axios({
-          method:'POST',
-          url:'http://localhost/chafua/signUp.php',
-          data:{
-            Email:Email,
-            Phone:Phone,
-            Name:Name,
-            Institution:Institution,
-            Password:Password
+          method: "POST",
+          url: "http://localhost/chafua/signUp.php",
+          data: {
+            Email: Email,
+            Phone: Phone,
+            Name: Name,
+            Institution: Institution,
+            Password: Password,
           },
+        }).then(async (response) => {
+          try {
+            if (response.data.Name != undefined) {
+          let data = JSON.stringify(response.data)
 
-        }).then(async(response)=>{
-          try{
-            console.log(response.data.Name)
-           if(response.data.Name != undefined){
-
-           await AsyncStorage.setItem('user', response.data)
-           
-        }else{
-          alert(response.data)
-        }}catch(e){
-          console.log(e)
-        }
-        })
-      }else{
-        alert("Passwords din't match")
+              await AsyncStorage.setItem("user", data);
+              await AsyncStorage.setItem("isLoggedIn", true);
+              window.location.reload();
+            } else {
+              alert(response.data);
+            }
+          } catch (e) {
+            console.log(e);
+          }
+        });
+      } else {
+        alert("Passwords din't match");
       }
     } else {
       alert("Some fields are not filled");
@@ -243,11 +251,17 @@ function SignUp({ navigation }) {
               },
             ]}
           >
-            I have read and agreed to your <Text style={{
-              color:'rgb(74, 4, 4)'
-            }} onPress={()=>{
-              Linking.openURL('http://google.com')
-            }}>terms and conditions</Text>
+            I have read and agreed to your{" "}
+            <Text
+              style={{
+                color: "rgb(74, 4, 4)",
+              }}
+              onPress={() => {
+                Linking.openURL("http://google.com");
+              }}
+            >
+              terms and conditions
+            </Text>
           </Text>
         </View>
         <TouchableOpacity
