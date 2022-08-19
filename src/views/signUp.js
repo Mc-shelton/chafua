@@ -49,7 +49,7 @@ function SignUp({ navigation }) {
            await AsyncStorage.setItem('user', response.data)
            
         }else{
-          console.log('none')
+          alert(response.data)
         }}catch(e){
           console.log(e)
         }

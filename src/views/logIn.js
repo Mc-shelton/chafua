@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import BackButton from "../components/backButton";
 import { globalStyles } from "../components/commonStyles";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function LogIn({ navigation }) {
   const [Email, setEmail] = useState("");
@@ -18,7 +20,31 @@ function LogIn({ navigation }) {
     console.log(Password)
 
     if(Email != '' && Password != ''){
-      console.log('start session from here')
+
+      axios({
+        method:'POST',
+        url:'http://localhost/chafua/logIn.php',
+        data:{
+          Email:Email,
+          Password:Password
+        },
+
+      }).then(async(response)=>{
+        try{
+         if(response.data.Name != undefined){
+
+         await AsyncStorage.setItem('user', response.data)
+         await AsyncStorage.setItem('isLoggedIn', true)
+         
+         window.location.reload()
+        //  console.log()
+         
+      }else{
+        alert(response.data)
+      }}catch(e){
+        console.log(e)
+      }
+      })
     }else{
       alert('Some fields are not filled')
     }

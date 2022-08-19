@@ -16,6 +16,12 @@ function Profile({ navigation }) {
         },
       ]}
     >
+      <View>
+        <Text>Are you sure?</Text>
+        <TouchableOpacity>
+          <Text>Log out</Text>
+        </TouchableOpacity>
+      </View>
       <View
         style={[
           globalStyles.container,
@@ -74,6 +80,13 @@ function Profile({ navigation }) {
       onPress={()=>{navigation.navigate('AddNewAddress')}}
       style={[globalStyles.LButtons, { justifyContent: "center" }]}>
         <Text style={[globalStyles.iText]}>My AddAddress</Text>
+      </TouchableOpacity>
+      <TouchableOpacity 
+      onPress={()=>{
+
+      }}
+      style={[globalStyles.LButtons, { justifyContent: "center" }]}>
+        <Text style={[globalStyles.iText]}>Log Out</Text>
       </TouchableOpacity>
       <BottomNav props={(navigation)}/>
     </View>
