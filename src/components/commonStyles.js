@@ -20,7 +20,7 @@ export const globalStyles = StyleSheet.create({
   },
   container: {
     borderRadius: "15px",
-    border: "2px solid rgb(74, 4, 4)",
+    border: "2px solid  ",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

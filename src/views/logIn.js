@@ -43,7 +43,8 @@ function LogIn({ navigation }) {
       }else{
         alert(response.data)
       }}catch(e){
-        console.log(e)
+        console.log(e.message)
+        alert('You are offline')
       }
       })
     }else{

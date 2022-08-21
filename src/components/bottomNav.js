@@ -49,11 +49,10 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   iconBox: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     height: "50px",
     width: "50px",
     backgroundColor: "white",
-    border: "2px solid red",
     marginRight: "20px",
     borderRadius: "100%",
   },

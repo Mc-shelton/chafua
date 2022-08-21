@@ -3,37 +3,26 @@ import React, { useEffect, useRef, useState } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import BottomNav from "../components/bottomNav";
 import { globalStyles } from "../components/commonStyles";
+import Logo from "../components/logo";
 
 function Profile({ navigation }) {
   // console.log(route)
 
   const [logBox, setLogBox] = useState(false);
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(0);
 
-  const userData = useRef(0);
-  // console.log('asddf')
+  var globalObject = ["tempUser"];
+
+  const getUser = async () => {
+    let user = await AsyncStorage.getItem("user");
+
+    return user;
+  };
   useEffect(() => {
-
-  var storeUser;
-  const getUser = async()=>{
-
-    storeUser = await AsyncStorage.getItem('user')
-    storeUser = JSON.parse(storeUser)
-    // setUser(storeUser)
-  return storeUser
-  }
-
-  getUser().then((res)=>{
-    // console.log(res)
-    userData.current = res
-
-    // console.log(userData.current)
-  })
-
-  });
-  // console.log('store', user )
-  
-  // setUser(userData)
+    getUser().then((res) => {
+      setUser(res);
+    });
+  },[user]);
   return (
     <View
       style={[
@@ -57,10 +46,12 @@ function Profile({ navigation }) {
             },
           ]}
         >
-          <Text style={[globalStyles.iText]}>Are you sure?{userData.current.Name} </Text>
+          <Text style={[globalStyles.iText]}>
+            Are you sure?
+          </Text>
           <TouchableOpacity
             onPress={async () => {
-               AsyncStorage.clear();
+              AsyncStorage.clear();
               window.location.reload();
             }}
             style={[
@@ -76,10 +67,9 @@ function Profile({ navigation }) {
             <Text style={[globalStyles.bText]}>Log out</Text>
           </TouchableOpacity>
           <TouchableOpacity
-
-          onPress={()=>{
-            setLogBox(false)
-          }}
+            onPress={() => {
+              setLogBox(false);
+            }}
             style={[
               globalStyles.container,
               {
@@ -96,23 +86,19 @@ function Profile({ navigation }) {
       ) : (
         <></>
       )}
-      <View
-        style={[
-          globalStyles.container,
-          {
-            height: "150px",
-            width: "150px",
-            // marginTop: "100px",
-          },
-        ]}
-      ></View>
+      <View  style={{
+        marginTop:'-100px',
+        width:'100%'
+      }} >
+      <Logo/>
+      </View>
       <Text
         style={{
           fontSize: "21px",
           marginTop: "30px",
         }}
       >
-        {userData.current.Name}
+        {JSON.parse(user).Name}
       </Text>
       <Text
         style={{
@@ -123,21 +109,21 @@ function Profile({ navigation }) {
           textAlign: "center",
         }}
       >
-        {/* sheltonnito@gmail.com */}
-        {userData.current.Email}
+        {JSON.parse(user).Email}
 
         <br />
-        {/* 0741741381 */}
-        {userData.current.Name}
+        {JSON.parse(user).Phone}
 
       </Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("EditProfile");
+          navigation.navigate('EditProfile',{
+            params:{userData:JSON.parse(user)}
+          });
         }}
         style={[
           {
-            backgroundColor: "red",
+            backgroundColor: "rgb(74, 4, 4)",
             marginTop: "20px",
             padding: "10px",
             paddingLeft: "30px",
@@ -167,7 +153,7 @@ function Profile({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          setLogBox(true)
+          setLogBox(true);
         }}
         style={[globalStyles.LButtons, { justifyContent: "center" }]}
       >

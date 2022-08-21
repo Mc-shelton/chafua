@@ -13,8 +13,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import logo from "../../assets/icons/logo.png";
 import image1 from "../../assets/images/image2.jfif";
 
-function LandPage({ props, navigation }) {
-  console.log(props);
+function LandPage({  navigation }) {
+  // console.log(navigation);
   return (
     <ImageBackground
       source={image1}

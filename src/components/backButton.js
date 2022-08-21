@@ -3,7 +3,8 @@ import { View,TouchableOpacity,Text } from "react-native-web";
 import { globalStyles } from "./commonStyles";
 
 function BackButton({props}){
-  // console.log(props.title)
+  // console.log('back',props.navigation)
+  
     return(
 <View>
       <TouchableOpacity
