@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   TouchableOpacity,
@@ -14,18 +14,18 @@ import Logo from "../components/logo";
 import axios from "axios";
 
 function EditProfile({route, navigation }) {
+  const [user, setUser] = useState(route.params.params.userData)
 
   const countries = ["Egypt", "Ireland"];
 
-  const [Email, setEmail] = useState("");
-  const [Phone, setPhone] = useState("");
-  const [Name, setName] = useState("");
-  const [Institution, setInstitution] = useState("");
-  const [Password, setPassword] = useState("");
-  const [prevEmail, setPrevEmail] = useState("");
-  const [userID, setUserID] = useState("");
+  const [Email, setEmail] = useState(user.Email);
+  const [Phone, setPhone] = useState(user.Phone);
+  const [Name, setName] = useState(user.Name);
+  const [Institution, setInstitution] = useState(user.Institution);
+  const [Password, setPassword] = useState(user.Password);
+  const [prevEmail, setPrevEmail] = useState(user.Email);
+  const [userID, setUserID] = useState(user.userID);
 
-  const [user, setUser] = useState(route.params.params.userData)
 
   const handleUpdate =()=>{
     axios({
@@ -46,15 +46,15 @@ function EditProfile({route, navigation }) {
       let data = JSON.stringify(response.data)
 
           await AsyncStorage.setItem("user", data);
-
-          alert('Profile changed successfuly')
+          console.log('response', response.data)
+          alert('Profile Saved')
           
-          navigation.goBack()
+          // navigation.navigate('EditProfile')
+          window.location.reload()
         } else {
           alert(response.data);
         }
       } catch (e) {
-        console.log(e);
         alert('Failed, check on your network')
       }
     });
@@ -101,6 +101,7 @@ function EditProfile({route, navigation }) {
           },
         ]}
       >
+        <Text>*Leave field blank if you don't want to change it</Text>
         <TextInput
           style={[
             globalStyles.LButtons,
@@ -169,9 +170,6 @@ function EditProfile({route, navigation }) {
 
         <TouchableOpacity
           onPress={() => {
-            setPrevEmail(user.Email)
-            setPassword(user.Password)
-            setUserID(user.userID)
 
             handleUpdate()
           }}

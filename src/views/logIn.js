@@ -99,7 +99,7 @@ function LogIn({ navigation }) {
               outline: "none",
             },
           ]}
-          placeholder="Email or Phone"
+          placeholder="Email"
           onChange={(event) => {
             setEmail(event.target.value);
           }}
