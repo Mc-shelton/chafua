@@ -115,7 +115,10 @@ function AddAddress({ navigation }) {
           alignItems: "center",
         }}
       >
-        <View
+        <TouchableOpacity
+        onPress={()=>{
+          navigation.navigate('AddNewAddress')  
+        }}
           style={{
             border: "2px solid red",
             marginTop: "30px",
@@ -134,7 +137,7 @@ function AddAddress({ navigation }) {
           >
             + Add New Address
           </Text>
-        </View>
+        </TouchableOpacity>
 
         <View
           style={[

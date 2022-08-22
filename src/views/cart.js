@@ -11,7 +11,7 @@ function Cart({navigation}) {
   useEffect(()=>{
     setTimeout(() => {
       setcAlert(false)
-    }, 2000);
+    }, 500);
   })
   return (
     <View style={styles.main} showsVerticalScrollIndicator={false}>

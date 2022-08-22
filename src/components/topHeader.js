@@ -1,6 +1,15 @@
 import React from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import { Directions } from "react-native-gesture-handler";
+
+import Icons from "./icons";
+import { iconNames } from "./iconNames";
 
 function TopHeader({ props }) {
   console.log(props);
@@ -11,10 +20,26 @@ function TopHeader({ props }) {
       </View>
       <View style={styles.rightPane}>
         <TouchableOpacity
-        onPress={()=>props.navigation.navigate('Profile')}
+          onPress={() => props.navigation.navigate("Profile")}
           style={[styles.icons, styles.avator]}
-        ></TouchableOpacity>
-        <TouchableOpacity  style={[styles.icons, styles.notify]}></TouchableOpacity>
+        >
+          <View style={{
+            height:'160%',
+            width:'160%'
+          }}>
+          <Icons props={{iconName:iconNames.logoIcon}}/>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.icons, styles.notify]}>
+          <View
+            style={{
+              height: "120%",
+              width: "120%",
+            }}
+          >
+            <Icons props={{ iconName: iconNames.bellIcon }} />
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity
           style={[styles.icons, styles.cart]}
           onPress={() => {
@@ -23,18 +48,24 @@ function TopHeader({ props }) {
         >
           <Text
             style={{
-              textAlign: "center",
               marginTop: "-7px",
               marginLeft: "20px",
               fontSize: "15px",
-              width: "fit-content",
-              border: "2px solid red",
-              borderRadius: "100%",
               backgroundColor: "white",
+              position:'absolute'
+              ,zIndex:4
             }}
           >
-            1
+            55
           </Text>
+          <View style={{
+            height:'130%'
+            ,width:'130%',
+            position:'absolute'
+            ,top:'0'
+          }}>
+          <Icons props={{iconName:iconNames.cartIcon2}}/>
+          </View>
         </TouchableOpacity>
       </View>
     </View>
@@ -70,13 +101,14 @@ const styles = StyleSheet.create({
     paddingBottom: "3px",
   },
   icons: {
-    border: "2px solid red",
+    // border: "2px solid red",
     borderRadius: "100%",
   },
   avator: {
-    width: "60px",
-    height: "100%",
-    marginLeft: "10px",
+    width: "50px",
+    height: "50px",
+    marginLeft: "7px",
+    backgroundColor:'#ececec'
   },
   notify: {
     height: "30px",

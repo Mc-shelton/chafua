@@ -1,11 +1,27 @@
 import React from "react";
 import reactDom from "react-dom";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import { FlipInEasyX } from "react-native-reanimated";
+
+import Icons from "./icons";
+import { iconNames } from "./iconNames";
 
 function BottomNav({ props }) {
   return (
-    <View style={styles.main}>
+    <View
+      style={[
+        styles.main,
+        {
+          borderTop: "3px solid rgb(74, 4, 4)",
+          borderRadius: "10px",
+        },
+      ]}
+    >
       <TouchableOpacity
         style={[
           styles.iconBox,
@@ -13,26 +29,42 @@ function BottomNav({ props }) {
             marginLeft: "20px",
           },
         ]}
-        onPress={()=>props.navigate('Profile')}
-      ></TouchableOpacity>
+        onPress={() => props.navigate("Profile")}
+      >
+        <Icons props={{iconName:iconNames.settingsIcon}}/>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.iconBox}
         onPress={() => props.navigate("Search")}
-      ></TouchableOpacity>
+      >
+        <Icons props={{iconName:iconNames.searchIcon}}/>
+      </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.iconBox, styles.focused]}
+        style={[
+          styles.iconBox,
+          styles.focused,
+          {
+            border: "2px solid rgb(74, 4, 4)",
+          },
+        ]}
         onPress={() => props.navigate("Home")}
-      ></TouchableOpacity>
+      >
+        <Icons props={{ iconName: iconNames.homeIcon }} />
+      </TouchableOpacity>
       <TouchableOpacity
         style={[styles.iconBox]}
         onPress={() => props.navigate("Cart")}
-      ></TouchableOpacity>
+      >
+        <Icons props={{ iconName: iconNames.cartIcon }} />
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.iconBox}
         onPress={() => {
           props.navigate("Orders");
         }}
-      ></TouchableOpacity>
+      >
+        <Icons props={{ iconName: iconNames.ordersIcon }} />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -49,12 +81,16 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   iconBox: {
-    border: "2px solid rgb(74, 4, 4)",
+    // border: "2px solid rgb(74, 4, 4)",
     height: "50px",
     width: "50px",
     backgroundColor: "white",
     marginRight: "20px",
     borderRadius: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#E8E8E8",
   },
   focused: {
     height: "65px",

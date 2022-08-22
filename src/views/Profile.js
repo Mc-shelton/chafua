@@ -1,10 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useRef, useState } from "react";
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Image } from "react-native";
 import BottomNav from "../components/bottomNav";
 import { globalStyles } from "../components/commonStyles";
 import Logo from "../components/logo";
 
+import infoLogo from '../../assets/icons/infoLogo.png'
+import powerIcon from '../../assets/icons/powericon.png'
 function Profile({ navigation }) {
   // console.log(route)
 
@@ -22,7 +24,7 @@ function Profile({ navigation }) {
     getUser().then((res) => {
       setUser(res);
     });
-  },[user]);
+  }, [user]);
   return (
     <View
       style={[
@@ -34,21 +36,62 @@ function Profile({ navigation }) {
         },
       ]}
     >
+      <TouchableOpacity
+      onPress={()=>{
+        navigation.navigate('Info')
+      }}
+          style={{
+            position: "absolute",
+            right: "7%",
+            top: "30px",
+            height: "34px",
+            width: "34px",
+            borderRadius:'100%',
+            zIndex:4
+          }}> 
+        <Image
+          source={infoLogo}
+          style={{
+            height: "100%",
+            width: "100%",
+          }}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+      onPress={() => {
+        setLogBox(true);
+      }}
+          style={{
+            position: "absolute",
+            right: "7%",
+            top: "80px",
+            border:'2px solid rgb(74, 4, 4)',
+            height: "35px",
+            width: "35px",
+            borderRadius:'100%',
+            zIndex:4
+          }}> 
+        <Image
+          source={powerIcon}
+          style={{
+            height: "100%",
+            width: "100%",
+          }}
+        />
+      </TouchableOpacity>
       {logBox ? (
         <View
           style={[
             globalStyles.container,
             {
-              padding: "50px",
+              padding: "100px",
               position: "fixed",
               backgroundColor: "white",
               zIndex: "3",
             },
           ]}
         >
-          <Text style={[globalStyles.iText]}>
-            Are you sure?
-          </Text>
+          <Text style={[globalStyles.iText]}>Are you sure?</Text>
           <TouchableOpacity
             onPress={async () => {
               AsyncStorage.clear();
@@ -86,11 +129,13 @@ function Profile({ navigation }) {
       ) : (
         <></>
       )}
-      <View  style={{
-        marginTop:'-100px',
-        width:'100%'
-      }} >
-      <Logo/>
+      <View
+        style={{
+          marginTop: "-100px",
+          width: "100%",
+        }}
+      >
+        <Logo />
       </View>
       <Text
         style={{
@@ -113,12 +158,11 @@ function Profile({ navigation }) {
 
         <br />
         {JSON.parse(user).Phone}
-
       </Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('EditProfile',{
-            params:{userData:JSON.parse(user)}
+          navigation.navigate("EditProfile", {
+            params: { userData: JSON.parse(user) },
           });
         }}
         style={[
@@ -145,7 +189,7 @@ function Profile({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("AddNewAddress");
+          navigation.navigate("MyAddress");
         }}
         style={[globalStyles.LButtons, { justifyContent: "center" }]}
       >
@@ -153,11 +197,13 @@ function Profile({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          setLogBox(true);
+          navigation.navigate("ChangePass", {
+            params: { userData: JSON.parse(user) },
+          });
         }}
         style={[globalStyles.LButtons, { justifyContent: "center" }]}
       >
-        <Text style={[globalStyles.iText]}>Log Out</Text>
+        <Text style={[globalStyles.iText]}>Change Password</Text>
       </TouchableOpacity>
       <BottomNav props={navigation} />
     </View>

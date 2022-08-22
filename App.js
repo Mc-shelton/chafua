@@ -31,6 +31,8 @@ import EditProfile from "./src/views/editProfile";
 import Views from "./src/views/view";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Info from "./src/views/info";
+import ChangePass from "./src/views/changePass";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,17 +67,17 @@ class App extends Component {
         <Stack.Navigator
          >
          <Stack.Screen
+           name="Home"
+           component={Home}
+           options={{ headerShown: false }}
+         />
+         <Stack.Screen
            name="Profile"
            component={Profile}
            options={{
              headerShown: false,
            }}
          />
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
-          />
           <Stack.Screen
             name="Details"
             component={Details}
@@ -170,6 +172,20 @@ class App extends Component {
           <Stack.Screen
             name="Views"
             component={Views}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Info"
+            component={Info}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="ChangePass"
+            component={ChangePass}
             options={{
               headerShown: false,
             }}

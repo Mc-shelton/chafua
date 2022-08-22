@@ -11,24 +11,20 @@ import {
 import props from "../props/props";
 import TopHeader from "../components/topHeader";
 import BottomNav from "../components/bottomNav";
+import Icons from "../components/icons";
+import { iconNames } from "../components/iconNames";
+import { globalStyles } from "../components/commonStyles";
 
 function Home({navigation}) {
   return (
     <View 
-    style={{
-      height:'100%',
-      overflow:'hidden',
-      border:'2px solid red'
-
-    }}
+    style={globalStyles.main}
     >
 
       {/* {true?<TopHeader props={navigation} />:<></>} */}
       <TopHeader props={{ navigation: navigation, title: "Home" }} />
 
     <View style={{
-      border:'2px solid red',
-      // height:'0',
       overflow:'hidden'
     }}>
       
@@ -37,7 +33,24 @@ function Home({navigation}) {
         style={[styles.search, { outline: "none" }]}
         onSubmitEditing={()=>navigation.navigate('Search')}
       />
-      <View style={styles.advert}></View>
+      <View style={styles.advert}>
+
+      <ImageBackground
+          style={{
+            height: "70%",
+            width: "70%",
+            borderRadius: "100%",
+            // border:'2px solid red'
+          }}
+          imageStyle={{
+            // size
+            height: "100%",
+            width: "100%",
+          }}
+          source={require(`https://www.eatthis.com/wp-content/uploads/sites/4/2019/06/deep-dish-pizza-chicago.jpg?quality=82&strip=1&w=640`)}
+        />
+    )
+      </View>
       <View >
         <Text
           style={{
@@ -60,9 +73,16 @@ function Home({navigation}) {
               fontWeight: "bold",
             }}
           >
-            Fast
+            All
           </Text>
-          <View style={styles.categIcon}></View>
+          <View style={styles.categIcon}>
+            <View style={{
+              height:'100%'
+              ,width:'100%'
+            }}>
+            <Icons props={{iconName:iconNames.allIcon}}/>
+            </View>
+          </View>
         </View>
         <View style={styles.categMiniBox}>
           <Text
@@ -72,7 +92,15 @@ function Home({navigation}) {
           >
             Fast
           </Text>
-          <View style={styles.categIcon}></View>
+          <View style={styles.categIcon}>
+
+          <View style={{
+              height:'100%'
+              ,width:'100%'
+            }}>
+            <Icons props={{iconName:iconNames.fastIcon}}/>
+            </View>
+          </View>
         </View>
         <View style={styles.categMiniBox}>
           <Text
@@ -80,9 +108,15 @@ function Home({navigation}) {
               fontWeight: "bold",
             }}
           >
-            Fast
+            Drinks
           </Text>
-          <View style={styles.categIcon}></View>
+          <View style={styles.categIcon}>
+            <View style={{
+              height:'100%'
+              ,width:'100%'
+            }}>
+            <Icons props={{iconName:iconNames.drinkIcon}}/>
+            </View></View>
         </View>
         <View style={styles.categMiniBox}>
           <Text
@@ -90,9 +124,15 @@ function Home({navigation}) {
               fontWeight: "bold",
             }}
           >
-            Fast
+            Tea
           </Text>
-          <View style={styles.categIcon}></View>
+          <View style={styles.categIcon}>
+            <View style={{
+              height:'100%'
+              ,width:'100%'
+            }}>
+            <Icons props={{iconName:iconNames.teaIcon}}/>
+            </View></View>
         </View>
         <View style={styles.categMiniBox}>
           <Text
@@ -100,9 +140,15 @@ function Home({navigation}) {
               fontWeight: "bold",
             }}
           >
-            Fast
+            Fruits
           </Text>
-          <View style={styles.categIcon}></View>
+          <View style={styles.categIcon}>
+            <View style={{
+              height:'100%'
+              ,width:'100%'
+            }}>
+            <Icons props={{iconName:iconNames.fruitIcon}}/>
+            </View></View>
         </View>
       </ScrollView>
     </View>
@@ -145,7 +191,7 @@ function Home({navigation}) {
 
 const styles = StyleSheet.create({
   search: {
-    border: "2px solid grey",
+    border: "2px solid rgb(74, 4, 4)",
     height: "35px",
     fontSize: "18px",
     borderRadius: "15px",
@@ -155,7 +201,7 @@ const styles = StyleSheet.create({
     marginLeft: "10px",
   },
   advert: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     marginTop: "15px",
     height: "200px",
     backgroundColor: "white",
@@ -169,9 +215,10 @@ const styles = StyleSheet.create({
     paddingBottom: "15px",
   },
   categMiniBox: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     minWidth: "85px",
-    paddingRight: "3px",
+    paddingRight: "10px",
+    paddingLeft:'10px',
     height: "40px",
     borderRadius: "15px",
     marginLeft: "10px",
@@ -181,12 +228,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   categIcon: {
-    border: "2px solid red",
     height: "35px",
     width: "35px",
-    marginRight: "5px",
-    marginLeft: "2px",
-    borderRadius: "100%"
+    borderRadius: "100%",
+    marginTop:'10px'
   },
   trending: {
     // marginTop:'5px',
