@@ -3,7 +3,6 @@ import { ImageBackground } from "react-native";
 
 
 function Icons({props}){
-    console.log('props',props.iconName)
     return(
         
         <ImageBackground

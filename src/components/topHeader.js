@@ -87,6 +87,9 @@ const styles = StyleSheet.create({
     fontSize: "23px",
     paddingLeft: "10px",
     fontWeight: "bold",
+    height:'28px',
+    flexWrap:'nowrap',
+    overflow:'hidden',
   },
   rightPane: {
     height: "90%",

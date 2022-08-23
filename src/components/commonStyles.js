@@ -4,6 +4,7 @@ export const globalStyles = StyleSheet.create({
   main: {
     height: "100%",
     backgroundColor: "white",
+    overflow:'hidden'
   },
   buttons: {
     border: "2px solid rgb(74, 4, 4)",
@@ -20,7 +21,7 @@ export const globalStyles = StyleSheet.create({
   },
   container: {
     borderRadius: "15px",
-    border: "2px solid  ",
+    border: "2px solid rgb(74, 4, 4) ",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

@@ -38,7 +38,6 @@ function Details({navigation}) {
             transform: "rotate(-45deg)",
           }}
         >
-          ps
         </View>
       </View>
 
@@ -127,7 +126,6 @@ function Details({navigation}) {
             height:'200px'
         }}
         >
-            df
             <TouchableOpacity style={{
               position:'absolute',
               border:'2px solid red',

@@ -33,6 +33,7 @@ import Views from "./src/views/view";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Info from "./src/views/info";
 import ChangePass from "./src/views/changePass";
+import Hotel from "./src/views/hotel";
 
 const Stack = createNativeStackNavigator();
 
@@ -69,6 +70,11 @@ class App extends Component {
          <Stack.Screen
            name="Home"
            component={Home}
+           options={{ headerShown: false }}
+         />
+         <Stack.Screen
+           name="Hotel"
+           component={Hotel}
            options={{ headerShown: false }}
          />
          <Stack.Screen
