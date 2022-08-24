@@ -18,6 +18,7 @@ function BackButton({props}){
           height: "13px",
           marginLeft: "5px",
           width: "13px",
+          
         }}
       />
     </TouchableOpacity>

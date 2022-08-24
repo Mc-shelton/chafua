@@ -4,7 +4,7 @@ export const globalStyles = StyleSheet.create({
   main: {
     height: "100%",
     backgroundColor: "white",
-    overflow:'hidden'
+    overflowX:'hidden'
   },
   buttons: {
     border: "2px solid rgb(74, 4, 4)",

@@ -68,6 +68,13 @@ class App extends Component {
         <Stack.Navigator
          >
          <Stack.Screen
+           name="Details"
+           component={Details}
+           options={{
+             headerShown: false,
+           }}
+         />
+         <Stack.Screen
            name="Home"
            component={Home}
            options={{ headerShown: false }}
@@ -84,13 +91,6 @@ class App extends Component {
              headerShown: false,
            }}
          />
-          <Stack.Screen
-            name="Details"
-            component={Details}
-            options={{
-              headerShown: false,
-            }}
-          />
           <Stack.Screen
             name="Cart"
             component={Cart}

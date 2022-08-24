@@ -17,7 +17,8 @@ function BottomNav({ props }) {
       style={[
         styles.main,
         {
-          borderTop: "3px solid rgb(74, 4, 4)",
+          boxShadow:' rgba(149, 157, 165) 0px 8px 24px'
+,
           borderRadius: "10px",
         },
       ]}
@@ -90,7 +91,9 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#E8E8E8",
+    // backgroundColor: "#E8E8E8",
+    // boxShadow:' rgba(149, 157, 165) 2px 8px 24px'
+
   },
   focused: {
     height: "65px",

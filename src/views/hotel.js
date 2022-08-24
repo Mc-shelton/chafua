@@ -200,7 +200,12 @@ function Hotel({route,navigation }) {
               <TouchableOpacity
                 style={styles.item}
                 onPress={() => {
-                  navigation.navigate("Details");
+                  navigation.navigate("Details",{
+                    name:'',
+                    image:'',
+                    
+
+                  });
                 }}
               >
                 <ImageBackground
@@ -237,14 +242,6 @@ function Hotel({route,navigation }) {
                       marginTop: "10px",
                     }}
                   >
-                    <AirbnbRating
-                      count={5}
-                      size={12}
-                      defaultRating={item.rating}
-                      isDisabled
-                      showRating={false}
-                      selectedColor="rgb(74, 4, 4)"
-                    />
                   </View>
                 </View>
               </TouchableOpacity>
