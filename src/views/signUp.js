@@ -54,6 +54,7 @@ function SignUp({ navigation }) {
 
               await AsyncStorage.setItem("user", data);
               await AsyncStorage.setItem("isLoggedIn", true);
+              await AsyncStorage.setItem('cart','')
               window.location.reload();
             } else {
               alert(response.data);

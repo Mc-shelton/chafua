@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import reactDom from "react-dom";
 import {
   View,
@@ -12,6 +12,7 @@ import Icons from "./icons";
 import { iconNames } from "./iconNames";
 
 function BottomNav({ props }) {
+  const [showDot, setShowDot] = useState(true)
   return (
     <View
       style={[
@@ -56,6 +57,18 @@ function BottomNav({ props }) {
         style={[styles.iconBox]}
         onPress={() => props.navigate("Cart")}
       >
+       {showDot? <View 
+        style={{
+          height:'10px'
+          ,width:'10px',
+          backgroundColor:'rgb(74, 4, 4)'
+          ,borderRadius:'100%'
+          ,
+          position:'absolute'
+          ,right:'5px'
+          ,top:'0px'
+        }}
+        />:<></>}
         <Icons props={{ iconName: iconNames.cartIcon }} />
       </TouchableOpacity>
       <TouchableOpacity

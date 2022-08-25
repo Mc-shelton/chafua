@@ -18,8 +18,8 @@ import {default as list} from "../props/props" ;
 import MasonryList from "@react-native-seoul/masonry-list";
 
 function Hotel({route,navigation }) {
-  const [hotelList, setHotelList] = useState(list.HotelList);
-  const [hotelConstList, setConstHotelList] = useState(list.HotelList);
+  const [hotelList, setHotelList] = useState(list.hotelItems);
+  const [hotelConstList, setConstHotelList] = useState(list.hotelItems);
   const [hotelParams, setHotelParams] = useState(route.params.params)
   const categFilter = (name) => {
     if (name != "All") {
@@ -191,25 +191,24 @@ function Hotel({route,navigation }) {
             return (
               <View>
                 {/* <Loader/> */}
-                <Text>Seems like you are offline... </Text>
+                <Text>Seems like you are offliwne... </Text>
               </View>
             );
           }}
-          renderItem={({ item }) => {
+          renderItem={( {item, ind} ) => {
             return (
               <TouchableOpacity
                 style={styles.item}
+                
                 onPress={() => {
+                  let ind = list.hotelItems.map((obj) => obj.itemID).indexOf(item.itemID)
                   navigation.navigate("Details",{
-                    name:'',
-                    image:'',
-                    
-
+                    cartItems:list.hotelItems[ind]
                   });
                 }}
               >
                 <ImageBackground
-                  source={item.image}
+                  source={item.thumbNail}
                   style={{
                     borderBottom: "2px solid red",
                     height: "100px",
@@ -233,16 +232,24 @@ function Hotel({route,navigation }) {
                   >
                     {item.name}
                   </Text>
-                  <Text>Status : {item.status}</Text>
-                  <Text>Est : {item.estTime}</Text>
+                  <Text>Price : {item.price}</Text>
+                  <Text>Hotel : {item.hotel}</Text>
+                  <Text>Est : {item.estDelTime}</Text>
 
                   <View
-                    style={{
-                      marginLeft: "-10px",
-                      marginTop: "10px",
-                    }}
-                  >
-                  </View>
+                style={{
+                  marginLeft:'-10px'
+                  ,marginTop:'10px'
+                }}>                
+                <AirbnbRating
+                count={5}
+                size={12}
+                defaultRating={item.rating}
+                isDisabled
+                showRating={false}
+                selectedColor='rgb(74, 4, 4)'
+
+                /></View>
                 </View>
               </TouchableOpacity>
             );

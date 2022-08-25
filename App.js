@@ -68,16 +68,16 @@ class App extends Component {
         <Stack.Navigator
          >
          <Stack.Screen
+           name="Home"
+           component={Home}
+           options={{ headerShown: false }}
+         />
+         <Stack.Screen
            name="Details"
            component={Details}
            options={{
              headerShown: false,
            }}
-         />
-         <Stack.Screen
-           name="Home"
-           component={Home}
-           options={{ headerShown: false }}
          />
          <Stack.Screen
            name="Hotel"

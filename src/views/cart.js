@@ -5,6 +5,7 @@ import TopHeader from "../components/topHeader";
 import props from "../props/props";
 
 import { globalStyles } from "../components/commonStyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Cart({navigation}) {
   const [cAlert, setcAlert] = useState(true);
@@ -12,6 +13,9 @@ function Cart({navigation}) {
     setTimeout(() => {
       setcAlert(false)
     }, 500);
+  })
+  useEffect(async()=>{
+    await AsyncStorage.getItem('cart')
   })
   return (
     <View style={styles.main} showsVerticalScrollIndicator={false}>

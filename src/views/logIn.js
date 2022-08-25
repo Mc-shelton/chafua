@@ -36,7 +36,7 @@ function LogIn({ navigation }) {
           let data = JSON.stringify(response.data)
          await AsyncStorage.setItem('user', data)
          await AsyncStorage.setItem('isLoggedIn', true)
-         
+         await AsyncStorage.setItem('cart',JSON.stringify([]))
          window.location.reload()
         //  console.log()
          
