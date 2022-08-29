@@ -114,6 +114,7 @@ const props = {
       rating: 5,
       itemID: 1,
       packaging:'20',
+      category:'fast',
       description:'A very short description of the food, and how its has been made and any alergens and things like that'
     },
     {
@@ -126,6 +127,7 @@ const props = {
       rating: 3,
       itemID: 2,
       packaging:'10',
+      category:'fast',
       description:'A very short description of the food, and how its has been made and any alergens and things like that'
     },
     {
@@ -138,6 +140,7 @@ const props = {
       rating: 4,
       itemID: 3,
       packaging:'10',
+      category:'fast',
       description:'A very short description of the food, and how its has been made and any alergens and things like that'
 
     },
@@ -151,6 +154,7 @@ const props = {
       rating: 1,
       itemID: 4,
       packaging:'5',
+      category:'Fast',
       description:'A very short description of the food, and how its has been made and any alergens and things like that'
     },
   ],

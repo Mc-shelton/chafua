@@ -24,7 +24,7 @@ function Hotel({route,navigation }) {
   const categFilter = (name) => {
     if (name != "All") {
       setHotelList(
-        hotelConstList.filter((categ) => categ.categories.includes(name))
+        hotelConstList.filter((categ) => categ.category = name)
       );
     } else {
       setHotelList(hotelConstList);

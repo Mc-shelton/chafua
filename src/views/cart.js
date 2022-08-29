@@ -1,42 +1,75 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, View, Text, FlatList, TouchableOpacity, ImageBackground } from "react-native";
 import BottomNav from "../components/bottomNav";
 import TopHeader from "../components/topHeader";
 import props from "../props/props";
-
+import time from '../../assets/icons/time.png'
 import { globalStyles } from "../components/commonStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 function Cart({navigation}) {
   const [cAlert, setcAlert] = useState(true);
+  const [cartItems, setCartItems] = useState('')
+  const [cartItemsList, setCartItemsList] = useState(cartItems)
+  const [totalPrice, setTotalPrice] = useState(0)
   useEffect(()=>{
     setTimeout(() => {
       setcAlert(false)
     }, 500);
   })
   useEffect(async()=>{
-    await AsyncStorage.getItem('cart')
-  })
+    const willFocus = navigation.addListener('focus', () => {
+      AsyncStorage.getItem('cart').then((res)=>{
+        if(res){
+        let array = JSON.parse(res)
+        let total = 0
+        array.forEach(value => {
+          total += parseInt(value.price)
+  
+  
+        });
+        setTotalPrice(total)  
+        setCartItems(array)
+      }
+      }).catch((err)=>{
+        console.log(err)
+      })
+    
+  });
+  return willFocus
+    },[])
   return (
     <View style={styles.main} showsVerticalScrollIndicator={false}>
-      {/* <TopHeader props={navigation}/> */}
-      <TopHeader props={{ navigation: navigation, title: "Cart" }} />
-     
+      <TopHeader props={{  navigation: navigation, title: "Cart" }} />
+     <View style={{
+      height:'65%',
+      width:'100%'
+     }}>
       <FlatList
-        data={props.categList}
-        renderItem={() => {
+        data={cartItems}
+        keyExtractor={item=>item.itemID}
+        renderItem={(item) => {
           return (
             <TouchableOpacity style={styles.cartItem}
-            onPress={()=>navigation.navigate('CartDetails')}
-            onLongPress={()=>alert('remove?')}
+            onPress={()=>{
+              navigation.navigate('CartDetails')}}
+            onLongPress={()=>{
+            // console.log(item.item)  
+              alert('remove?')
+            }}
             >
-              <View
+              <ImageBackground
                 style={{
-                  border: "2px solid red",
+                  border: "2px solid rgb(74, 4, 4)",
                   height: "100px",
                   width: "100px",
                   borderRadius: "100%",
                   marginLeft: "10px",
+                }}
+                source={item.item.thumbNail}
+                imageStyle={{
+                  borderRadius: "15px",
                 }}
               />
               <View
@@ -51,24 +84,24 @@ function Cart({navigation}) {
                     position: "absolute",
                     left: "180px",
                     fontSize: "18px",
-                    color: "red",
+                    color: "rgb(74, 4, 4)",
                   }}
                 >
-                  x2
+                  x{item.item.count}
                 </Text>
                 <Text
                   style={{
                     fontSize: "20px",
                   }}
                 >
-                  Name Food
+                  {item.item.name}
                 </Text>
                 <Text
                   style={{
                     color: "grey",
                   }}
                 >
-                  hotelname
+                  {item.item.hotel}
                 </Text>
                 <Text
                   style={{
@@ -76,11 +109,11 @@ function Cart({navigation}) {
                     marginTop: "10px",
                   }}
                 >
-                  20.00{" "}
+                  {item.item.price}{" "}
                   <span
                     style={{
                       fontSize: "14px",
-                      color: "red",
+                      color: "rgb(74, 4, 4)",
                       fontWeight: "bold",
                     }}
                   >
@@ -92,25 +125,36 @@ function Cart({navigation}) {
           );
         }}
         style={{
-          width: "90%",
-          marginLeft: "5%",
+          width: "100%",
           marginTop: "0px",
-          paddingBottom: "100px",
+          paddingBottom: "10px",
+          height:'10%'
     // border:'2px solid red'
 
         }}
+        ListEmptyComponent={()=>{
+          return(
+            <Text style={{
+              textAlign:'center'
+              ,fontSize:'20px'
+              ,marginTop:'40%'
+            }}>Nothing in cart at now</Text>
+          )
+        }}
         showsHorizontalScrollIndicator={false}
       />
-      {/* </View> */}
+
+      </View>
       <View
         style={{
           position: "fixed",
-          bottom: "50px",
+          bottom: "20px",
           width: "100%",
           backgroundColor: "white",
           paddingTop: "10px",
-          paddingBottom: "10px",
-          border: "2px solid red",
+          paddingBottom: "60px",
+              boxShadow: " rgba(149, 157, 165) 0px 3px 15px",
+              // border: "2px solid red",
         }}
       >
         <View style={styles.totalBox}>
@@ -127,13 +171,18 @@ function Cart({navigation}) {
                 alignItems:'center'
             }
           }>
-            <View 
+            <ImageBackground
             style={{
-                height:'40px',
-                width:'40px',
-                border:'2px solid red',
-                borderRadius:'100%'
+                height:'30px',
+                width:'30px',
+                border:'2px solid rgb(74, 4, 4)',
+                borderRadius:'100%',
+                marginRight:'5px'
 
+            }}
+            source={time}
+            imageStyle={{
+              borderRadius: "15px",
             }}
             />
             <Text style={{
@@ -152,11 +201,11 @@ function Cart({navigation}) {
             fontSize:'40px'
           }}
           >
-            90
+            {totalPrice}
             <span
               style={{
                 fontSize: "20px",
-                color: "red",
+                color: "rgb(74, 4, 4)",
                 fontWeight: "bold",
               }}
             >
@@ -167,18 +216,23 @@ function Cart({navigation}) {
           style={{
             height:'40px',
             width:'150px',
-            border:'2px solid red',
+            border:'2px solid rgb(74, 4, 4)',
             borderRadius:'15px',
             position:'absolute',
             bottom:'20px',
-            backgroundColor:'red',
+            backgroundColor:'rgb(74, 4, 4)',
             color:'white',
             alignItems:'center',
             justifyContent:'center',
             right:'20px'
           }}
           onPress={()=>{
+            console.log()
+            if(cartItems.length >0){
             navigation.navigate('AddAddress')
+            }else{
+              alert('Nothing in Cart')
+            }
           }}
           ><p>Check Out</p></TouchableOpacity>
         </View>
@@ -223,7 +277,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   totalBox: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     height: "150px",
     width: "90%",
     marginLeft: "5%",
@@ -232,7 +286,7 @@ const styles = StyleSheet.create({
     padding:'20px'
   },
   buttons: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     height: "45px",
     width: "45px",
     borderRadius: "10px",
@@ -245,14 +299,16 @@ const styles = StyleSheet.create({
     zIndex: "3",
   },
   cartItem: {
-    border: "2px solid red",
     height: "120px",
     borderRadius: "20px",
     marginTop: "20px",
+          marginLeft: "5%",
+          width:'90%',
     display: "flex",
     // justifyContent:'center',
     flexDirection: "row",
-    alignItems: "center",
+              boxShadow: " rgba(149, 157, 165) 0px 3px 15px",
+              alignItems: "center",
     overflow: "hidden",
   },
 });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -10,9 +10,23 @@ import { Directions } from "react-native-gesture-handler";
 
 import Icons from "./icons";
 import { iconNames } from "./iconNames";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 function TopHeader({ props }) {
-  console.log(props);
+const [cartItemsNum, setCartItemsNum] = useState(0)
+  useEffect(async()=>{
+
+    const willFocus = props.navigation.addListener('focus', () => {
+    AsyncStorage.getItem('cart').then((res)=>{
+      if(res){
+      let array = JSON.parse(res)
+      setCartItemsNum(array.length)
+    }
+    }).catch((err)=>{
+      console.log(err)
+    })
+  })
+  return willFocus
+    },[])
   return (
     <View style={styles.main}>
       <View style={styles.leftPane}>
@@ -56,7 +70,7 @@ function TopHeader({ props }) {
               ,zIndex:4
             }}
           >
-            55
+            {cartItemsNum}
           </Text>
           <View style={{
             height:'130%'
