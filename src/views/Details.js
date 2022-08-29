@@ -26,7 +26,6 @@ function Details({ route,navigation }) {
     time++;
   }, 500);
 
-  console.log(loadObj)
 
   useEffect(async () => {
     let cartString = await AsyncStorage.getItem("cart");

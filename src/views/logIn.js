@@ -37,6 +37,7 @@ function LogIn({ navigation }) {
          await AsyncStorage.setItem('user', data)
          await AsyncStorage.setItem('isLoggedIn', true)
          await AsyncStorage.setItem('cart',JSON.stringify([]))
+         await AsyncStorage.setItem('addresses',JSON.stringify([]))
          window.location.reload()
         //  console.log()
          

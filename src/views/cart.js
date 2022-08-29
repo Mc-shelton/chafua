@@ -6,6 +6,7 @@ import props from "../props/props";
 import time from '../../assets/icons/time.png'
 import { globalStyles } from "../components/commonStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from "@react-navigation/native";
 
 
 function Cart({navigation}) {
@@ -25,7 +26,9 @@ function Cart({navigation}) {
         let array = JSON.parse(res)
         let total = 0
         array.forEach(value => {
-          total += parseInt(value.price)
+          let itTotal = parseInt(value.price) + parseInt(value.packaging)
+          let isTotal = itTotal * parseInt(value.count)
+          total += parseInt(isTotal)
   
   
         });
@@ -53,10 +56,24 @@ function Cart({navigation}) {
           return (
             <TouchableOpacity style={styles.cartItem}
             onPress={()=>{
-              navigation.navigate('CartDetails')}}
-            onLongPress={()=>{
-            // console.log(item.item)  
-              alert('remove?')
+              navigation.navigate('CartDetails',{cartList:{
+                estDelTme :item.item.estDelTime,
+                hotel :item.item.hotel,
+                name :item.item.name,
+                count :item.item.count,
+                itemID :item.item.itemID,
+              }})}}
+            onLongPress={async()=>{
+            // console.log(item.item)
+
+    let filter = cartItems.map((item) => item.itemID);
+    let ind = filter.indexOf(item.item.itemID);
+
+    cartItems.splice(ind, ind+1)
+    let cartString = JSON.stringify(cartItems)
+    await AsyncStorage.setItem("cart",cartString)
+// window.reload()
+// navigation.navigate('Cart')
             }}
             >
               <ImageBackground
@@ -107,9 +124,9 @@ function Cart({navigation}) {
                   style={{
                     fontSize: "25px",
                     marginTop: "10px",
-                  }}
+                  }}  
                 >
-                  {item.item.price}{" "}
+                  {parseInt(item.item.price)+parseInt(item.item.packaging)}{" "}
                   <span
                     style={{
                       fontSize: "14px",

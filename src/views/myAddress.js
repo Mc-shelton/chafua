@@ -1,4 +1,5 @@
-import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState,useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -8,10 +9,27 @@ import {
 } from "react-native";
 import BackButton from "../components/backButton";
 import { globalStyles } from "../components/commonStyles";
-
 import props from "../props/props";
 
 function MyAddress({ navigation }) {
+  const [addresses,setAddresses] = useState([])
+
+  useEffect(async()=>{
+    const willFocus = navigation.addListener('focus', () => {
+      AsyncStorage.getItem('addresses').then((res)=>{
+        if(res){
+        let array = JSON.parse(res)
+        setAddresses(array)  
+        console.log('array',array)
+      }
+      }).catch((err)=>{
+        console.log(err)
+      })
+    
+  });
+  return willFocus
+    },[])
+
   return (
     <View
       style={{
@@ -22,7 +40,7 @@ function MyAddress({ navigation }) {
       <BackButton props={{ navigation: navigation, title: "My Addresses" }} />
 
       <FlatList
-        data={props.categList}
+        data={addresses}
         renderItem={(ind) => {
           return (
             <View style={globalStyles.cartItem}>
@@ -85,6 +103,18 @@ function MyAddress({ navigation }) {
           paddingBottom: "5px",
           height: "90%",
         }}
+        ListEmptyComponent={()=>{
+          return(
+            <View style={[globalStyles.container, {
+              border:'none'
+              ,marginTop:'30%'
+            }]}>
+          <Text style={{
+            fontSize:'18px'
+          }}>No addresses here, please add one </Text>
+          </View>
+          )
+        }}
         showsHorizontalScrollIndicator={false}
       />
 
@@ -92,16 +122,16 @@ function MyAddress({ navigation }) {
 <View
         style={{
           backgroundColor: "white",
-          border: "2px solid red",
           height: "15%",
           display: "flex",
           // justifyContent:'center',
-          alignItems: "center",
+              boxShadow: " rgb(74, 4, 4) 0px 14px  30px",
+              alignItems: "center",
         }}
       >
       <TouchableOpacity
         style={{
-          border: "2px solid red",
+          border: "2px solid rgb(74, 4, 4)",
           marginTop: "30px",
           height: "35px",
           width: "200px",
@@ -115,7 +145,7 @@ function MyAddress({ navigation }) {
       >
         <Text
           style={{
-            color: "red",
+            color: "rgb(74, 4, 4)",
             fontSize: "15px",
             textAlign: "center",
             marginTop: "8px",

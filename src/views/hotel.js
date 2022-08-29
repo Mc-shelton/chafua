@@ -191,7 +191,7 @@ function Hotel({route,navigation }) {
             return (
               <View>
                 {/* <Loader/> */}
-                <Text>Seems like you are offliwne... </Text>
+                <Text>Seems like you are offline... </Text>
               </View>
             );
           }}

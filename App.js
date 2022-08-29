@@ -68,6 +68,41 @@ class App extends Component {
         <Stack.Navigator
          >
          <Stack.Screen
+           name="MyAddress"
+           component={MyAddress}
+           options={{
+             headerShown: false,
+           }}
+         />
+         <Stack.Screen
+           name="AddNewAddress"
+           component={AddNewAddress}
+           options={{
+             headerShown: false,
+           }}
+         />
+         <Stack.Screen
+           name="AddAddress"
+           component={AddAddress}
+           options={{
+             headerShown: false,
+           }}
+         />
+         <Stack.Screen
+           name="Cart"
+           component={Cart}
+           options={{
+             headerShown: false,
+           }}
+         />
+         <Stack.Screen
+           name="CartDetails"
+           component={CartDetails}
+           options={{
+             headerShown: false,
+           }}
+         />
+         <Stack.Screen
            name="Home"
            component={Home}
            options={{ headerShown: false }}
@@ -92,43 +127,8 @@ class App extends Component {
            }}
          />
           <Stack.Screen
-            name="Cart"
-            component={Cart}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
             name="Favorites"
             component={Favorites}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="AddAddress"
-            component={AddAddress}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="AddAnotherAdd"
-            component={AddAnotherAdd}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="cart"
-            component={AddAnotherAdd}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="CartDetails"
-            component={CartDetails}
             options={{
               headerShown: false,
             }}
@@ -150,20 +150,6 @@ class App extends Component {
           <Stack.Screen
             name="Orders"
             component={Orders}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="MyAddress"
-            component={MyAddress}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="AddNewAddress"
-            component={AddNewAddress}
             options={{
               headerShown: false,
             }}
