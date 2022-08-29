@@ -1,4 +1,5 @@
-import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -12,6 +13,73 @@ import { globalStyles } from "../components/commonStyles";
 import props from "../props/props";
 
 function AddAddress({ navigation }) {
+  // console.log('asdfjlaksd asdf')
+  const [isChosen, setIsChosen] = useState("");
+  const [addresses, setAddresses] = useState([]);
+  const [pickedAddress, setPickedAddress] = useState();
+  const [checkItems,setCheckItems] = useState('')
+  const [totalPrice, setTotalPrice] = useState();
+  const [totalPack, setTotalPack] = useState();
+  const [deliveryFee, setDeliveryFee] = useState();
+  useEffect(async () => {
+    const willFocus = navigation.addListener("focus", () => {
+      AsyncStorage.getItem("addresses")
+        .then((res) => {
+          if (res) {
+            let array = JSON.parse(res);
+            setAddresses(array);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+    return willFocus;
+  }, []);
+
+  useEffect(async () => {
+    const willFocus = navigation.addListener("focus", () => {
+      AsyncStorage.getItem("cart").then((res) => {
+        if (res) {
+          let array = JSON.parse(res);
+
+          let priced = 0;
+          let packing = 0;
+          let totCount = 0;
+          let delivery = 0;
+          setCheckItems(array)
+          array.forEach((value) => {
+            priced += parseInt(value.price) * parseInt(value.count);
+            packing += parseInt(value.packaging) * parseInt(value.count);
+            totCount += parseInt(value.count);
+            delivery += parseInt(value.delivery) * parseInt(value.count);
+          });
+
+          setTotalPrice(priced);
+          setTotalPack(packing);
+          console.log(totCount);
+          let average = Math.floor(delivery / totCount);
+          console.log(average);
+          console.log(delivery);
+          if (priced + delivery < 200) {
+            if (totCount < 3) {
+              setDeliveryFee(average + 5);
+            } else {
+              if (totCount < 5) {
+                setDeliveryFee(average + 10);
+              } else {
+                setDeliveryFee(Math.floor(priced * 0.1));
+              }
+            }
+          } else {
+            setDeliveryFee(Math.floor(priced * 0.1));
+          }
+        }
+      });
+    });
+    return willFocus;
+  }, []);
+
   return (
     <View
       style={{
@@ -19,26 +87,22 @@ function AddAddress({ navigation }) {
         backgroundColor: "white",
       }}
     >
-      <BackButton props={{navigation:navigation, title:'Choose Address'}}/>
+      <BackButton props={{ navigation: navigation, title: "Choose Address" }} />
       <FlatList
-        data={props.categList}
-        renderItem={(ind) => {
+        data={addresses}
+        keyExtractor={(item) => item.room}
+        renderItem={(item) => {
           return (
-            <TouchableOpacity 
-            style={globalStyles.cartItem}
-            onPress={(event)=>{
-              console.log(ind.index)
-              const bulb = document.getElementsByClassName('bulb')
-              console.log(bulb)
-            
-            }
-
-            }
-
+            <TouchableOpacity
+              style={globalStyles.cartItem}
+              onPress={() => {
+                setPickedAddress(item.item);
+                setIsChosen(item.item.room);
+              }}
             >
               <View
                 style={{
-                  border: "2px solid red",
+                  border: "2px solid rgb(74, 4, 4)",
                   height: "25px",
                   width: "25px",
                   borderRadius: "100%",
@@ -52,9 +116,9 @@ function AddAddress({ navigation }) {
                 }}
               >
                 <View
-                className = {'bulb'}
                   style={{
-                    backgroundColor: "white",
+                    backgroundColor:
+                      isChosen == item.item.room ? "rgb(74, 4, 4) " : "white",
                     height: "100%",
                     width: "100%",
                     borderRadius: "100%",
@@ -108,7 +172,7 @@ function AddAddress({ navigation }) {
       <View
         style={{
           backgroundColor: "white",
-          border: "2px solid red",
+          boxShadow: " rgb(74, 4, 4) 0px 14px  30px",
           height: "350px",
           display: "flex",
           // justifyContent:'center',
@@ -116,11 +180,11 @@ function AddAddress({ navigation }) {
         }}
       >
         <TouchableOpacity
-        onPress={()=>{
-          navigation.navigate('AddNewAddress')  
-        }}
+          onPress={() => {
+            navigation.navigate("MyAddress");
+          }}
           style={{
-            border: "2px solid red",
+            border: "2px solid rgb(74, 4, 4)",
             marginTop: "30px",
             height: "35px",
             width: "200px",
@@ -129,20 +193,20 @@ function AddAddress({ navigation }) {
         >
           <Text
             style={{
-              color: "red",
+              color: "rgb(74, 4, 4)",
               fontSize: "15px",
               textAlign: "center",
               marginTop: "8px",
             }}
           >
-            + Add New Address
+            + Add/Edit Address
           </Text>
         </TouchableOpacity>
 
         <View
           style={[
             {
-              border: "2px solid red",
+              border: "2px solid rgb(74, 4, 4)",
               height: "140px",
               padding: "20px",
               overflow: "hidden",
@@ -172,20 +236,20 @@ function AddAddress({ navigation }) {
                 fontSize: "18px",
               }}
             >
-              Delivery Fees
+              Packaging Fees
             </Text>
             <Text
               style={{
                 fontSize: "18px",
               }}
             >
-              Tin Fees
+              Delivery Fees
             </Text>
             <Text
               style={{
                 fontWeight: "bold",
                 fontSize: "23px",
-                color: "red",
+                color: "rgb(74, 4, 4)",
                 marginTop: "10px",
               }}
             >
@@ -206,31 +270,32 @@ function AddAddress({ navigation }) {
                 fontSize: "18px",
               }}
             >
-              90.00
+              {totalPrice}/=
             </Text>
             <Text
               style={{
                 fontSize: "18px",
               }}
             >
-              90.00
+              {totalPack}/=
             </Text>
             <Text
               style={{
                 fontSize: "18px",
               }}
             >
-              90.00
+              {deliveryFee}/=
             </Text>
             <Text
               style={{
                 fontSize: "23px",
                 fontWeight: "bold",
-                color: "red",
+                color: "rgb(74, 4, 4)",
                 marginTop: "10px",
+                marginRight: "50px",
               }}
             >
-              270.00{" "}
+              {deliveryFee + totalPack + totalPrice}
               <span
                 style={{
                   fontSize: "14px",
@@ -246,11 +311,16 @@ function AddAddress({ navigation }) {
             height: "35px",
             borderRadius: "10px",
             width: "70%",
-            backgroundColor: "red",
+            backgroundColor: "rgb(74, 4, 4)",
             marginTop: "50px",
           }}
-
-          onPress={()=>{navigation.navigate('DelMessage')}}
+          onPress={() => {  
+            if (isChosen != "") {
+              navigation.navigate("DelMessage");
+            } else {
+              alert("You have not picked an address");
+            }
+          }}
         >
           <Text
             style={{
@@ -270,7 +340,7 @@ function AddAddress({ navigation }) {
 }
 const styles = StyleSheet.create({
   buttons: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     height: "45px",
     width: "45px",
     borderRadius: "10px",

@@ -115,6 +115,7 @@ const props = {
       itemID: 1,
       packaging:'20',
       category:'fast',
+      delivery:'10',
       description:'A very short description of the food, and how its has been made and any alergens and things like that'
     },
     {
@@ -128,6 +129,7 @@ const props = {
       itemID: 2,
       packaging:'10',
       category:'fast',
+      delivery:'5',
       description:'A very short description of the food, and how its has been made and any alergens and things like that'
     },
     {
@@ -141,6 +143,7 @@ const props = {
       itemID: 3,
       packaging:'10',
       category:'fast',
+      delivery:'15',
       description:'A very short description of the food, and how its has been made and any alergens and things like that'
 
     },
@@ -155,6 +158,7 @@ const props = {
       itemID: 4,
       packaging:'5',
       category:'Fast',
+      delivery:'10',
       description:'A very short description of the food, and how its has been made and any alergens and things like that'
     },
   ],

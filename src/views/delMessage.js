@@ -3,6 +3,7 @@ import { Text, TouchableOpacity } from "react-native";
 import { SlideInUp } from "react-native-reanimated";
 import { View } from "react-native-web";
 import { globalStyles } from "../components/commonStyles";
+import Logo from "../components/logo";
 
 function DelMessage({navigation}) {
   return (
@@ -12,18 +13,11 @@ function DelMessage({navigation}) {
         backgroundColor: "white",
       }}
     >
-      <View
-        style={{
-          height: "350px",
-          marginTop: "50px",
-          border: "2px solid red",
-        }}
-      ></View>
-
+      <Logo/>
       <View>
         <Text
           style={{
-            color: "red",
+            color: "rgb(74, 4, 4)",
             fontSize: "25px",
             marginTop: "50px",
             fontWeight: "bold",
@@ -58,7 +52,7 @@ function DelMessage({navigation}) {
           globalStyles.container,
           {
             height: "50px",
-            backgroundColor: "red",
+            backgroundColor: "rgb(74, 4, 4)",
             width: "90%",
             marginLeft: "5%",
             marginTop: "40px",

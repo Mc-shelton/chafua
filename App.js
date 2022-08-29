@@ -68,15 +68,8 @@ class App extends Component {
         <Stack.Navigator
          >
          <Stack.Screen
-           name="MyAddress"
-           component={MyAddress}
-           options={{
-             headerShown: false,
-           }}
-         />
-         <Stack.Screen
-           name="AddNewAddress"
-           component={AddNewAddress}
+           name="DelMessage"
+           component={DelMessage}
            options={{
              headerShown: false,
            }}
@@ -91,6 +84,20 @@ class App extends Component {
          <Stack.Screen
            name="Cart"
            component={Cart}
+           options={{
+             headerShown: false,
+           }}
+         />
+         <Stack.Screen
+           name="MyAddress"
+           component={MyAddress}
+           options={{
+             headerShown: false,
+           }}
+         />
+         <Stack.Screen
+           name="AddNewAddress"
+           component={AddNewAddress}
            options={{
              headerShown: false,
            }}
@@ -136,13 +143,6 @@ class App extends Component {
           <Stack.Screen
             name="Search"
             component={Search}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="DelMessage"
-            component={DelMessage}
             options={{
               headerShown: false,
             }}
