@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -12,23 +12,24 @@ import { globalStyles } from "../components/commonStyles";
 import props from "../props/props";
 
 function MyAddress({ navigation }) {
-  const [addresses,setAddresses] = useState([])
+  const [addresses, setAddresses] = useState([]);
 
-  useEffect(async()=>{
-    const willFocus = navigation.addListener('focus', () => {
-      AsyncStorage.getItem('addresses').then((res)=>{
-        if(res){
-        let array = JSON.parse(res)
-        setAddresses(array)  
-        console.log('array',array)
-      }
-      }).catch((err)=>{
-        console.log(err)
-      })
-    
-  });
-  return willFocus
-    },[])
+  useEffect(async () => {
+    const willFocus = navigation.addListener("focus", () => {
+      AsyncStorage.getItem("addresses")
+        .then((res) => {
+          if (res) {
+            let array = JSON.parse(res);
+            setAddresses(array);
+            console.log("array", array);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+    return willFocus;
+  }, []);
 
   return (
     <View
@@ -41,32 +42,42 @@ function MyAddress({ navigation }) {
 
       <FlatList
         data={addresses}
-        renderItem={(ind) => {
+        keyExtractor={(item) => item.room}
+        renderItem={(item) => {
           return (
             <View style={globalStyles.cartItem}>
               <TouchableOpacity
-                style={[globalStyles.paddedButton,,{
-                    position:'absolute',
-                    top:'0px'
-                    ,right:'20px'
-                    ,backgroundColor:'none'
-                    ,border:'2px solid grey'
-
-                }]}
-
-                onPress={()=>{
-                  navigation.navigate('AddNewAddress')
-                }
-                }
+                style={[
+                  globalStyles.paddedButton,
+                  ,
+                  {
+                    position: "absolute",
+                    top: "0px",
+                    right: "20px",
+                    backgroundColor: "none",
+                    border: "2px solid grey",
+                  },
+                ]}
+                onPress={() => {
+                  navigation.navigate("AddNewAddress", {
+                    ops: "Edit",
+                    room: item.item.room,
+                  });
+                }}
               >
-                <Text style={[globalStyles.iText,{color:'grey'}]}>Edit</Text>
+                <Text style={[globalStyles.iText, { color: "grey" }]}>
+                  Edit
+                </Text>
               </TouchableOpacity>
+              <View style={{
+                width:'60%'
+              }}>
               <Text
                 style={{
                   fontSize: "20px",
                 }}
               >
-                Title of my Address
+                {item.item.title}
               </Text>
               <Text
                 style={{
@@ -75,7 +86,7 @@ function MyAddress({ navigation }) {
                   marginTop: "10px",
                 }}
               >
-                Hostel
+                {item.item.location}
               </Text>
               <Text
                 style={{
@@ -83,7 +94,8 @@ function MyAddress({ navigation }) {
                   color: "grey",
                 }}
               >
-                C14
+                {item.item.room}
+                
               </Text>
               <Text
                 style={{
@@ -91,8 +103,10 @@ function MyAddress({ navigation }) {
                   color: "grey",
                 }}
               >
-                0741741381
+                {item.item.phone}
+                
               </Text>
+              </View>
             </View>
           );
         }}
@@ -103,58 +117,64 @@ function MyAddress({ navigation }) {
           paddingBottom: "5px",
           height: "90%",
         }}
-        ListEmptyComponent={()=>{
-          return(
-            <View style={[globalStyles.container, {
-              border:'none'
-              ,marginTop:'30%'
-            }]}>
-          <Text style={{
-            fontSize:'18px'
-          }}>No addresses here, please add one </Text>
-          </View>
-          )
+        ListEmptyComponent={() => {
+          return (
+            <View
+              style={[
+                globalStyles.container,
+                {
+                  border: "none",
+                  marginTop: "30%",
+                },
+              ]}
+            >
+              <Text
+                style={{
+                  fontSize: "18px",
+                }}
+              >
+                No addresses here, please add one{" "}
+              </Text>
+            </View>
+          );
         }}
         showsHorizontalScrollIndicator={false}
       />
 
-
-<View
+      <View
         style={{
           backgroundColor: "white",
           height: "15%",
           display: "flex",
           // justifyContent:'center',
-              boxShadow: " rgb(74, 4, 4) 0px 14px  30px",
-              alignItems: "center",
+          boxShadow: " rgb(74, 4, 4) 0px 14px  30px",
+          alignItems: "center",
         }}
       >
-      <TouchableOpacity
-        style={{
-          border: "2px solid rgb(74, 4, 4)",
-          marginTop: "30px",
-          height: "35px",
-          width: "200px",
-          borderRadius: "10px",
-        }}
-
-        onPress={()=>{
-          navigation.navigate('AddNewAddress')
-        }
-        }
-      >
-        <Text
+        <TouchableOpacity
           style={{
-            color: "rgb(74, 4, 4)",
-            fontSize: "15px",
-            textAlign: "center",
-            marginTop: "8px",
+            border: "2px solid rgb(74, 4, 4)",
+            marginTop: "30px",
+            height: "35px",
+            width: "200px",
+            borderRadius: "10px",
+          }}
+          onPress={() => {
+            navigation.navigate("AddNewAddress", { ops: "Add" });
           }}
         >
-          + Add New Address
-        </Text>
-      </TouchableOpacity>
-</View>
+          <Text
+            style={{
+              color: "rgb(74, 4, 4)",
+              fontSize: "15px",
+              textAlign: "center",
+              marginTop: "8px",
+            }}
+          >
+            + Add New Address
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
