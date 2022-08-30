@@ -68,15 +68,20 @@ class App extends Component {
         <Stack.Navigator
          >
          <Stack.Screen
-           name="DelMessage"
-           component={DelMessage}
+           name="Home"
+           component={Home}
+           options={{ headerShown: false }}
+         />
+         <Stack.Screen
+           name="AddAddress"
+           component={AddAddress}
            options={{
              headerShown: false,
            }}
          />
          <Stack.Screen
-           name="AddAddress"
-           component={AddAddress}
+           name="DelMessage"
+           component={DelMessage}
            options={{
              headerShown: false,
            }}
@@ -108,11 +113,6 @@ class App extends Component {
            options={{
              headerShown: false,
            }}
-         />
-         <Stack.Screen
-           name="Home"
-           component={Home}
-           options={{ headerShown: false }}
          />
          <Stack.Screen
            name="Details"

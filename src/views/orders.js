@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -14,137 +16,58 @@ import props from "../props/props";
 
 function Orders({ navigation }) {
   const [cAlert, setcAlert] = useState(false);
+  const [orderList, setOrderList] = useState([]);
   console.log(cAlert);
+
+  useEffect(() => {
+    const willFocus = navigation.addListener("focus", () => {
+      AsyncStorage.getItem("user").then((res) => {
+        let user = JSON.parse(res);
+        let resData;
+        axios({
+          method: "POST",
+          url: "http://localhost/chafua/getOrders.php",
+          data: {
+            userID: user.userID,
+          },
+        })
+          .then(async (response) => {
+            // console.log(JSON.parse(response.data));
+            // setOrderList(JSON.parse(response.data))
+            // console.log(response.data);
+            setOrderList(response.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    });
+  });
   return (
     <View style={styles.main} showsVerticalScrollIndicator={false}>
       <TopHeader props={{ navigation: navigation, title: "Orders" }} />
       <View
-        style={[
-          globalStyles.container,
-          {
-            marginTop: "20px",
-            flexDirection: "row",
-          },
-        ]}
-      >
-        <View style={[globalStyles.container, styles.buttons]}>
-          <Text
-            style={{
-              fontSize: "18px",
-            }}
-          >
-            current
-          </Text>
-        </View>
-        <View style={[globalStyles.container, styles.buttons]}>
-          <Text
-            style={{
-              fontSize: "18px",
-            }}
-          >
-            complete
-          </Text>
-        </View>
-        <View style={[globalStyles.container, styles.buttons]}>
-          <Text
-            style={{
-              fontSize: "18px",
-            }}
-          >
-            canceled
-          </Text>
-        </View>
-      </View>
-      <FlatList
-        data={props.categList}
-        renderItem={() => {
-          return (
-            <TouchableOpacity
-              style={styles.cartItem}
-              onPress={() => {
-                setcAlert(true);
-                setTimeout(() => {
-                  // alert()
-                  setcAlert(false);
-                }, 2000);
-              }}
-              onLongPress={() => alert("cancel?")}
-            >
-              <View
-                style={{
-                  border: "2px solid red",
-                  height: "100px",
-                  width: "100px",
-                  borderRadius: "100%",
-                  marginLeft: "10px",
-                }}
-              />
-              <View
-                style={{
-                  marginLeft: "20px",
-                  maxWidth: "50%",
-                  // border:'2px solid red'
-                }}
-              >
-                <Text
-                  style={{
-                    position: "absolute",
-                    left: "180px",
-                    fontSize: "18px",
-                    color: "red",
-                  }}
-                >
-                  x2
-                </Text>
-                <Text
-                  style={{
-                    fontSize: "20px",
-                  }}
-                >
-                  Name Food
-                </Text>
-                <Text
-                  style={{
-                    color: "grey",
-                  }}
-                >
-                  hotelname
-                </Text>
-                <Text
-                  style={{
-                    fontSize: "25px",
-                    marginTop: "10px",
-                  }}
-                >
-                  20.00{" "}
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      color: "red",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    /=
-                  </span>
-                </Text>
-              </View>
-            </TouchableOpacity>
-          );
-        }}
         style={{
-          width: "90%",
-          marginLeft: "5%",
-          marginTop: "0px",
-          paddingBottom: "100px",
-          // border:'2px solid red'
+          height: "65%",
+          width: "100%",
         }}
-        showsHorizontalScrollIndicator={false}
-      />
+      >
+      {orderList.map((item) => (
+        <View key={item.orderID}>
+          <Text>hello world</Text>
+
+          {JSON.parse(item.orders).map((val) => (
+            <View key={val.itemID}>
+              <Text>val.itemID</Text>
+            </View>
+          ))}
+        </View>
+      ))}
+      </View>
       {/* </View> */}
 
       {cAlert ? (
         <View
-
           style={[
             globalStyles.container,
             {

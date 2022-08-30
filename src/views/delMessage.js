@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { SlideInUp } from "react-native-reanimated";
 import { View } from "react-native-web";
@@ -6,6 +6,11 @@ import { globalStyles } from "../components/commonStyles";
 import Logo from "../components/logo";
 
 function DelMessage({navigation}) {
+  useEffect(()=>{
+    navigation.addListener('beforeRemove', (e)=>{
+      e.preventDefault()
+    })
+  })
   return (
     <View
       style={{

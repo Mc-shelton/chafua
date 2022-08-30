@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -17,7 +18,8 @@ function AddAddress({ navigation }) {
   const [isChosen, setIsChosen] = useState("");
   const [addresses, setAddresses] = useState([]);
   const [pickedAddress, setPickedAddress] = useState();
-  const [checkItems,setCheckItems] = useState('')
+  const [checkItems, setCheckItems] = useState("");
+  const [userID, setUserID] = useState("");
   const [totalPrice, setTotalPrice] = useState();
   const [totalPack, setTotalPack] = useState();
   const [deliveryFee, setDeliveryFee] = useState();
@@ -39,6 +41,22 @@ function AddAddress({ navigation }) {
 
   useEffect(async () => {
     const willFocus = navigation.addListener("focus", () => {
+      AsyncStorage.getItem("user")
+        .then((res) => {
+          if (res) {
+            let array = JSON.parse(res);
+            setUserID(array);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+    return willFocus;
+  }, []);
+
+  useEffect(async () => {
+    const willFocus = navigation.addListener("focus", () => {
       AsyncStorage.getItem("cart").then((res) => {
         if (res) {
           let array = JSON.parse(res);
@@ -47,7 +65,7 @@ function AddAddress({ navigation }) {
           let packing = 0;
           let totCount = 0;
           let delivery = 0;
-          setCheckItems(array)
+          setCheckItems(array);
           array.forEach((value) => {
             priced += parseInt(value.price) * parseInt(value.count);
             packing += parseInt(value.packaging) * parseInt(value.count);
@@ -79,6 +97,30 @@ function AddAddress({ navigation }) {
     });
     return willFocus;
   }, []);
+  const handleOrder = () => {
+    if(checkItems != ''){
+    axios({
+      method: "POST",
+      url: "http://localhost/chafua/makeOrder.php",
+      data: {
+        userID: userID.userID,
+        orders: JSON.stringify(checkItems),
+        addresses:JSON.stringify(pickedAddress)
+      },
+    }).then(async(res)=>{
+      if(res.data.orders){
+        alert('Success !!! Order received successfully')
+        await AsyncStorage.setItem('cart', JSON.stringify([]))
+        navigation.navigate('DelMessage')
+      }else{
+        alert(res.data)
+      }
+    }).catch((err)=>{
+      alert('something went wrong please check on your network')
+    });}else{
+      alert('Nothing to check out!!, please add something to cart')
+    }
+  };
 
   return (
     <View
@@ -130,7 +172,7 @@ function AddAddress({ navigation }) {
                   fontSize: "20px",
                 }}
               >
-                Title of my Address
+                {item.item.title}
               </Text>
               <Text
                 style={{
@@ -139,7 +181,7 @@ function AddAddress({ navigation }) {
                   marginTop: "10px",
                 }}
               >
-                Hostel
+                {item.item.location}
               </Text>
               <Text
                 style={{
@@ -147,7 +189,7 @@ function AddAddress({ navigation }) {
                   color: "grey",
                 }}
               >
-                C14
+                {item.item.room}
               </Text>
               <Text
                 style={{
@@ -155,7 +197,7 @@ function AddAddress({ navigation }) {
                   color: "grey",
                 }}
               >
-                0741741381
+                {item.item.phone}
               </Text>
             </TouchableOpacity>
           );
@@ -314,9 +356,9 @@ function AddAddress({ navigation }) {
             backgroundColor: "rgb(74, 4, 4)",
             marginTop: "50px",
           }}
-          onPress={() => {  
+          onPress={() => {
             if (isChosen != "") {
-              navigation.navigate("DelMessage");
+              handleOrder();
             } else {
               alert("You have not picked an address");
             }
