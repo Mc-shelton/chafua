@@ -68,6 +68,13 @@ class App extends Component {
         <Stack.Navigator
          >
          <Stack.Screen
+           name="Orders"
+           component={Orders}
+           options={{
+             headerShown: false,
+           }}
+         />
+         <Stack.Screen
            name="Home"
            component={Home}
            options={{ headerShown: false }}
@@ -143,13 +150,6 @@ class App extends Component {
           <Stack.Screen
             name="Search"
             component={Search}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Orders"
-            component={Orders}
             options={{
               headerShown: false,
             }}
