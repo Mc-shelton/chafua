@@ -20,50 +20,66 @@ import time from '../../assets/icons/time.png'
 function Orders({ navigation }) {
   const [orderList, setOrderList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0)
+  const [refresh, setRefresh] = useState(false)
+const handleCancel = (items, ind)=>{
 
 
-const handleCancel = ()=>{
+  if(items.length > 0){
+    items = JSON.stringify(items)
+  }else{
+    items = 'Remove'
+  }
   axios({
     method:'POST'
     ,url:'http://localhost/chafua/cancelOrder.php'
-    ,data:'asdf'
+    ,data:{
+      orderID:ind,
+      orders:items
+
+    }
+  }).then((res)=>{
+    alert(res.data)
+    fetch()
+  }).catch(()=>{
+    alert('Sorry, network error!!')
   })
+}
+
+const fetch = ()=>{
+  AsyncStorage.getItem("user").then((res) => {
+    let user = JSON.parse(res);
+    let resData;
+    axios({
+      method: "POST",
+      url: "http://localhost/chafua/getOrders.php",
+      data: {
+        userID: user.userID,
+      },
+    })
+      .then(async (response) => {
+        setOrderList(response.data);
+       let filter =  response.data.filter((item)=>item.orders)
+       let total = 0
+       filter.forEach((array)=>{
+    JSON.parse(array.orders).forEach(value => {
+      let itTotal = parseInt(value.price) + parseInt(value.packaging)
+      let isTotal = itTotal * parseInt(value.count)
+      total += parseInt(isTotal)
+    })
+
+    });
+    setTotalPrice(total)  
+      })
+      .catch((err) => {
+        alert('Failed to fetch')
+      });
+  });
 }
   useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
-      AsyncStorage.getItem("user").then((res) => {
-        let user = JSON.parse(res);
-        let resData;
-        axios({
-          method: "POST",
-          url: "http://localhost/chafua/getOrders.php",
-          data: {
-            userID: user.userID,
-          },
-        })
-          .then(async (response) => {
-            // console.log(JSON.parse(response.data));
-            // setOrderList(JSON.parse(response.data))
-            // console.log(response.data);
-            setOrderList(response.data);
-           let filter =  response.data.filter((item)=>item.orders)
-           let total = 0
-           console.log('filter',filter)
-           filter.forEach((array)=>{
-        JSON.parse(array.orders).forEach(value => {
-          let itTotal = parseInt(value.price) + parseInt(value.packaging)
-          let isTotal = itTotal * parseInt(value.count)
-          total += parseInt(isTotal)
-        })
-  
-        });
-        setTotalPrice(total)  
-          })
-          .catch((err) => {
-            alert('Failed to fetch')
-          });
-      });
+      fetch()
     });
+    return willFocus
   });
   return (
     <View style={globalStyles.main} showsVerticalScrollIndicator={false}>
@@ -78,6 +94,7 @@ const handleCancel = ()=>{
         }}
         showsHorizontalScrollIndicator={false}
       >
+        {refresh}
         {orderList != []?
       orderList.map((item) => (
         <View key={item.orderID}>
@@ -96,12 +113,11 @@ const handleCancel = ()=>{
               let orderID = item.orderID
               let orders = JSON.parse(item.orders)
 
-              console.log(orders)
               let filter = orders.map((mapItem)=>mapItem.itemID)
               let ind =filter.indexOf(val.itemID)
 
               orders.splice(ind, ind +1)
-              handleCancel(orders,)
+              handleCancel(orders,orderID)
             }}
           >
             <ImageBackground
@@ -130,9 +146,15 @@ const handleCancel = ()=>{
                   left: "180px",
                   fontSize: "18px",
                   color: "rgb(74, 4, 4)",
+                  display:'flex',
+                  flexDirection:'column'
                 }}
               >
                 x{val.count}
+                <Text style={{
+                  marginTop:'100%'
+                  ,marginLeft:"-30px"
+                }}>{item.status}</Text>
               </Text>
               <Text
                 style={{
