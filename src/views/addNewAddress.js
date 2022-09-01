@@ -176,7 +176,7 @@ function AddNewAddress({ route, navigation }) {
               let editString = JSON.stringify(addresses)
               await AsyncStorage.setItem('addresses', editString)
 
-              alert('Address edited successfully')
+              alert('Done!')
               navigation.goBack()
             }
           }}

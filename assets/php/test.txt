@@ -1,0 +1,87 @@
+
+      <FlatList
+        data={orderList}
+        keyExtractor={(item)=>item.ordeer}
+        renderItem={() => {
+          return (
+            <TouchableOpacity
+              style={styles.cartItem}
+              onPress={() => {
+                setcAlert(true);
+                setTimeout(() => {
+                  // alert()
+                  setcAlert(false);
+                }, 2000);
+              }}
+              onLongPress={() => alert("cancel?")}
+            >
+              <View
+                style={{
+                  border: "2px solid red",
+                  height: "100px",
+                  width: "100px",
+                  borderRadius: "100%",
+                  marginLeft: "10px",
+                }}
+              />
+              <View
+                style={{
+                  marginLeft: "20px",
+                  maxWidth: "50%",
+                  // border:'2px solid red'
+                }}
+              >
+                <Text
+                  style={{
+                    position: "absolute",
+                    left: "180px",
+                    fontSize: "18px",
+                    color: "red",
+                  }}
+                >
+                  x2
+                </Text>
+                <Text
+                  style={{
+                    fontSize: "20px",
+                  }}
+                >
+                  {/* {orderList} */}
+                </Text>
+                <Text
+                  style={{
+                    color: "grey",
+                  }}
+                >
+                  hotelname
+                </Text>
+                <Text
+                  style={{
+                    fontSize: "25px",
+                    marginTop: "10px",
+                  }}
+                >
+                  20.00{" "}
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      color: "red",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    /=
+                  </span>
+                </Text>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
+        style={{
+          width: "90%",
+          marginLeft: "5%",
+          marginTop: "0px",
+          paddingBottom: "100px",
+          // border:'2px solid red'
+        }}
+        showsHorizontalScrollIndicator={false}
+      />
