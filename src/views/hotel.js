@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -14,18 +14,37 @@ import { globalStyles } from "../components/commonStyles";
 import { iconNames } from "../components/iconNames";
 import Icons from "../components/icons";
 import TopHeader from "../components/topHeader";
-import {default as list} from "../props/props" ;
+import { default as list } from "../props/props";
 import MasonryList from "@react-native-seoul/masonry-list";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
-function Hotel({route,navigation }) {
-  const [hotelList, setHotelList] = useState(list.hotelItems);
-  const [hotelConstList, setConstHotelList] = useState(list.hotelItems);
-  const [hotelParams, setHotelParams] = useState(route.params.params)
+function Hotel({ route, navigation }) {
+  const [hotelList, setHotelList] = useState([]);
+  const [hotelConstList, setConstHotelList] = useState([]);
+  const [hotelParams, setHotelParams] = useState(route.params.params);
+
+  useEffect(() => {
+    const willFocus = navigation.addListener("focus", () => {
+      axios({
+        method: "POST",
+        url: "http://localhost/chafua/getItems.php",
+        data: { hotelID: hotelParams.hotelID },
+      }).then((res) => {
+        console.log(res);
+        if (typeof res.data != "string") {
+          setHotelList(res.data);
+          setConstHotelList(res.data);
+        }
+      });
+    });
+
+    return willFocus;
+  });
+
   const categFilter = (name) => {
     if (name != "All") {
-      setHotelList(
-        hotelConstList.filter((categ) => categ.category = name)
-      );
+      setHotelList(hotelConstList.filter((categ) => (categ.category = name)));
     } else {
       setHotelList(hotelConstList);
     }
@@ -33,7 +52,7 @@ function Hotel({route,navigation }) {
 
   return (
     <View style={globalStyles.main} showsVerticalScrollIndicator={false}>
-      <TopHeader props={{ navigation: navigation, title: hotelParams.title }} />
+      <TopHeader props={{ navigation: navigation, title: hotelParams.name }} />
       <View
         style={[
           globalStyles.container,
@@ -191,19 +210,33 @@ function Hotel({route,navigation }) {
             return (
               <View>
                 {/* <Loader/> */}
-                <Text>Seems like you are offline... </Text>
+                <Text>Seems like Nothing is here... </Text>
               </View>
             );
           }}
-          renderItem={( {item, ind} ) => {
+          renderItem={({ item, ind }) => {
             return (
               <TouchableOpacity
                 style={styles.item}
-                
                 onPress={() => {
-                  let ind = list.hotelItems.map((obj) => obj.itemID).indexOf(item.itemID)
-                  navigation.navigate("Details",{
-                    cartItems:list.hotelItems[ind]
+                  let ind = hotelList
+                    .map((obj) => obj.itemID)
+                    .indexOf(item.itemID);
+                  navigation.navigate("Details", {
+                    cartItems: {
+                      name: item.name,
+                      hotel: hotelParams.name,
+                      price: item.price,
+                      estDelTime: item.estDelTime,
+                      thumbNail: item.thumbNail,
+                      count: parseInt(item.count),
+                      rating: parseInt(item.rating),
+                      itemID: parseInt(item.itemID),
+                      packaging: item.packaging,
+                      category: item.category,
+                      delivery: item.delivery,
+                      description:item.description,
+                    },
                   });
                 }}
               >
@@ -237,19 +270,20 @@ function Hotel({route,navigation }) {
                   <Text>Est : {item.estDelTime}</Text>
 
                   <View
-                style={{
-                  marginLeft:'-10px'
-                  ,marginTop:'10px'
-                }}>                
-                <AirbnbRating
-                count={5}
-                size={12}
-                defaultRating={item.rating}
-                isDisabled
-                showRating={false}
-                selectedColor='rgb(74, 4, 4)'
-
-                /></View>
+                    style={{
+                      marginLeft: "-10px",
+                      marginTop: "10px",
+                    }}
+                  >
+                    <AirbnbRating
+                      count={5}
+                      size={12}
+                      defaultRating={item.rating}
+                      isDisabled
+                      showRating={false}
+                      selectedColor="rgb(74, 4, 4)"
+                    />
+                  </View>
                 </View>
               </TouchableOpacity>
             );

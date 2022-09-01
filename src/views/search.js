@@ -16,13 +16,16 @@ import TopHeader from "../components/topHeader";
 import MasonryList from "@react-native-seoul/masonry-list";
 import {default as list} from "../props/props" ;
 import { AirbnbRating } from "react-native-ratings";
+import axios from "axios";
 
 function Search({ route, navigation }) {
 
-  const [hotelList, setHotelList] = useState(list.HotelList);
-  const [hotelConstList, setConstHotelList] = useState(list.HotelList);
+  const [hotelList, setHotelList] = useState([]);
+  const [hotelConstList, setConstHotelList] = useState([]);
   // const [hotelParams, setHotelParams] = useState(route.params.params)
   const [isSearching, setIsSearching] = useState(false);
+  const [categFilter, setCategFilter] = useState([]);
+  const [descFilter, setDescFilter] = useState([]);
   
   useEffect(()=>{
 
@@ -33,6 +36,44 @@ function Search({ route, navigation }) {
   }
   })
 
+  useEffect(() => {
+    const willFocus = navigation.addListener("focus", () => {
+      axios({
+        method: "GET",
+        url: "http://localhost/chafua/allItems.php",
+      }).then((res) => {
+        console.log(res);
+        if (typeof res.data != "string") {
+          setHotelList(res.data);
+          setConstHotelList(res.data);
+          console.log('console data',res.data)
+
+          let filteredHotelList = res.data.map((item)=>{
+            item.categories
+          })
+        
+          setCategFilter(filteredHotelList)
+          console.log('categ', filteredHotelList)
+        
+          filteredHotelList = res.data.map((item)=>{
+            item.description
+          })
+        setDescFilter(filteredHotelList)
+        console.log('desc', filteredHotelList)
+        }
+      });
+    });
+
+    return willFocus;
+  });
+
+  useEffect(()=>{
+    const willFocus = navigation.addListener('focus', ()=>{
+      console.log('confirm', hotelList)
+  
+})
+return willFocus
+})
   return (
     <View style={globalStyles.main}>
       {/* <TopHeader props={navigation} /> */}
@@ -42,6 +83,12 @@ function Search({ route, navigation }) {
         placeholder="search bar"
         style={[styles.search, { outline: "none", marginTop: "30px" }]}
         // onSubmitEditing={()=>navigation.navigate('Cart')}
+        onChange={(e)=>{
+          let value = e.target.value
+          value = value.toUpperCase()
+
+          console.log(hotelList)
+        }}
       />
       <View style={styles.trending}>
         <h4 style={{ margin: 0, marginLeft: "20px", paddingBottom: "8px" }}>

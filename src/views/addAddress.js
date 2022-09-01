@@ -133,6 +133,7 @@ function AddAddress({ navigation }) {
       <FlatList
         data={addresses}
         keyExtractor={(item) => item.room}
+        ListEmptyComponent={()=><Text>You haven't added an Address yet</Text>}
         renderItem={(item) => {
           return (
             <TouchableOpacity

@@ -18,10 +18,51 @@ import { ImageBackground } from "react-native-web";
 import Loader from "../components/loader";
 import { AirbnbRating, Rating } from "react-native-ratings";
 import MasonryList from "@react-native-seoul/masonry-list";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Home({ navigation }) {
-  const [hotelList, setHotelList] = useState(props.HotelList);
-  const [hotelConstList, setConstHotelList] = useState(props.HotelList);
+  const [hotelList, setHotelList] = useState([]);
+  const [hotelConstList, setConstHotelList] = useState([]);
+  const [userDetails, setUserDetails] = useState()
+
+
+  useEffect(() => {
+    const willFocus = navigation.addListener("focus", () => {
+      AsyncStorage.getItem("user").then((res) => {
+        let campusID = JSON.parse(res).campusID;
+        axios({
+          method: "POST",
+          url: "http://localhost/chafua/getHotels.php",
+          data: { campusID: campusID },
+        })
+          .then(async(res) => {
+            if(typeof(res.data) != 'string'){
+            console.log(res.data);
+            setHotelList(res.data);
+            setConstHotelList(res.data);
+            }
+          })
+          .catch((eer) => {
+            alert("error");
+          });
+      });
+    });
+    return willFocus;
+  });
+
+  useEffect(()=>{
+    const willFocus = navigation.addListener('focus',()=>{
+      AsyncStorage.getItem('user').then((res)=>{
+        let parse = JSON.parse(res)
+        setUserDetails(parse)
+      }).catch((err)=>{
+        console.log(err)
+        alert('something went wrong')
+      })
+    })
+    return willFocus
+  })
   const categFilter = (name) => {
     if (name != "All") {
       setHotelList(
@@ -214,7 +255,8 @@ function Home({ navigation }) {
         </ScrollView>
       </View>
       <ScrollView style={styles.trending}>
-        <h4 style={{ margin: 0, paddingBottom: "20px" }}>Restaurants Around</h4>
+        <h4 style={{ margin: 0, paddingBottom: "20px" }}>{userDetails?userDetails.campName:'Hotels'}</h4>
+        
         <MasonryList
           data={hotelList}
           keyExtractor={(item) => item.id}
@@ -228,7 +270,6 @@ function Home({ navigation }) {
           ListEmptyComponent={() => {
             return (
               <View>
-                {/* <Loader/> */}
                 <Text>Seems like you are offline... </Text>
               </View>
             );
@@ -239,7 +280,7 @@ function Home({ navigation }) {
                 style={styles.item}
                 onPress={() => {
                   navigation.navigate("Hotel", {
-                    params: { title: item.name },
+                    params: { hotelID: item.hotelID, name: item.name },
                   });
                 }}
               >
@@ -250,7 +291,6 @@ function Home({ navigation }) {
                     height: "100px",
                     width: "100%",
                     borderRadius: "15px",
-                    // paddingTop:"9%",
                     overflow: "hidden",
                   }}
                 />
