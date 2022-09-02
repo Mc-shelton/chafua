@@ -6,6 +6,7 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
+  TextInput,
   ImageBackground,
 } from "react-native";
 import { AirbnbRating } from "react-native-ratings";
@@ -191,6 +192,16 @@ function Hotel({ route, navigation }) {
           </TouchableOpacity>
         </ScrollView>
       </View>
+
+      <TextInput
+          placeholder="search bar"
+          style={[styles.search, { outline: "none" }]}
+          onFocus={(e) =>
+            navigation.navigate("Search", {
+              params: { isSearching: true, word: e.target.value },
+            })
+          }
+        />
       <ScrollView
         style={{
           marginTop: "20px",
@@ -243,7 +254,7 @@ function Hotel({ route, navigation }) {
                 <ImageBackground
                   source={item.thumbNail}
                   style={{
-                    borderBottom: "2px solid red",
+                    borderBottom: "2px solid rgb(74, 4, 4)",
                     height: "100px",
                     width: "100%",
                     borderRadius: "15px",
@@ -302,9 +313,18 @@ const styles = StyleSheet.create({
     padding: "0",
     overflow: "none",
     height: "100%",
+  }, search: {
+    border: "2px solid rgb(74, 4, 4)",
+    height: "35px",
+    fontSize: "18px",
+    borderRadius: "15px",
+    paddingLeft: "10px",
+    width: "80%",
+    marginTop: "10px",
+    marginLeft: "10px",
   },
   totalBox: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     height: "150px",
     width: "90%",
     marginLeft: "5%",
@@ -320,7 +340,7 @@ const styles = StyleSheet.create({
     height: "35px",
   },
   cartItem: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     height: "120px",
     borderRadius: "20px",
     marginTop: "20px",
@@ -357,7 +377,7 @@ const styles = StyleSheet.create({
     // border:'2px solid red'
   },
   item: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     height: "fit-content",
     paddingBottom: "5px",
     width: "150px",

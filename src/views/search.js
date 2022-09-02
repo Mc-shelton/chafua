@@ -53,49 +53,54 @@ function Search({ route, navigation }) {
 
       anotherSet = [...new Set([...set, ...nameList])];
 
-      item.description.split(' ').forEach((anotherItem) =>{
-        if(value.includes(anotherItem.toUpperCase())){
+      item.description.split(" ").forEach((anotherItem) => {
+        if (value.includes(anotherItem.toUpperCase())) {
           if (nameList.indexOf(hotelConstList[ind] != -1)) {
             nameList.push(hotelConstList[ind]);
           }
         }
-      }
-      ) 
+      });
       anotherSet = [...new Set([...set, ...nameList])];
     });
 
     value.forEach((string) => {
-      searchedList.forEach((item, ind) => {
-        if (item.name.toUpperCase().includes(string)) {
-          if (descList.indexOf(hotelConstList[ind] != -1)) {
-            descList.push(hotelConstList[ind]);
+      if (string != " " && value != '' ) {
+        searchedList.forEach((item, ind) => {
+          if (item.name.toUpperCase().includes(string)) {
+            if (descList.indexOf(hotelConstList[ind] != -1)) {
+              descList.push(hotelConstList[ind]);
+            }
           }
-        }
-      });
+        });
 
-      set = [...new Set([...set, ...descList])];
+        set = [...new Set([...set, ...descList])];
 
-      searchedList.forEach((item, ind) => {
-        if (item.description.toUpperCase().includes(string)) {
-          if (descList.indexOf(hotelConstList[ind] != -1)) {
-            descList.push(hotelConstList[ind]);
+        searchedList.forEach((item, ind) => {
+          if (item.description.toUpperCase().includes(string)) {
+            if (descList.indexOf(hotelConstList[ind] != -1)) {
+              descList.push(hotelConstList[ind]);
+            }
           }
-        }
-      });
+        });
 
-      set = [...new Set([...set, ...descList])];
+        set = [...new Set([...set, ...descList])];
 
-      searchedList.forEach((item, ind) => {
-        if (item.category.toUpperCase().includes(string)) {
-          if (categList.indexOf(hotelConstList[ind] != -1)) {
-            categList.push(hotelConstList[ind]);
+        searchedList.forEach((item, ind) => {
+          if (item.category.toUpperCase().includes(string)) {
+            if (categList.indexOf(hotelConstList[ind] != -1)) {
+              categList.push(hotelConstList[ind]);
+            }
           }
-        }
-      });
-      set = [...new Set([...set, ...categList])];
-    });
+        });
+        set = [...new Set([...set, ...categList])];
+
     searchedList = set;
-    setHotelList(anotherSet);
+    setHotelList(set);
+      }else{
+        console.log(hotelConstList)
+    setHotelList(hotelConstList);
+      }
+    });
   };
   useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {

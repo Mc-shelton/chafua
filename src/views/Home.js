@@ -287,7 +287,7 @@ function Home({ navigation }) {
                 <ImageBackground
                   source={item.image}
                   style={{
-                    borderBottom: "2px solid red",
+                    borderBottom: "2px solid rgb(74, 4, 4)",
                     height: "100px",
                     width: "100%",
                     borderRadius: "15px",
@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
     // border:'2px solid red'
   },
   item: {
-    border: "2px solid red",
+    border: "2px solid rgb(74, 4, 4)",
     height: "fit-content",
     paddingBottom: "5px",
     width: "150px",
