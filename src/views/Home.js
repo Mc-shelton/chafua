@@ -85,7 +85,7 @@ function Home({ navigation }) {
         <TextInput
           placeholder="search bar"
           style={[styles.search, { outline: "none" }]}
-          onSubmitEditing={(e) =>
+          onFocus={(e) =>
             navigation.navigate("Search", {
               params: { isSearching: true, word: e.target.value },
             })

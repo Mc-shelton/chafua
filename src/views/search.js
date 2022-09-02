@@ -28,14 +28,75 @@ function Search({ route, navigation }) {
   const [descFilter, setDescFilter] = useState([]);
   const [nameFilter, setNameFilter] = useState([]);
 
-  useEffect(() => {
-    if (route.params) {
-      setHotelList(
-        hotelConstList.filter((categ) => categ.categories.includes(name))
-      );
-    }
-  });
+  const [searchValue, setSearchValue] = useState("");
+  const searchEng = (value) => {
+    let nameList = [];
+    let descList = [];
+    let categList = [];
+    let set = [];
+    let anotherSet = [];
+    let searchedList = hotelConstList;
+    value = value.toUpperCase();
+    value = value.split(" ");
 
+    searchedList.forEach((item, ind) => {
+      console.log("description", item.description);
+      if (
+        value.includes(item.name.toUpperCase()) ||
+        value.includes(item.category.toUpperCase())
+      ) {
+        console.log(item.description);
+        if (nameList.indexOf(hotelConstList[ind] != -1)) {
+          nameList.push(hotelConstList[ind]);
+        }
+      }
+
+      anotherSet = [...new Set([...set, ...nameList])];
+
+      item.description.split(' ').forEach((anotherItem) =>{
+        if(value.includes(anotherItem.toUpperCase())){
+          if (nameList.indexOf(hotelConstList[ind] != -1)) {
+            nameList.push(hotelConstList[ind]);
+          }
+        }
+      }
+      ) 
+      anotherSet = [...new Set([...set, ...nameList])];
+    });
+
+    value.forEach((string) => {
+      searchedList.forEach((item, ind) => {
+        if (item.name.toUpperCase().includes(string)) {
+          if (descList.indexOf(hotelConstList[ind] != -1)) {
+            descList.push(hotelConstList[ind]);
+          }
+        }
+      });
+
+      set = [...new Set([...set, ...descList])];
+
+      searchedList.forEach((item, ind) => {
+        if (item.description.toUpperCase().includes(string)) {
+          if (descList.indexOf(hotelConstList[ind] != -1)) {
+            descList.push(hotelConstList[ind]);
+          }
+        }
+      });
+
+      set = [...new Set([...set, ...descList])];
+
+      searchedList.forEach((item, ind) => {
+        if (item.category.toUpperCase().includes(string)) {
+          if (categList.indexOf(hotelConstList[ind] != -1)) {
+            categList.push(hotelConstList[ind]);
+          }
+        }
+      });
+      set = [...new Set([...set, ...categList])];
+    });
+    searchedList = set;
+    setHotelList(anotherSet);
+  };
   useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
       axios({
@@ -70,6 +131,16 @@ function Search({ route, navigation }) {
     });
     return willFocus;
   });
+
+  // useEffect(() => {
+  //   const willFocus = navigation.addListener('focus',()=>{
+
+  //     if (route.params) {
+  //       setSearchValue(route.params.params.word)
+  //     }
+  //   })
+  //   return willFocus
+  // });
   return (
     <View style={globalStyles.main}>
       {/* <TopHeader props={navigation} /> */}
@@ -81,56 +152,18 @@ function Search({ route, navigation }) {
         // onSubmitEditing={()=>navigation.navigate('Cart')}
         onChange={(e) => {
           let value = e.target.value;
-          let nameList = [];
-          let descList = [];
-          let categList = [];
-          let set = [];
-          let searchedList = hotelConstList;
-          value = value.toUpperCase();
-
-          value.split(" ").forEach((string) => {
-            // if(string != ''){
-            console.log("searching", string);
-            searchedList.forEach((item, ind) => {
-              if (item.name.toUpperCase().includes(string)) {
-                if (nameList.indexOf(hotelConstList[ind] != -1)) {
-                  nameList.push(hotelConstList[ind]);
-                }
-              }
-            });
-            console.log(nameList);
-
-            set = [...new Set([...set, ...nameList])];
-            searchedList.forEach((item, ind) => {
-              if (item.description.toUpperCase().includes(string)) {
-                if (descList.indexOf(hotelConstList[ind] != -1)) {
-                  descList.push(hotelConstList[ind]);
-                }
-              }
-            });
-            console.log(descList);
-
-            set = [...new Set([...set, ...descList])];
-
-            searchedList.forEach((item, ind) => {
-              if (item.category.toUpperCase().includes(string)) {
-                if (categList.indexOf(hotelConstList[ind] != -1)) {
-                  categList.push(hotelConstList[ind]);
-                }
-              }
-            });
-            console.log(categList);
-            set = [...new Set([...set, ...categList])];
-
-            console.log("final search", set);
-            setHotelList(set);
-            // }
-          });
+          setSearchValue(value);
+          searchEng(value);
         }}
+        // value={route.params?route.params.params.word:''}
+        value={searchValue}
+        autoFocus={route.params ? route.params.params.isSearching : false}
       />
       <View style={styles.trending}>
         <h4 style={{ margin: 0, marginLeft: "20px", paddingBottom: "8px" }}>
-          {hotelList.length == hotelConstList.length?'Search':`${hotelList.length} results found`}
+          {hotelList.length == hotelConstList.length
+            ? "Search"
+            : `${hotelList.length} results found`}
         </h4>
 
         <ScrollView
