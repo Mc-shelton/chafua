@@ -15,7 +15,7 @@ import { globalStyles } from "../components/commonStyles";
 import cartImg from "../../assets/icons/cart.png";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-function Details({ route,navigation }) {
+function Details({ route, navigation }) {
   const [countNum, setCountNum] = useState(0);
   const [logBox, setLogBox] = useState(false);
   const [reRender, setReRender] = useState(0);
@@ -26,7 +26,7 @@ function Details({ route,navigation }) {
     time++;
   }, 500);
 
-
+  console.log(route.params);
   useEffect(async () => {
     let cartString = await AsyncStorage.getItem("cart");
     let cartList = JSON.parse(cartString);
@@ -172,8 +172,17 @@ function Details({ route,navigation }) {
             ratingCount={1}
             ratingBackgroundColor="rgb(74, 4, 4)"
             startingValue={0}
-            onFinishRating={() => {
-              alert("Added to favorites");
+            onFinishRating={async () => {
+              let favItem = route.params.cartItems;
+              let paramList = [];
+              paramList.push(favItem);
+              let storeList = await AsyncStorage.getItem("favorites");
+              console.log(storeList)
+              storeList = JSON.parse(storeList)
+              let set = [...new Set([...paramList, ...storeList])];
+              set = JSON.stringify(set)
+              await AsyncStorage.setItem("favorites", set);
+              
             }}
           />
         </View>
@@ -304,13 +313,14 @@ function Details({ route,navigation }) {
               boxShadow: " rgba(149, 157, 165) 0px 8px 24px",
             }}
           >
-            <AirbnbRating showRating={false} size={15} 
-                      count={5}
-                      defaultRating={loadObj.rating}
-                      isDisabled
-                      selectedColor="rgb(74, 4, 4)"
-
-                      />
+            <AirbnbRating
+              showRating={false}
+              size={15}
+              count={5}
+              defaultRating={loadObj.rating}
+              isDisabled
+              selectedColor="rgb(74, 4, 4)"
+            />
             <Text
               style={{
                 fontSize: "25px",
@@ -318,7 +328,6 @@ function Details({ route,navigation }) {
               }}
             >
               {loadObj.name}
-
             </Text>
             <Text
               style={{
@@ -327,7 +336,6 @@ function Details({ route,navigation }) {
                 color: "grey",
               }}
             >
-              
               {loadObj.description}
             </Text>
             <Text
@@ -361,7 +369,7 @@ function Details({ route,navigation }) {
                   color: "brown",
                 }}
               >
-                {parseInt(loadObj.price) + parseInt(loadObj.packaging) }
+                {parseInt(loadObj.price) + parseInt(loadObj.packaging)}
               </Text>
               /=
             </Text>

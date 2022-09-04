@@ -124,10 +124,9 @@ function Orders({ navigation }) {
                 >
                   <ImageBackground
                     style={{
-                      border: "2px solid rgb(74, 4, 4)",
                       height: "100px",
                       width: "100px",
-                      borderRadius: "100%",
+                      // borderRadius: "100%",
                       marginLeft: "10px",
                     }}
                     source={val.thumbNail}
@@ -330,7 +329,6 @@ const styles = StyleSheet.create({
     height: "35px",
   },
   cartItem: {
-    border: "2px solid red",
     height: "120px",
     borderRadius: "20px",
     marginTop: "20px",
@@ -339,6 +337,7 @@ const styles = StyleSheet.create({
     marginLeft: "2.5%",
     // justifyContent:'center',
     flexDirection: "row",
+    boxShadow: " rgba(149, 157, 165) 0px 3px 15px",
     alignItems: "center",
     overflow: "hidden",
   },

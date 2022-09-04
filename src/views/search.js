@@ -165,7 +165,7 @@ function Search({ route, navigation }) {
         autoFocus={route.params ? route.params.params.isSearching : false}
       />
       <View style={styles.trending}>
-        <h4 style={{ margin: 0, marginLeft: "20px", paddingBottom: "8px" }}>
+        <h4 style={{ margin: 0, marginLeft: "20px",lineHeight:'0'}}>
           {hotelList.length == hotelConstList.length
             ? "Search"
             : `${hotelList.length} results found`}
@@ -199,13 +199,31 @@ function Search({ route, navigation }) {
                 <TouchableOpacity
                   style={styles.item}
                   onPress={() => {
-                    navigation.navigate("Details");
+                    let ind = hotelList
+                      .map((obj) => obj.itemID)
+                      .indexOf(item.itemID);
+                    navigation.navigate("Details", {
+                      cartItems: {
+                        name: item.name,
+                        hotel: item.hotel,
+                        price: item.price,
+                        estDelTime: item.estDelTime,
+                        thumbNail: item.thumbNail,
+                        count: parseInt(item.count),
+                        rating: parseInt(item.rating),
+                        itemID: parseInt(item.itemID),
+                        packaging: item.packaging,
+                        category: item.category,
+                        delivery: item.delivery,
+                        description:item.description,
+                      },
+                    });
                   }}
                 >
                   <ImageBackground
-                    source={item.image}
+                    source={item.thumbNail}
                     style={{
-                      borderBottom: "2px solid red",
+                      borderBottom: "2px solid rgb(74, 4, 4)",
                       height: "100px",
                       width: "100%",
                       borderRadius: "15px",
@@ -215,7 +233,8 @@ function Search({ route, navigation }) {
                   />
                   <View
                     style={{
-                      width: 120,
+                      // width: 120,
+                      paddingLeft:'5%'
                     }}
                   >
                     <Text
@@ -227,19 +246,21 @@ function Search({ route, navigation }) {
                     >
                       {item.name}
                     </Text>
-                    <Text>Status : {item.status}</Text>
-                    <Text>Est : {item.estTime}</Text>
+                    <Text>Hotel : {item.hotel}</Text>
+                    <Text>Est : {item.estDelTime}</Text>
 
                     <View
                       style={{
-                        marginLeft: "-10px",
+                        // marginLeft: "10px",
                         marginTop: "10px",
+                        // position:'absolute'
+                        marginLeft:'-10px'
                       }}
                     >
                       <AirbnbRating
                         count={5}
                         size={12}
-                        defaultRating={item.rating}
+                        defaultRating={3}
                         isDisabled
                         showRating={false}
                         selectedColor="rgb(74, 4, 4)"
@@ -270,14 +291,13 @@ const styles = StyleSheet.create({
     marginLeft: "10px",
   },
   trending: {
-    marginTop: "5px",
     height: "75%",
-    marginTop: "20px",
-    border: "2px solid red",
+    marginTop : "20px",
   },
   item: {
-    border: "2px solid red",
-    height: "200px",
+    border: "2px solid rgb(74, 4, 4)",
+    // height: "200px",
+    paddingBottom:'5px',
     width: "150px",
     borderRadius: "15px",
     marginTop: "20px",

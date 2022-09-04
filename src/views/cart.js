@@ -93,10 +93,8 @@ function Cart({ navigation }) {
               >
                 <ImageBackground
                   style={{
-                    border: "2px solid rgb(74, 4, 4)",
                     height: "100px",
                     width: "100px",
-                    borderRadius: "100%",
                     marginLeft: "10px",
                   }}
                   source={item.item.thumbNail}
