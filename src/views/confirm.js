@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native-web";
-import BackButton from "../components/backButton";
+import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
 import Logo from "../components/logo";
 

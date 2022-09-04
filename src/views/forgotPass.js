@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import { TouchableOpacity, View,Text, ImageBackground } from "react-native";
 import { TextInput } from "react-native-web";
-import BackButton from "../components/backButton";
+import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
 
 import logo from '../../assets/icons/logo.png'

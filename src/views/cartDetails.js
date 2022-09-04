@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { globalStyles } from "../components/commonStyles";
 import foodSrc from "../../assets/icons/all.png";
-import BackButton from "../components/backButton";
+import BackButton from "../components/BackButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 function CartDetails({route, navigation }) {
   const [reRender, setReRender] = useState(0);

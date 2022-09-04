@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
-import BackButton from "../components/backButton";
+import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
 import Logo from "../components/logo";
 import axios from "axios";

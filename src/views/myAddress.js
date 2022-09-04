@@ -7,7 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import BackButton from "../components/backButton";
+import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
 import props from "../props/props";
 

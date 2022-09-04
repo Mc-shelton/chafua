@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { AirbnbRating, Rating } from "react-native-ratings";
-import BackButton from "../components/backButton";
+import BackButton from "../components/BackButton";
 import BottomNav from "../components/bottomNav";
 import logo from "../../assets/icons/all.png";
 import { globalStyles } from "../components/commonStyles";

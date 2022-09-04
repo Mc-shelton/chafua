@@ -6,7 +6,7 @@ import {
   Text,
   TextInput,
 } from "react-native";
-// import BackButton from "../components/backButton";
+// import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -16,69 +16,83 @@ function LogIn({ navigation }) {
   const [Password, setPassword] = useState("");
 
   const handleLogIn = () => {
-    console.log(Email)
-    console.log(Password)
+    console.log(Email);
+    console.log(Password);
 
-    if(Email != '' && Password != ''){
-
+    if (Email != "" && Password != "") {
       axios({
-        method:'POST',
-        url:'http://localhost/chafua/logIn.php',
-        data:{
-          Email:Email,
-          Password:Password
+        method: "POST",
+        url: "http://localhost/chafua/logIn.php",
+        data: {
+          Email: Email,
+          Password: Password,
         },
-
-      }).then(async(response)=>{
-        try{
-         if(response.data.Name != undefined){
-
-          let data = JSON.stringify(response.data)
-         await AsyncStorage.setItem('user', data)
-         await AsyncStorage.setItem('isLoggedIn', true)
-         await AsyncStorage.setItem('cart',JSON.stringify([]))
-         await AsyncStorage.setItem('addresses',JSON.stringify([]))
-         await AsyncStorage.setItem('favorites',JSON.stringify([]))
-         window.location.reload()
-        //  console.log()
-         
-      }else{
-        alert(response.data)
-      }}catch(e){
-        console.log(e.message)
-        alert('You are offline')
-      }
-      })
-    }else{
-      alert('Some fields are not filled')
+      }).then(async (response) => {
+        try {
+          if (response.data.Name != undefined) {
+            let data = JSON.stringify(response.data);
+            await AsyncStorage.setItem("user", data);
+            await AsyncStorage.setItem("isLoggedIn", true);
+            await AsyncStorage.setItem("cart", JSON.stringify([]));
+            await AsyncStorage.setItem("addresses", JSON.stringify([]));
+            await AsyncStorage.setItem("favorites", JSON.stringify([]));
+            window.location.reload();
+            //  console.log()
+          } else {
+            alert(response.data);
+          }
+        } catch (e) {
+          console.log(e.message);
+          alert("You are offline");
+        }
+      });
+    } else {
+      alert("Some fields are not filled");
     }
   };
 
-
-
   return (
-    <View
-      style={{
-        height: "100%",
-        backgroundColor: "white",
-      }}
-    >
-      {/* <BackButton props={{ navigation: navigation, title: "Log In" }} /> */}
+    <View style={[globalStyles.main]}>
+      <View>
+        {/* <BackButton props={{ navigation: navigation, title: "Log In" }} /> */}
+
+        <Text style={[globalStyles.title]}>
+          LogIn
+          {/* {props.title} */}
+        </Text>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={[globalStyles.buttons]}
+        >
+          <View
+            style={{
+              // borderLeft: "3px solid rgb(74, 4, 4)",
+              // borderBottom: "3px solid rgb(74, 4, 4)",
+              borderColor: "rgb(74, 4, 4)",
+              borderLeftWidth: 2,
+              borderBottomWidth: 2,
+              height: 13,
+              marginLeft: 5,
+              width: 13,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
       <View
         style={[
           globalStyles.container,
           {
-            marginTop: 100,
+            // marginTop: 100,
             paddingTop: "30%",
             // border: "none",
-            borderWidth:0,
+            borderWidth: 0,
             backgroundColor: "white",
           },
         ]}
       >
         <Text
           style={{
-            fontSize: 27,
+            fontSize: 25,
             color: "rgb(94, 4, 4)",
             // marginTop: 20,
           }}
@@ -87,7 +101,7 @@ function LogIn({ navigation }) {
         </Text>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 15,
           }}
         >
           Login to your account
@@ -99,10 +113,12 @@ function LogIn({ navigation }) {
             globalStyles.iText,
             {
               marginTop: 70,
-              outline: "none",
+              // outline: "none",
             },
           ]}
           placeholder="Email"
+          keyboardType="email-address"
+          
           onChange={(event) => {
             setEmail(event.target.value);
           }}
@@ -112,7 +128,7 @@ function LogIn({ navigation }) {
             globalStyles.LButtons,
             globalStyles.iText,
             {
-              outline: "none",
+              // outline: "none",
             },
           ]}
           secureTextEntry={true}
@@ -127,9 +143,8 @@ function LogIn({ navigation }) {
             alignSelf: "flex-end",
             marginRight: 30,
           }}
-          onPress={() => {  
-    navigation.navigate("ForgotPass");
-
+          onPress={() => {
+            navigation.navigate("ForgotPass");
           }}
         >
           <Text
@@ -148,12 +163,12 @@ function LogIn({ navigation }) {
             globalStyles.LButtons,
             {
               marginTop: 50,
+              backgroundColor:'rgb(74, 4, 4)'
             },
           ]}
-
           onPress={handleLogIn}
         >
-          <Text style={[globalStyles.bText, { color: "rgb(74, 4, 4)" }]}>
+          <Text style={[globalStyles.bText, { color: "white" }]}>
             Login
           </Text>
         </TouchableOpacity>
@@ -181,21 +196,21 @@ function LogIn({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  buttons: {
-    // border: "2px solid rgb(74, 4, 4)",
-    borderWidth:2,
-    borderColor:' rgb(74, 4, 4)',
-    height: 45,
-    width: 45,
-    // borderRadius: 10,
-    transform: "rotate(45deg)",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-    position: "fixed",
-    marginLeft: 20,
-    zIndex: "3",
-  },
+  // buttons: {
+  //   // border: "2px solid rgb(74, 4, 4)",
+  //   borderWidth:2,
+  //   borderColor:' rgb(74, 4, 4)',
+  //   height: 45,
+  //   width: 45,
+  //   // borderRadius: 10,
+  //   transform: "rotate(45deg)",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   marginTop: 30,
+  //   position: "fixed",
+  //   marginLeft: 20,
+  //   zIndex: "3",
+  // },
 });
 
 export default LogIn;

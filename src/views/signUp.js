@@ -20,12 +20,12 @@ function SignUp({ navigation }) {
   const [isSelected, setSelection] = useState(false);
   const [isDisabled, setDisabled] = useState(true);
 
-  const [Email, setEmail] = useState("");
-  const [Phone, setPhone] = useState("");
-  const [Name, setName] = useState("");
-  const [Institution, setInstitution] = useState("");
-  const [Password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  // const [Email, setEmail] = useState("");
+  // const [Phone, setPhone] = useState("");
+  // const [Name, setName] = useState("");
+  // const [Institution, setInstitution] = useState("");
+  // const [Password, setPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignIn = () => {
     if (
@@ -50,11 +50,11 @@ function SignUp({ navigation }) {
         }).then(async (response) => {
           try {
             if (response.data.Name != undefined) {
-          let data = JSON.stringify(response.data)
+              let data = JSON.stringify(response.data);
 
               await AsyncStorage.setItem("user", data);
               await AsyncStorage.setItem("isLoggedIn", true);
-              await AsyncStorage.setItem('cart','')
+              await AsyncStorage.setItem("cart", "");
               window.location.reload();
             } else {
               alert(response.data);
@@ -231,7 +231,7 @@ function SignUp({ navigation }) {
             },
           ]}
         >
-          <CheckBox
+          {/* <CheckBox
             value={isSelected}
             onValueChange={() => {
               if (isSelected == false) {
@@ -242,7 +242,7 @@ function SignUp({ navigation }) {
                 setDisabled(true);
               }
             }}
-          />
+          /> */}
           <Text
             style={[
               globalStyles.iText,
@@ -291,7 +291,7 @@ function SignUp({ navigation }) {
           <TouchableOpacity
             onPress={() => navigation.navigate("LogIn")}
             style={{
-              color: "rgb(74, 4, 4)",
+              color: "rgb(74, 4,4)",
             }}
           >
             <Text style={[globalStyles.iText]}>Login</Text>

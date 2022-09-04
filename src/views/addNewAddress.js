@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   CheckBox,
 } from "react-native-web";
-import BackButton from "../components/backButton";
+import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
 
 function AddNewAddress({ route, navigation }) {

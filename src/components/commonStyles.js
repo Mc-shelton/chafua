@@ -2,31 +2,44 @@ import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
   main: {
+    paddingTop:'10%',
     height: "100%",
     backgroundColor: "white",
     overflowX:'hidden'
   },
   buttons: {
     // border: "2px solid rgb(74, 4, 4)",
-
-    borderWidth:0.5,
+    borderWidth:1,
     borderColor:'rgb(74, 4, 4)',
     height: 45,
     width: 45,
     borderRadius: 10,
     borderStyle:'solid',
-    transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 30,
-    position: "fixed",
-    zIndex: "3",
+    marginTop: -80,
+        transform: [{ rotate: '45deg' }],
+        // position: "fixed",
+    // backgroundColor:'red',
+    zIndex: 3,
     left: 20,
+  },
+  title: {
+    textAlign: "center",
+    //   marginTop: "1,
+    fontSize: 20,
+    // backgroundColor:'red',
+    // position: "fixed",
+    width: "100%",    backgroundColor:'red',
+    height: 100,
+    backgroundColor: "white",
+    paddingTop: 25,
+    zIndex: 2,
   },
   container: {
     // borderRadius: 15,
     // border: "2px solid rgb(74, 4, 4) ",
-    borderWidth:2,
+    borderWidth:1,
     borderColor:'rgb(74, 4, 4)',
     display: "flex",
     alignItems: "center",
@@ -35,11 +48,11 @@ export const globalStyles = StyleSheet.create({
   LButtons: {
     // border: "2px solid rgb(74, 4, 4)",
 
-    borderWidth:2,
+    borderWidth:1,
     borderColor:'rgb(74, 4, 4)',
     width: "90%",
-    // borderRadius: 15,
-    height: 50,
+    borderRadius: 10,
+    height: 45,
     paddingLeft: 10,
     marginTop: 15,
   },
@@ -49,18 +62,7 @@ export const globalStyles = StyleSheet.create({
     
   },
   iText: {
-    fontSize: 18,
-  },
-  title: {
-    textAlign: "center",
-    //   marginTop: "1,
-    fontSize: 20,
-    position: "fixed",
-    width: "100%",
-    height: 100,
-    backgroundColor: "white",
-    paddingTop: 45,
-    zIndex: "2",
+    fontSize: 15,
   },
   paddedButton: {
     backgroundColor: "rgb(74, 4, 4)",
