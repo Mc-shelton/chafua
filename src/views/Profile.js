@@ -30,7 +30,7 @@ function Profile({ navigation }) {
       style={[
         globalStyles.container,
         {
-          borderRadius: "0",
+          // borderRadius: "0",
           height: "100%",
           backgroundColor: "white",
         },
@@ -43,10 +43,10 @@ function Profile({ navigation }) {
           style={{
             position: "absolute",
             right: "7%",
-            top: "30px",
-            height: "34px",
-            width: "34px",
-            borderRadius:'100%',
+            top: 30,
+            height: 34,
+            width: 34,
+            // borderRadius:'100%',
             zIndex:4
           }}> 
         <Image
@@ -64,11 +64,11 @@ function Profile({ navigation }) {
           style={{
             position: "absolute",
             right: "7%",
-            top: "80px",
+            top: 80,
             border:'2px solid rgb(74, 4, 4)',
-            height: "35px",
-            width: "35px",
-            borderRadius:'100%',
+            height: 35,
+            width: 35,
+            // borderRadius:'100%',
             zIndex:4
           }}> 
         <Image
@@ -84,7 +84,7 @@ function Profile({ navigation }) {
           style={[
             globalStyles.container,
             {
-              padding: "100px",
+              padding: 100,
               position: "fixed",
               backgroundColor: "white",
               zIndex: "3",
@@ -100,10 +100,10 @@ function Profile({ navigation }) {
             style={[
               globalStyles.container,
               {
-                padding: "5px",
-                paddingLeft: "30px",
-                paddingRight: "30px",
-                marginTop: "20px",
+                padding: 5,
+                paddingLeft: 30,
+                paddingRight: 30,
+                marginTop: 20,
               },
             ]}
           >
@@ -139,15 +139,15 @@ function Profile({ navigation }) {
       </View>
       <Text
         style={{
-          fontSize: "21px",
-          marginTop: "30px",
+          fontSize: 21,
+          marginTop: 30,
         }}
       >
         {JSON.parse(user).Name}
       </Text>
       <Text
         style={{
-          fontSize: "15px",
+          fontSize: 15,
           width: "80%",
           color: "grey",
           //   marginBottom: "30%",
@@ -168,16 +168,16 @@ function Profile({ navigation }) {
         style={[
           {
             backgroundColor: "rgb(74, 4, 4)",
-            marginTop: "20px",
-            padding: "10px",
-            paddingLeft: "30px",
-            paddingRight: "30px",
-            borderRadius: "10px",
-            marginBottom: "30px",
+            marginTop: 20,
+            padding: 10,
+            paddingLeft: 30,
+            paddingRight: 30,
+            // borderRadius: 10,
+            marginBottom: 30,
           },
         ]}
       >
-        <Text style={{ fontSize: "18px", color: "white" }}>Edit Profile</Text>
+        <Text style={{ fontSize: 18, color: "white" }}>Edit Profile</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
@@ -213,8 +213,8 @@ function Profile({ navigation }) {
 const styles = StyleSheet.create({
   pgButtons: {
     width: "90%",
-    height: "50px",
-    marginTop: "25px",
+    height: 50,
+    marginTop: 25,
   },
 });
 export default Profile;

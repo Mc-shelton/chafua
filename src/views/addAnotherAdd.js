@@ -16,22 +16,22 @@ function AddAnotherAdd() {
           style={{
             borderLeft: "3px solid black",
             borderBottom: "3px solid black",
-            height: "13px",
-            marginLeft: "5px",
-            width: "13px",
+            height: 13,
+            marginLeft: 5,
+            width: 13,
           }}
         />
       </View>
       <Text
         style={{
           textAlign: "center",
-          //   marginTop: "-1px",
-          fontSize: "20px",
+          //   marginTop: "1,
+          fontSize: 20,
           position: "fixed",
           width: "100%",
-          height: "100px",
+          height: 100,
           backgroundColor: "white",
-          paddingTop: "45px",
+          paddingTop: 45,
           zIndex: "2",
         }}
       >
@@ -40,11 +40,11 @@ function AddAnotherAdd() {
 
       <TextInput
         style={{
-          height: "50px",
+          height: 50,
           width: "90%",
           backgroundColor: "grey",
-          borderRadius: "15px",
-          marginTop:'150px',
+          // borderRadius: 15,
+          marginTop:150,
           color:'white'
         }}
         placeholder="Address Title"
@@ -53,10 +53,10 @@ function AddAnotherAdd() {
       <TextInput
         placeholder="Hostel/Class/Office ?"
         style={{
-          height: "50px",
+          height: 50,
           width: "90%",
           backgroundColor: "grey",
-          borderRadius: "15px",
+          // borderRadius: 15,
           color:'white',
           marginTop:'15px',
         }}
@@ -64,20 +64,20 @@ function AddAnotherAdd() {
       <TextInput
         placeholder="name"
         style={{
-          height: "50px",
+          height: 50,
           width: "90%",
           backgroundColor: "grey",
-          borderRadius: "15px",
+          // borderRadius: 15,
           marginTop:'15px'
         }}
       ></TextInput>
       <TouchableOpacity
 
         style={{
-          height: "50px",
+          height: 50,
           width: "90%",
           backgroundColor: "red",
-          borderRadius: "15px",
+          // borderRadius: 15,
           marginTop:'15px',
           display:'flex',
           justifyContent:'center',
@@ -85,7 +85,7 @@ function AddAnotherAdd() {
         }}
       >
         <Text style={{
-            fontSize:'25px',
+            fontSize:25,
             color:"white",
         }}>Save</Text>
       </TouchableOpacity>
@@ -95,15 +95,15 @@ function AddAnotherAdd() {
 const styles = StyleSheet.create({
   buttons: {
     border: "2px solid red",
-    height: "45px",
-    width: "45px",
-    borderRadius: "10px",
+    height: 45,
+    width: 45,
+    // borderRadius: 10,
     transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "30px",
+    marginTop: 30,
     position: "fixed",
-    left: "20px",
+    left: 20,
     position: "absolute",
     zIndex: "3",
   },

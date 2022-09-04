@@ -93,18 +93,18 @@ function Cart({ navigation }) {
               >
                 <ImageBackground
                   style={{
-                    height: "100px",
-                    width: "100px",
-                    marginLeft: "10px",
+                    height: 100,
+                    width: 100,
+                    marginLeft: 10,
                   }}
                   source={item.item.thumbNail}
                   imageStyle={{
-                    borderRadius: "15px",
+                    // borderRadius: 15,
                   }}
                 />
                 <View
                   style={{
-                    marginLeft: "20px",
+                    marginLeft: 20,
                     maxWidth: "50%",
                     // border:'2px solid red'
                   }}
@@ -112,8 +112,8 @@ function Cart({ navigation }) {
                   <Text
                     style={{
                       position: "absolute",
-                      left: "180px",
-                      fontSize: "18px",
+                      left: 180,
+                      fontSize: 18,
                       color: "rgb(74, 4, 4)",
                     }}
                   >
@@ -121,7 +121,7 @@ function Cart({ navigation }) {
                   </Text>
                   <Text
                     style={{
-                      fontSize: "20px",
+                      fontSize: 20,
                     }}
                   >
                     {item.item.name}
@@ -135,14 +135,14 @@ function Cart({ navigation }) {
                   </Text>
                   <Text
                     style={{
-                      fontSize: "25px",
-                      marginTop: "10px",
+                      fontSize: 25,
+                      marginTop: 10,
                     }}
                   >
                     {parseInt(item.item.price) + parseInt(item.item.packaging)}{" "}
                     <span
                       style={{
-                        fontSize: "14px",
+                        fontSize: 14,
                         color: "rgb(74, 4, 4)",
                         fontWeight: "bold",
                       }}
@@ -156,8 +156,8 @@ function Cart({ navigation }) {
           }}
           style={{
             width: "100%",
-            marginTop: "0px",
-            paddingBottom: "10px",
+            marginTop: 0,
+            paddingBottom: 10,
             height: "10%",
             // border:'2px solid red'
           }}
@@ -166,7 +166,7 @@ function Cart({ navigation }) {
               <Text
                 style={{
                   textAlign: "center",
-                  fontSize: "20px",
+                  fontSize: 20,
                   marginTop: "40%",
                 }}
               >
@@ -180,19 +180,19 @@ function Cart({ navigation }) {
       <View
         style={{
           position: "fixed",
-          bottom: "20px",
+          bottom: 20,
           width: "100%",
           backgroundColor: "white",
-          paddingTop: "10px",
-          paddingBottom: "60px",
-          boxShadow: " rgba(149, 157, 165) 0px 3px 15px",
+          paddingTop: 10,
+          paddingBottom: 60,
+          boxShadow: " rgba(149, 157, 165) 0px 3px 15px" ,
           // border: "2px solid red",
         }}
       >
         <View style={styles.totalBox}>
           <Text
             style={{
-              fontSize: "20px",
+              fontSize: 20,
             }}
           >
             Delivery time
@@ -201,29 +201,29 @@ function Cart({ navigation }) {
             style={{
               position: "absolute",
               display: "flex",
-              right: "10px",
-              marginTop: "-5px",
+              right: 10,
+              marginTop: -5,
               flexDirection: "row",
               alignItems: "center",
             }}
           >
             <ImageBackground
               style={{
-                height: "30px",
-                width: "30px",
+                height: 30,
+                width: 30,
                 border: "2px solid rgb(74, 4, 4)",
-                borderRadius: "100%",
-                marginRight: "5px",
+                // borderRadius: "100%",
+                marginRight: 5,
               }}
               source={time}
               imageStyle={{
-                borderRadius: "15px",
+                // borderRadius: 15,
               }}
             />
             <Text
               style={{
-                marginLeft: "5px",
-                fontSize: "17px",
+                marginLeft: 5,
+                fontSize: 17,
                 fontWeight: "bold",
               }}
             >
@@ -232,20 +232,20 @@ function Cart({ navigation }) {
           </View>
           <Text
             style={{
-              marginTop: "16px",
+              marginTop: 16,
             }}
           >
             Total Price
           </Text>
           <Text
             style={{
-              fontSize: "40px",
+              fontSize: 40,
             }}
           >
             {totalPrice}
             <span
               style={{
-                fontSize: "20px",
+                fontSize: 20,
                 color: "rgb(74, 4, 4)",
                 fontWeight: "bold",
               }}
@@ -255,17 +255,17 @@ function Cart({ navigation }) {
           </Text>
           <TouchableOpacity
             style={{
-              height: "40px",
-              width: "150px",
+              height: 40,
+              width: 150,
               border: "2px solid rgb(74, 4, 4)",
-              borderRadius: "15px",
+              // borderRadius: 15,
               position: "absolute",
-              bottom: "20px",
+              bottom: 20,
               backgroundColor: "rgb(74, 4, 4)",
               color: "white",
               alignItems: "center",
               justifyContent: "center",
-              right: "20px",
+              right: 20,
             }}
             onPress={() => {
               console.log();
@@ -287,17 +287,17 @@ function Cart({ navigation }) {
             globalStyles.container,
             {
               position: "absolute",
-              bottom: "80px",
+              bottom: 80,
               backgroundColor: "grey",
               width: "70%",
-              padding: "5px",
+              padding: 5,
               left: "14%",
             },
           ]}
         >
           <Text
             style={{
-              fontSize: "17px",
+              fontSize: 17,
               color: "white",
             }}
           >
@@ -320,30 +320,30 @@ const styles = StyleSheet.create({
   },
   totalBox: {
     border: "2px solid rgb(74, 4, 4)",
-    height: "150px",
+    height: 150,
     width: "90%",
     marginLeft: "5%",
-    borderRadius: "20px",
+    // borderRadius: 20,
     backgroundColor: "white",
-    padding: "20px",
+    padding: 20,
   },
   buttons: {
     border: "2px solid rgb(74, 4, 4)",
-    height: "45px",
-    width: "45px",
-    borderRadius: "10px",
+    height: 45,
+    width: 45,
+    // borderRadius: 10,
     transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "30px",
+    marginTop: 30,
     position: "fixed",
-    marginLeft: "20px",
+    marginLeft: 20,
     zIndex: "3",
   },
   cartItem: {
-    height: "120px",
-    borderRadius: "20px",
-    marginTop: "20px",
+    height: 120,
+    // borderRadius: 20,
+    marginTop: 20,
     marginLeft: "5%",
     width: "90%",
     display: "flex",

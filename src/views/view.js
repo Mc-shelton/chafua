@@ -11,4 +11,4 @@ function Views(){
     )
 }
 
-export default Views
+export default View

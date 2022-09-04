@@ -15,9 +15,9 @@ function BackButton({props}){
         style={{
           borderLeft: "3px solid rgb(74, 4, 4)",
           borderBottom: "3px solid rgb(74, 4, 4)",
-          height: "13px",
-          marginLeft: "5px",
-          width: "13px",
+          height: 13,
+          marginLeft: 5,
+          width: 13,
           
         }}
       />

@@ -153,7 +153,7 @@ function Search({ route, navigation }) {
 
       <TextInput
         placeholder="search bar"
-        style={[styles.search, { outline: "none", marginTop: "30px" }]}
+        style={[styles.search, { outline: "none", marginTop: 30 }]}
         // onSubmitEditing={()=>navigation.navigate('Cart')}
         onChange={(e) => {
           let value = e.target.value;
@@ -165,7 +165,7 @@ function Search({ route, navigation }) {
         autoFocus={route.params ? route.params.params.isSearching : false}
       />
       <View style={styles.trending}>
-        <h4 style={{ margin: 0, marginLeft: "20px",lineHeight:'0'}}>
+        <h4 style={{ margin: 0, marginLeft: 20,lineHeight:'0'}}>
           {hotelList.length == hotelConstList.length
             ? "Search"
             : `${hotelList.length} results found`}
@@ -173,7 +173,7 @@ function Search({ route, navigation }) {
 
         <ScrollView
           style={{
-            marginTop: "20px",
+            marginTop: 20,
           }}
         >
           <MasonryList
@@ -224,9 +224,9 @@ function Search({ route, navigation }) {
                     source={item.thumbNail}
                     style={{
                       borderBottom: "2px solid rgb(74, 4, 4)",
-                      height: "100px",
+                      height: 100,
                       width: "100%",
-                      borderRadius: "15px",
+                      // borderRadius: 15,
                       // paddingTop:"9%",
                       overflow: "hidden",
                     }}
@@ -239,9 +239,9 @@ function Search({ route, navigation }) {
                   >
                     <Text
                       style={{
-                        fontSize: "18px",
-                        marginTop: "10px",
-                        marginBottom: "5px",
+                        fontSize: 18,
+                        marginTop: 10,
+                        marginBottom: 5,
                       }}
                     >
                       {item.name}
@@ -251,8 +251,8 @@ function Search({ route, navigation }) {
 
                     <View
                       style={{
-                        // marginLeft: "10px",
-                        marginTop: "10px",
+                        // marginLeft: 10,
+                        marginTop: 10,
                         // position:'absolute'
                         marginLeft:'-10px'
                       }}
@@ -282,25 +282,25 @@ function Search({ route, navigation }) {
 const styles = StyleSheet.create({
   search: {
     border: "2px solid grey",
-    height: "35px",
-    fontSize: "18px",
-    borderRadius: "15px",
-    paddingLeft: "10px",
+    height: 35,
+    fontSize: 18,
+    // borderRadius: 15,
+    paddingLeft: 10,
     width: "80%",
-    marginTop: "10px",
-    marginLeft: "10px",
+    marginTop: 10,
+    marginLeft: 10,
   },
   trending: {
     height: "75%",
-    marginTop : "20px",
+    marginTop : 20,
   },
   item: {
     border: "2px solid rgb(74, 4, 4)",
-    // height: "200px",
+    // height: 200,
     paddingBottom:'5px',
-    width: "150px",
-    borderRadius: "15px",
-    marginTop: "20px",
+    width: 150,
+    // borderRadius: 15,
+    marginTop: 20,
     overflow: "hidden",
     backgroundColor: "white",
     marginLeft: "7%",

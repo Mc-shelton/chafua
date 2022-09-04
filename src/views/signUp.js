@@ -4,16 +4,16 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  CheckBox,
   Link,
   Linking,
 } from "react-native";
-import BackButton from "../components/backButton";
+// import BackButton from "../components/backButton";
 import { globalStyles } from "../components/commonStyles";
 import axios from "axios";
 import Picker from "react-native-picker-select";
 import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CheckBox } from "@react-native-community/checkbox";
 const countries = ["Egypt", "Ireland"];
 
 function SignUp({ navigation }) {
@@ -77,12 +77,12 @@ function SignUp({ navigation }) {
         backgroundColor: "white",
       }}
     >
-      <BackButton props={{ navigation: navigation, title: "Sign Up" }} />
+      {/* <BackButton props={{ navigation: navigation, title: "Sign Up" }} /> */}
       <View
         style={[
           globalStyles.container,
           {
-            marginTop: "100px",
+            marginTop: 100,
             height: "85%",
             backgroundColor: "white",
             border: "none",
@@ -91,16 +91,16 @@ function SignUp({ navigation }) {
       >
         <Text
           style={{
-            fontSize: "27px",
+            fontSize: 27,
             color: "rgb(94, 4, 4)",
-            // marginTop: "20px",
+            // marginTop: 20,
           }}
         >
           Register
         </Text>
         <Text
           style={{
-            fontSize: "20px",
+            fontSize: 20,
           }}
         >
           create your new account
@@ -111,7 +111,7 @@ function SignUp({ navigation }) {
             globalStyles.LButtons,
             globalStyles.iText,
             {
-              marginTop: "40px",
+              marginTop: 40,
               outline: "none",
             },
           ]}
@@ -161,15 +161,15 @@ function SignUp({ navigation }) {
           buttonStyle={{
             border: "2px solid rgb(74, 4, 4)",
             width: "90%",
-            borderRadius: "15px",
-            height: "50px",
+            // borderRadius: 15,
+            height: 50,
             justifyContent: "flex-end",
             alignItems: "center",
-            paddingLeft: "10px",
-            marginTop: "15px",
+            paddingLeft: 10,
+            marginTop: 15,
           }}
           buttonTextStyle={{
-            fontSize: "18px",
+            fontSize: 18,
             // color:'grey'
           }}
           defaultButtonText="Choose institution"
@@ -180,12 +180,12 @@ function SignUp({ navigation }) {
             backgroundColor: "#FAFAFA",
           }}
           rowTextStyle={{
-            fontSize: "18px",
-            paddingLeft: "15px",
+            fontSize: 18,
+            paddingLeft: 15,
           }}
           rowStyle={{
-            marginTop: "10px",
-            padding: "10px",
+            marginTop: 10,
+            padding: 10,
             borderBottom: "2px solid rgb(74, 4, 4)",
           }}
         />
@@ -224,8 +224,8 @@ function SignUp({ navigation }) {
             globalStyles.container,
             {
               flexDirection: "row",
-              paddingLeft: "20px",
-              paddingRight: "20px",
+              paddingLeft: 20,
+              paddingRight: 20,
               marginTop: "5%",
               border: "none",
             },
@@ -247,8 +247,8 @@ function SignUp({ navigation }) {
             style={[
               globalStyles.iText,
               {
-                paddingLeft: "10px",
-                marginTop: "20px",
+                paddingLeft: 10,
+                marginTop: 20,
               },
             ]}
           >
@@ -271,7 +271,7 @@ function SignUp({ navigation }) {
             globalStyles.container,
             globalStyles.LButtons,
             {
-              marginTop: "20px",
+              marginTop: 20,
             },
           ]}
           onPress={handleSignIn}
@@ -283,7 +283,7 @@ function SignUp({ navigation }) {
           style={[
             globalStyles.iText,
             {
-              marginTop: "30px",
+              marginTop: 30,
             },
           ]}
         >

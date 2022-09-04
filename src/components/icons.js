@@ -9,7 +9,7 @@ function Icons({props}){
           style={{
             height: "70%",
             width: "70%",
-            borderRadius: "100%",
+            // borderRadius: "100%",
             // border:'2px solid red'
           }}
           imageStyle={{

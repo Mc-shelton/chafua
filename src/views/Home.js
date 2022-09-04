@@ -20,12 +20,16 @@ import { AirbnbRating, Rating } from "react-native-ratings";
 import MasonryList from "@react-native-seoul/masonry-list";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+// import { SliderBox } from "react-native-image-slider-box";
 function Home({ navigation }) {
   const [hotelList, setHotelList] = useState([]);
   const [hotelConstList, setConstHotelList] = useState([]);
-  const [userDetails, setUserDetails] = useState()
-
+  const [userDetails, setUserDetails] = useState();
+  const [stateImages, setStateImages] = useState([
+    "https://media.npr.org/assets/img/2022/06/06/gettyimages-1199291938-40_custom-7191b02345de50bf85961f6342c202dd9d6d20a0-s800-c85.webp",
+    "https://media.npr.org/assets/img/2022/06/06/gettyimages-1199291938-40_custom-7191b02345de50bf85961f6342c202dd9d6d20a0-s800-c85.webp",
+    "https://media.npr.org/assets/img/2022/06/06/gettyimages-1199291938-40_custom-7191b02345de50bf85961f6342c202dd9d6d20a0-s800-c85.webp",
+  ]);
 
   useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
@@ -36,11 +40,11 @@ function Home({ navigation }) {
           url: "http://localhost/chafua/getHotels.php",
           data: { campusID: campusID },
         })
-          .then(async(res) => {
-            if(typeof(res.data) != 'string'){
-            console.log(res.data);
-            setHotelList(res.data);
-            setConstHotelList(res.data);
+          .then(async (res) => {
+            if (typeof res.data != "string") {
+              console.log(res.data);
+              setHotelList(res.data);
+              setConstHotelList(res.data);
             }
           })
           .catch((eer) => {
@@ -51,18 +55,20 @@ function Home({ navigation }) {
     return willFocus;
   });
 
-  useEffect(()=>{
-    const willFocus = navigation.addListener('focus',()=>{
-      AsyncStorage.getItem('user').then((res)=>{
-        let parse = JSON.parse(res)
-        setUserDetails(parse)
-      }).catch((err)=>{
-        console.log(err)
-        alert('something went wrong')
-      })
-    })
-    return willFocus
-  })
+  useEffect(() => {
+    const willFocus = navigation.addListener("focus", () => {
+      AsyncStorage.getItem("user")
+        .then((res) => {
+          let parse = JSON.parse(res);
+          setUserDetails(parse);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("something went wrong");
+        });
+    });
+    return willFocus;
+  });
   const categFilter = (name) => {
     if (name != "All") {
       setHotelList(
@@ -92,11 +98,50 @@ function Home({ navigation }) {
           }
         />
         <View style={styles.advert}>
+          {/* <SliderBox
+            ImageComponent={FastImage}
+            images={stateImages}
+            sliderBoxHeight={200}
+            onCurrentImagePressed={(index) =>
+              console.warn(`image ${index} pressed`)
+            }
+            dotColor="#FFEE58"
+            inactiveDotColor="#90A4AE"
+            paginationBoxVerticalPadding={20}
+            autoplay
+            circleLoop
+            resizeMethod={"resize"}
+            resizeMode={"cover"}
+            paginationBoxStyle={{
+              position: "absolute",
+              bottom: 0,
+              padding: 0,
+              alignItems: "center",
+              alignSelf: "center",
+              justifyContent: "center",
+              paddingVertical: 10,
+            }}
+            dotStyle={{
+              width: 10,
+              height: 10,
+              // borderRadius: 5,
+              marginHorizontal: 0,
+              padding: 0,
+              margin: 0,
+              backgroundColor: "rgba(128, 128, 128, 0.92)",
+            }}
+            ImageComponentStyle={{
+              // borderRadius: 15,
+              width: "97%",
+              marginTop: 5,
+            }}
+            imageLoadingColor="#2196F3"
+          /> */}
           <ImageBackground
             style={{
               height: "100%",
               width: "100%",
-              borderRadius: "15px",
+              // borderRadius: 15,
               overflow: "hidden",
               // border:'2px solid red'
             }}
@@ -113,10 +158,10 @@ function Home({ navigation }) {
         <View>
           <Text
             style={{
-              fontSize: "20px",
+              fontSize: 20,
               fontWeight: "bold",
-              marginTop: "10px",
-              paddingLeft: "5px",
+              marginTop: 10,
+              paddingLeft: 5,
             }}
           >
             Categories
@@ -255,8 +300,10 @@ function Home({ navigation }) {
         </ScrollView>
       </View>
       <ScrollView style={styles.trending}>
-        <h4 style={{ margin: 0, paddingBottom: "20px" }}>{userDetails?userDetails.campName:'Hotels'}</h4>
-        
+        <h4 style={{ margin: 0, paddingBottom: 20 }}>
+          {userDetails ? userDetails.campName : "Hotels"}
+        </h4>
+
         <MasonryList
           data={hotelList}
           keyExtractor={(item) => item.id}
@@ -288,9 +335,9 @@ function Home({ navigation }) {
                   source={item.image}
                   style={{
                     borderBottom: "2px solid rgb(74, 4, 4)",
-                    height: "100px",
+                    height: 100,
                     width: "100%",
-                    borderRadius: "15px",
+                    // borderRadius: 15,
                     overflow: "hidden",
                   }}
                 />
@@ -301,9 +348,9 @@ function Home({ navigation }) {
                 >
                   <Text
                     style={{
-                      fontSize: "18px",
-                      marginTop: "10px",
-                      marginBottom: "5px",
+                      fontSize: 18,
+                      marginTop: 10,
+                      marginBottom: 5,
                     }}
                   >
                     {item.name}
@@ -313,8 +360,8 @@ function Home({ navigation }) {
 
                   <View
                     style={{
-                      marginLeft: "-10px",
-                      marginTop: "10px",
+                      marginLeft: -10,
+                      marginTop: 10,
                     }}
                   >
                     <AirbnbRating
@@ -340,62 +387,65 @@ function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   search: {
-    border: "2px solid rgb(74, 4, 4)",
-    height: "35px",
-    fontSize: "18px",
-    borderRadius: "15px",
-    paddingLeft: "10px",
+    // border: "2px solid rgb(74, 4, 4)",
+
+    borderWidth:2,
+    borderColor:'rgb(74, 4, 4)',
+    height: 35,
+    fontSize: 18,
+    // borderRadius: 15,
+    paddingLeft: 10,
     width: "80%",
-    marginTop: "10px",
-    marginLeft: "10px",
+    marginTop: 10,
+    marginLeft: 10,
   },
   advert: {
     border: "2px solid rgb(74, 4, 4)",
-    marginTop: "15px",
-    height: "200px",
+    marginTop: 15,
+    height: 200,
     backgroundColor: "white",
-    borderRadius: "15px",
+    // borderRadius: 15,
   },
   categBox: {
     display: "flex",
     flexDirection: "row",
     overflow: "scroll",
-    marginTop: "5px",
-    paddingBottom: "15px",
+    marginTop: 5,
+    paddingBottom: 15,
   },
   categMiniBox: {
     border: "2px solid rgb(74, 4, 4)",
-    minWidth: "85px",
-    paddingRight: "10px",
-    paddingLeft: "10px",
-    height: "40px",
-    borderRadius: "15px",
-    marginLeft: "10px",
+    minWidth: 85,
+    paddingRight: 10,
+    paddingLeft: 10,
+    height: 40,
+    // borderRadius: 15,
+    marginLeft: 10,
     display: "flex",
     flexDirection: "row-reverse",
     alignItems: "center",
     justifyContent: "flex-end",
   },
   categIcon: {
-    height: "35px",
-    width: "35px",
-    borderRadius: "100%",
-    marginTop: "10px",
+    height: 35,
+    width: 35,
+    // borderRadius: "100%",
+    marginTop: 10,
   },
   trending: {
     // marginTop:'5px',
-    paddingLeft: "5px",
-    // paddingTop: "15px",
+    paddingLeft: 5,
+    // paddingTop: 15,
     height: "42%  ",
     // border:'2px solid red'
   },
   item: {
     border: "2px solid rgb(74, 4, 4)",
     height: "fit-content",
-    paddingBottom: "5px",
-    width: "150px",
-    borderRadius: "15px",
-    marginBottom: "20px",
+    paddingBottom: 5,
+    width: 150,
+    // borderRadius: 15,
+    marginBottom: 20,
     overflow: "hidden",
     backgroundColor: "white",
     marginLeft: "7%",

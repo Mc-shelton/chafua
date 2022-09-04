@@ -58,7 +58,7 @@ function Hotel({ route, navigation }) {
         style={[
           globalStyles.container,
           {
-            marginTop: "20px",
+            marginTop: 20,
             flexDirection: "row",
             border: "none",
           },
@@ -194,17 +194,17 @@ function Hotel({ route, navigation }) {
       </View>
 
       <TextInput
-          placeholder="search bar"
-          style={[styles.search, { outline: "none" }]}
-          onFocus={(e) =>
-            navigation.navigate("Search", {
-              params: { isSearching: true, word: e.target.value },
-            })
-          }
-        />
+        placeholder="search bar"
+        style={[styles.search, { outline: "none" }]}
+        onFocus={(e) =>
+          navigation.navigate("Search", {
+            params: { isSearching: true, word: e.target.value },
+          })
+        }
+      />
       <ScrollView
         style={{
-          marginTop: "20px",
+          marginTop: 20,
         }}
       >
         <MasonryList
@@ -246,7 +246,7 @@ function Hotel({ route, navigation }) {
                       packaging: item.packaging,
                       category: item.category,
                       delivery: item.delivery,
-                      description:item.description,
+                      description: item.description,
                     },
                   });
                 }}
@@ -255,9 +255,9 @@ function Hotel({ route, navigation }) {
                   source={item.thumbNail}
                   style={{
                     borderBottom: "2px solid rgb(74, 4, 4)",
-                    height: "100px",
+                    height: 100,
                     width: "100%",
-                    borderRadius: "15px",
+                    // borderRadius: 15,
                     // paddingTop:"9%",
                     overflow: "hidden",
                   }}
@@ -269,9 +269,9 @@ function Hotel({ route, navigation }) {
                 >
                   <Text
                     style={{
-                      fontSize: "18px",
-                      marginTop: "10px",
-                      marginBottom: "5px",
+                      fontSize: 18,
+                      marginTop: 10,
+                      marginBottom: 5,
                     }}
                   >
                     {item.name}
@@ -282,8 +282,8 @@ function Hotel({ route, navigation }) {
 
                   <View
                     style={{
-                      marginLeft: "-10px",
-                      marginTop: "10px",
+                      marginLeft: -10,
+                      marginTop: 10,
                     }}
                   >
                     <AirbnbRating
@@ -313,37 +313,38 @@ const styles = StyleSheet.create({
     padding: "0",
     overflow: "none",
     height: "100%",
-  }, search: {
+  },
+  search: {
     border: "2px solid rgb(74, 4, 4)",
-    height: "35px",
-    fontSize: "18px",
-    borderRadius: "15px",
-    paddingLeft: "10px",
+    height: 35,
+    fontSize: 18,
+    // borderRadius: 15,
+    paddingLeft: 10,
     width: "80%",
-    marginTop: "10px",
-    marginLeft: "10px",
+    marginTop: 10,
+    marginLeft: 10,
   },
   totalBox: {
     border: "2px solid rgb(74, 4, 4)",
-    height: "150px",
+    height: 150,
     width: "90%",
     marginLeft: "5%",
-    borderRadius: "20px",
+    // borderRadius: 20,
     backgroundColor: "white",
-    padding: "20px",
+    padding: 20,
   },
   buttons: {
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    borderRadius: "10px",
-    marginLeft: "5px",
-    height: "35px",
+    paddingLeft: 20,
+    paddingRight: 20,
+    // borderRadius: 10,
+    marginLeft: 5,
+    height: 35,
   },
   cartItem: {
     border: "2px solid rgb(74, 4, 4)",
-    height: "120px",
-    borderRadius: "20px",
-    marginTop: "20px",
+    height: 120,
+    // borderRadius: 20,
+    marginTop: 20,
     display: "flex",
     // justifyContent:'center',
     flexDirection: "row",
@@ -352,37 +353,37 @@ const styles = StyleSheet.create({
   },
   categMiniBox: {
     border: "2px solid rgb(74, 4, 4)",
-    minWidth: "85px",
-    paddingRight: "10px",
-    paddingLeft: "10px",
-    height: "40px",
-    borderRadius: "15px",
-    marginLeft: "10px",
+    minWidth: 85,
+    paddingRight: 10,
+    paddingLeft: 10,
+    height: 40,
+    // borderRadius: 15,
+    marginLeft: 10,
     display: "flex",
     flexDirection: "row-reverse",
     alignItems: "center",
     justifyContent: "flex-end",
   },
   categIcon: {
-    height: "35px",
-    width: "35px",
-    borderRadius: "100%",
-    marginTop: "10px",
+    height: 35,
+    width: 35,
+    // borderRadius: "100%",
+    marginTop: 10,
   },
   trending: {
     // marginTop:'5px',
-    paddingLeft: "5px",
-    // paddingTop: "15px",
+    paddingLeft: 5,
+    // paddingTop: 15,
     height: "42%  ",
     // border:'2px solid red'
   },
   item: {
     border: "2px solid rgb(74, 4, 4)",
     height: "fit-content",
-    paddingBottom: "5px",
-    width: "150px",
-    borderRadius: "15px",
-    marginBottom: "20px",
+    paddingBottom: 5,
+    width: 150,
+    // borderRadius: 15,
+    marginBottom: 20,
     overflow: "hidden",
     backgroundColor: "white",
     marginLeft: "7%",

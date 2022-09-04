@@ -52,8 +52,8 @@ function MyAddress({ navigation }) {
                   ,
                   {
                     position: "absolute",
-                    top: "0px",
-                    right: "20px",
+                    top: 0,
+                    right: 20,
                     backgroundColor: "none",
                     border: "2px solid grey",
                   },
@@ -74,23 +74,23 @@ function MyAddress({ navigation }) {
               }}>
               <Text
                 style={{
-                  fontSize: "20px",
+                  fontSize: 20,
                 }}
               >
                 {item.item.title}
               </Text>
               <Text
                 style={{
-                  fontSize: "20px",
+                  fontSize: 20,
                   color: "grey",
-                  marginTop: "10px",
+                  marginTop: 10,
                 }}
               >
                 {item.item.location}
               </Text>
               <Text
                 style={{
-                  fontSize: "20px",
+                  fontSize: 20,
                   color: "grey",
                 }}
               >
@@ -99,7 +99,7 @@ function MyAddress({ navigation }) {
               </Text>
               <Text
                 style={{
-                  fontSize: "20px",
+                  fontSize: 20,
                   color: "grey",
                 }}
               >
@@ -113,8 +113,8 @@ function MyAddress({ navigation }) {
         style={{
           width: "90%",
           marginLeft: "5%",
-          marginTop: "90px",
-          paddingBottom: "5px",
+          marginTop: 90,
+          paddingBottom: 5,
           height: "90%",
         }}
         ListEmptyComponent={() => {
@@ -130,7 +130,7 @@ function MyAddress({ navigation }) {
             >
               <Text
                 style={{
-                  fontSize: "18px",
+                  fontSize: 18,
                 }}
               >
                 No addresses here, please add one{" "}
@@ -154,10 +154,10 @@ function MyAddress({ navigation }) {
         <TouchableOpacity
           style={{
             border: "2px solid rgb(74, 4, 4)",
-            marginTop: "30px",
-            height: "35px",
-            width: "200px",
-            borderRadius: "10px",
+            marginTop: 30,
+            height: 35,
+            width: 200,
+            // borderRadius: 10,
           }}
           onPress={() => {
             navigation.navigate("AddNewAddress", { ops: "Add" });
@@ -166,9 +166,9 @@ function MyAddress({ navigation }) {
           <Text
             style={{
               color: "rgb(74, 4, 4)",
-              fontSize: "15px",
+              fontSize: 15,
               textAlign: "center",
-              marginTop: "8px",
+              marginTop: 8,
             }}
           >
             + Add New Address
@@ -181,15 +181,15 @@ function MyAddress({ navigation }) {
 const styles = StyleSheet.create({
   buttons: {
     border: "2px solid red",
-    height: "45px",
-    width: "45px",
-    borderRadius: "10px",
+    height: 45,
+    width: 45,
+    // borderRadius: 10,
     transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "30px",
+    marginTop: 30,
     position: "fixed",
-    marginLeft: "20px",
+    marginLeft: 20,
     zIndex: "3",
   },
 });

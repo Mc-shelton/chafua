@@ -8,7 +8,7 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  ImageBackground,
+  ImageBackground,  
 } from "react-native";
 import BottomNav from "../components/bottomNav";
 import { globalStyles } from "../components/commonStyles";
@@ -20,7 +20,6 @@ function Orders({ navigation }) {
   console.log(navigation)
   const [orderList, setOrderList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [refresh, setRefresh] = useState(false);
   const handleCancel = (items, ind) => {
     if (items.length > 0) {
       items = JSON.stringify(items);
@@ -39,8 +38,10 @@ function Orders({ navigation }) {
         fetch();
         navigation.isFocused()
         alert(res.data);
-        if(res.data == 'Order Removed'){
-          window.location.reload()
+        console.log(orderList)
+        if(res.data == 'Order Removed' && orderList ==0){
+          console.log('did that')
+        //  navigation.push('Orders')
         }
 
 
@@ -75,6 +76,9 @@ function Orders({ navigation }) {
               });
             });
             setTotalPrice(total);
+          }else{
+            setOrderList([])
+            setTotalPrice(0)
           }
         })
         .catch((err) => {
@@ -99,7 +103,6 @@ function Orders({ navigation }) {
         }}
         showsHorizontalScrollIndicator={false}
       >
-        {refresh}
         {orderList != [] && orderList.length >0 ? (
           orderList.map((item) => (
             <View key={item.orderID}>
@@ -124,19 +127,19 @@ function Orders({ navigation }) {
                 >
                   <ImageBackground
                     style={{
-                      height: "100px",
-                      width: "100px",
-                      // borderRadius: "100%",
-                      marginLeft: "10px",
+                      height: 100,
+                      width: 100,
+                      borderRadius: "100%",
+                      marginLeft: 10,
                     }}
                     source={val.thumbNail}
                     imageStyle={{
-                      borderRadius: "15px",
+                      // borderRadius: 15,
                     }}
                   />
                   <View
                     style={{
-                      marginLeft: "20px",
+                      marginLeft: 20,
                       maxWidth: "50%",
                       // border:'2px solid red'
                     }}
@@ -144,8 +147,8 @@ function Orders({ navigation }) {
                     <Text
                       style={{
                         position: "absolute",
-                        left: "180px",
-                        fontSize: "18px",
+                        left: 180,
+                        fontSize: 18,
                         color: "rgb(74, 4, 4)",
                         display: "flex",
                         flexDirection: "column",
@@ -155,7 +158,7 @@ function Orders({ navigation }) {
                       <Text
                         style={{
                           marginTop: "100%",
-                          marginLeft: "-30px",
+                          marginLeft: -30,
                         }}
                       >
                         {item.status}
@@ -163,7 +166,7 @@ function Orders({ navigation }) {
                     </Text>
                     <Text
                       style={{
-                        fontSize: "20px",
+                        fontSize: 20,
                       }}
                     >
                       {val.name}
@@ -177,14 +180,14 @@ function Orders({ navigation }) {
                     </Text>
                     <Text
                       style={{
-                        fontSize: "25px",
-                        marginTop: "10px",
+                        fontSize: 25,
+                        marginTop: 10,
                       }}
                     >
                       {parseInt(val.price) + parseInt(val.packaging)}{" "}
                       <span
                         style={{
-                          fontSize: "14px",
+                          fontSize: 14,
                           color: "rgb(74, 4, 4)",
                           fontWeight: "bold",
                         }}
@@ -198,7 +201,7 @@ function Orders({ navigation }) {
             </View>
           ))
         ) : (
-          <Text style={{ marginTop: "50%", textAlign: "center", fontSize:'18px' }}>
+          <Text style={{ marginTop: "50%", textAlign: "center", fontSize:18 }}>
             You have no orders as yet
           </Text>
         )}
@@ -208,11 +211,11 @@ function Orders({ navigation }) {
       <View
         style={{
           position: "fixed",
-          bottom: "20px",
+          bottom: 20,
           width: "100%",
           backgroundColor: "white",
-          paddingTop: "10px",
-          paddingBottom: "60px",
+          paddingTop: 10,
+          paddingBottom: 60,
           boxShadow: " rgba(149, 157, 165) 0px 3px 15px",
           // border: "2px solid red",
         }}
@@ -220,7 +223,7 @@ function Orders({ navigation }) {
         <View style={styles.totalBox}>
           <Text
             style={{
-              fontSize: "20px",
+              fontSize: 20,
             }}
           >
             Delivery time
@@ -229,29 +232,29 @@ function Orders({ navigation }) {
             style={{
               position: "absolute",
               display: "flex",
-              right: "10px",
-              marginTop: "-5px",
+              right: 10,
+              marginTop: -5,
               flexDirection: "row",
               alignItems: "center",
             }}
           >
             <ImageBackground
               style={{
-                height: "30px",
-                width: "30px",
+                height: 30,
+                width: 30,
                 border: "2px solid rgb(74, 4, 4)",
-                borderRadius: "100%",
-                marginRight: "5px",
+                // borderRadius: "100%",
+                marginRight: 5,
               }}
               source={time}
               imageStyle={{
-                borderRadius: "15px",
+                // borderRadius: 15,
               }}
             />
             <Text
               style={{
-                marginLeft: "5px",
-                fontSize: "17px",
+                marginLeft: 5,
+                fontSize: 17,
                 fontWeight: "bold",
               }}
             >
@@ -260,20 +263,20 @@ function Orders({ navigation }) {
           </View>
           <Text
             style={{
-              marginTop: "16px",
+              marginTop: 16,
             }}
           >
             Total Price
           </Text>
           <Text
             style={{
-              fontSize: "40px",
+              fontSize: 40,
             }}
           >
             {totalPrice}
             <span
               style={{
-                fontSize: "20px",
+                fontSize: 20,
                 color: "rgb(74, 4, 4)",
                 fontWeight: "bold",
               }}
@@ -283,17 +286,17 @@ function Orders({ navigation }) {
           </Text>
           <TouchableOpacity
             style={{
-              height: "40px",
-              width: "150px",
+              height: 40,
+              width: 150,
               border: "2px solid rgb(74, 4, 4)",
-              borderRadius: "15px",
+              // borderRadius: 15,
               position: "absolute",
-              bottom: "20px",
+              bottom: 20,
               backgroundColor: "rgb(74, 4, 4)",
               color: "white",
               alignItems: "center",
               justifyContent: "center",
-              right: "20px",
+              right: 20,
             }}
           >
             {orderList != 0 ? <p>On the way!!</p> : <p>Make Order</p>}
@@ -314,24 +317,24 @@ const styles = StyleSheet.create({
   },
   totalBox: {
     border: "2px solid rgb(74, 4, 4)",
-    height: "150px",
+    height: 150,
     width: "90%",
     marginLeft: "5%",
-    borderRadius: "20px",
+    // borderRadius: 20,
     backgroundColor: "white",
-    padding: "20px",
+    padding: 20,
   },
   buttons: {
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    borderRadius: "10px",
-    marginLeft: "5px",
-    height: "35px",
+    paddingLeft: 20,
+    paddingRight: 20,
+    // borderRadius: 10,
+    marginLeft: 5,
+    height: 35,
   },
   cartItem: {
-    height: "120px",
-    borderRadius: "20px",
-    marginTop: "20px",
+    height: 120,
+    // borderRadius: 20,
+    marginTop: 20,
     display: "flex",
     width: "95%",
     marginLeft: "2.5%",

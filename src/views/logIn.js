@@ -6,7 +6,7 @@ import {
   Text,
   TextInput,
 } from "react-native";
-import BackButton from "../components/backButton";
+// import BackButton from "../components/backButton";
 import { globalStyles } from "../components/commonStyles";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -63,30 +63,31 @@ function LogIn({ navigation }) {
         backgroundColor: "white",
       }}
     >
-      <BackButton props={{ navigation: navigation, title: "Log In" }} />
+      {/* <BackButton props={{ navigation: navigation, title: "Log In" }} /> */}
       <View
         style={[
           globalStyles.container,
           {
-            marginTop: "100px",
+            marginTop: 100,
             paddingTop: "30%",
-            border: "none",
+            // border: "none",
+            borderWidth:0,
             backgroundColor: "white",
           },
         ]}
       >
         <Text
           style={{
-            fontSize: "27px",
+            fontSize: 27,
             color: "rgb(94, 4, 4)",
-            // marginTop: "20px",
+            // marginTop: 20,
           }}
         >
           Welcome Back
         </Text>
         <Text
           style={{
-            fontSize: "20px",
+            fontSize: 20,
           }}
         >
           Login to your account
@@ -97,7 +98,7 @@ function LogIn({ navigation }) {
             globalStyles.LButtons,
             globalStyles.iText,
             {
-              marginTop: "70px",
+              marginTop: 70,
               outline: "none",
             },
           ]}
@@ -122,9 +123,9 @@ function LogIn({ navigation }) {
         />
         <TouchableOpacity
           style={{
-            marginTop: "5px",
+            marginTop: 5,
             alignSelf: "flex-end",
-            marginRight: "30px",
+            marginRight: 30,
           }}
           onPress={() => {  
     navigation.navigate("ForgotPass");
@@ -134,7 +135,7 @@ function LogIn({ navigation }) {
           <Text
             style={{
               color: "rgb(74, 4, 4)",
-              fontSize: "15px",
+              fontSize: 15,
             }}
           >
             Forgot Password?
@@ -146,7 +147,7 @@ function LogIn({ navigation }) {
             globalStyles.container,
             globalStyles.LButtons,
             {
-              marginTop: "50px",
+              marginTop: 50,
             },
           ]}
 
@@ -160,7 +161,7 @@ function LogIn({ navigation }) {
           style={[
             globalStyles.iText,
             {
-              marginTop: "30px",
+              marginTop: 30,
             },
           ]}
         >
@@ -181,16 +182,18 @@ function LogIn({ navigation }) {
 
 const styles = StyleSheet.create({
   buttons: {
-    border: "2px solid rgb(74, 4, 4)",
-    height: "45px",
-    width: "45px",
-    borderRadius: "10px",
+    // border: "2px solid rgb(74, 4, 4)",
+    borderWidth:2,
+    borderColor:' rgb(74, 4, 4)',
+    height: 45,
+    width: 45,
+    // borderRadius: 10,
     transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "30px",
+    marginTop: 30,
     position: "fixed",
-    marginLeft: "20px",
+    marginLeft: 20,
     zIndex: "3",
   },
 });

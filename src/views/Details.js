@@ -10,7 +10,7 @@ import {
 import { AirbnbRating, Rating } from "react-native-ratings";
 import BackButton from "../components/backButton";
 import BottomNav from "../components/bottomNav";
-import logo from "../../assets/images/image2.jfif";
+import logo from "../../assets/icons/all.png";
 import { globalStyles } from "../components/commonStyles";
 import cartImg from "../../assets/icons/cart.png";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -75,7 +75,7 @@ function Details({ route, navigation }) {
           style={[
             globalStyles.container,
             {
-              padding: "100px",
+              padding: 100,
               position: "fixed",
               backgroundColor: "white",
               zIndex: "3",
@@ -104,10 +104,10 @@ function Details({ route, navigation }) {
             style={[
               globalStyles.container,
               {
-                padding: "5px",
-                paddingLeft: "30px",
-                paddingRight: "30px",
-                marginTop: "20px",
+                padding: 5,
+                paddingLeft: 30,
+                paddingRight: 30,
+                marginTop: 20,
               },
             ]}
           >
@@ -115,7 +115,7 @@ function Details({ route, navigation }) {
               style={[
                 globalStyles.bText,
                 {
-                  fontSize: "16px",
+                  fontSize: 16,
                 },
               ]}
             >
@@ -130,10 +130,10 @@ function Details({ route, navigation }) {
             style={[
               globalStyles.container,
               {
-                padding: "5px",
-                paddingLeft: "30px",
-                paddingRight: "30px",
-                marginTop: "10px",
+                padding: 5,
+                paddingLeft: 30,
+                paddingRight: 30,
+                marginTop: 10,
               },
             ]}
           >
@@ -141,7 +141,7 @@ function Details({ route, navigation }) {
               style={[
                 globalStyles.bText,
                 {
-                  fontSize: "15px",
+                  fontSize: 15,
                 },
               ]}
             >
@@ -156,7 +156,7 @@ function Details({ route, navigation }) {
         style={[
           styles.buttons,
           {
-            right: "25px",
+            right: 25,
             overflow: "hidden",
           },
         ]}
@@ -179,7 +179,7 @@ function Details({ route, navigation }) {
               let storeList = await AsyncStorage.getItem("favorites");
               console.log(storeList)
               storeList = JSON.parse(storeList)
-              let set = [...new Set([...paramList, ...storeList])];
+              let set = [...new Set([...storeList, ...paramList])];
               set = JSON.stringify(set)
               await AsyncStorage.setItem("favorites", set);
               
@@ -190,19 +190,19 @@ function Details({ route, navigation }) {
 
       <ScrollView
         style={{
-          marginTop: "100px",
-          maxHeight: "85 %",
+          marginTop: 100,
+          maxHeight: "85%",
           overflow: "hidden",
-          paddingBottom: "65px",
+          paddingBottom: 65,
         }}
       >
         <ImageBackground
           style={{
-            height: "300px",
+            height: 300,
           }}
           source={logo}
           imageStyle={{
-            borderRadius: "15px",
+            // borderRadius: 15,
           }}
         />
         <View
@@ -210,8 +210,8 @@ function Details({ route, navigation }) {
             alignItems: "center",
             flexDirection: "row",
             justifyContent: "center",
-            paddingBottom: "20px",
-            marginTop: "20px",
+            paddingBottom: 20,
+            marginTop: 20,
           }}
         >
           <TouchableOpacity
@@ -229,9 +229,9 @@ function Details({ route, navigation }) {
               {
                 position: "relative",
                 margin: "0",
-                height: "35px",
-                width: "35px",
-                borderRadius: "7px",
+                height: 35,
+                width: 35,
+                // borderRadius: 7,
                 backgroundColor: "rgb(74, 4, 4)",
               },
             ]}
@@ -239,10 +239,10 @@ function Details({ route, navigation }) {
             <Text
               style={{
                 transform: "rotate(135deg)",
-                fontSize: "40px",
-                marginTop: "0px",
+                fontSize: 40,
+                marginTop: 0,
                 textAlign: "center",
-                marginLeft: "4px",
+                marginLeft: 4,
                 color: "white",
                 // fontWeight:'bold'
               }}
@@ -252,13 +252,13 @@ function Details({ route, navigation }) {
           </TouchableOpacity>
           <View
             style={{
-              width: "50px",
+              width: 50,
             }}
           >
             <Text
               style={{
                 textAlign: "center",
-                fontSize: "20px",
+                fontSize: 20,
               }}
             >
               {countNum}
@@ -274,9 +274,9 @@ function Details({ route, navigation }) {
               {
                 position: "relative",
                 margin: "0",
-                height: "35px",
-                width: "35px",
-                borderRadius: "7px",
+                height: 35,
+                width: 35,
+                // borderRadius: 7,
                 backgroundColor: "rgb(74, 4, 4)",
               },
             ]}
@@ -284,10 +284,10 @@ function Details({ route, navigation }) {
             <Text
               style={{
                 transform: "rotate(135deg)",
-                fontSize: "30px",
-                marginTop: "0px",
+                fontSize: 30,
+                marginTop: 0,
                 textAlign: "center",
-                marginLeft: "0px",
+                marginLeft: 0,
                 color: "white",
                 // fontWeight:'bold'
               }}
@@ -308,8 +308,8 @@ function Details({ route, navigation }) {
             style={{
               width: "95%",
               // border: "2px solid rgb(74, 4, 4)",
-              borderRadius: "20px",
-              padding: "20px",
+              // borderRadius: 20,
+              padding: 20,
               boxShadow: " rgba(149, 157, 165) 0px 8px 24px",
             }}
           >
@@ -323,16 +323,16 @@ function Details({ route, navigation }) {
             />
             <Text
               style={{
-                fontSize: "25px",
-                marginTop: "5px",
+                fontSize: 25,
+                marginTop: 5,
               }}
             >
               {loadObj.name}
             </Text>
             <Text
               style={{
-                marginTop: "15px",
-                fontSize: "18px",
+                marginTop: 15,
+                fontSize: 18,
                 color: "grey",
               }}
             >
@@ -340,23 +340,23 @@ function Details({ route, navigation }) {
             </Text>
             <Text
               style={{
-                marginTop: "10px",
-                fontSize: "18px",
+                marginTop: 10,
+                fontSize: 18,
               }}
             >
               Packaging: {loadObj.packaging} /=
             </Text>
             <Text
               style={{
-                fontSize: "18px",
+                fontSize: 18,
               }}
             >
               item Price: {loadObj.price} /=
             </Text>
             <Text
               style={{
-                marginTop: "8px",
-                fontSize: "18px",
+                marginTop: 8,
+                fontSize: 18,
               }}
             >
               Total Price
@@ -365,7 +365,7 @@ function Details({ route, navigation }) {
               {" "}
               <Text
                 style={{
-                  fontSize: "40px",
+                  fontSize: 40,
                   color: "brown",
                 }}
               >
@@ -376,11 +376,11 @@ function Details({ route, navigation }) {
             <TouchableOpacity
               style={{
                 position: "absolute",
-                right: "20px",
-                bottom: "20px",
-                height: "50px",
-                width: "50px",
-                borderRadius: "100%",
+                right: 20,
+                bottom: 20,
+                height: 50,
+                width: 50,
+                // borderRadius: "100%",
                 boxShadow: " rgba(149, 157, 165) 0px 8px 24px",
               }}
               onPress={() => {
@@ -396,9 +396,9 @@ function Details({ route, navigation }) {
               >
                 <Text
                   style={{
-                    fontSize: "18px",
+                    fontSize: 18,
                     position: "absolute",
-                    top: "-15px",
+                    top: -15,
                     right: 0,
                   }}
                 >
@@ -421,13 +421,13 @@ const styles = StyleSheet.create({
   },
   buttons: {
     border: "2px solid rgb(74, 4, 4)",
-    height: "45px",
-    width: "45px",
-    borderRadius: "10px",
+    height: 45,
+    width: 45,
+    // borderRadius: 10,
     transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "30px",
+    marginTop: 30,
     position: "fixed",
   },
 });

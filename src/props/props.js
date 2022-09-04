@@ -103,6 +103,11 @@ const props = {
     },
   ],
   emptyList: [],
+  slideShow: [
+    { url: "http://placeimg.com/640/480/any" },
+    { url: "http://placeimg.com/640/480/any" },
+    { url: "http://placeimg.com/640/480/any" },
+  ],
   hotelItems: [
     {
       name: "mandazi1",
@@ -113,10 +118,11 @@ const props = {
       count: 2,
       rating: 5,
       itemID: 1,
-      packaging:'20',
-      category:'fast',
-      delivery:'10',
-      description:'A very short description of the food, and how its has been made and any alergens and things like that'
+      packaging: "20",
+      category: "fast",
+      delivery: "10",
+      description:
+        "A very short description of the food, and how its has been made and any alergens and things like that",
     },
     {
       name: "mandazi2",
@@ -127,10 +133,11 @@ const props = {
       count: 2,
       rating: 3,
       itemID: 2,
-      packaging:'10',
-      category:'fast',
-      delivery:'5',
-      description:'A very short description of the food, and how its has been made and any alergens and things like that'
+      packaging: "10",
+      category: "fast",
+      delivery: "5",
+      description:
+        "A very short description of the food, and how its has been made and any alergens and things like that",
     },
     {
       name: "mandazi3",
@@ -141,11 +148,11 @@ const props = {
       count: 2,
       rating: 4,
       itemID: 3,
-      packaging:'10',
-      category:'fast',
-      delivery:'15',
-      description:'A very short description of the food, and how its has been made and any alergens and things like that'
-
+      packaging: "10",
+      category: "fast",
+      delivery: "15",
+      description:
+        "A very short description of the food, and how its has been made and any alergens and things like that",
     },
     {
       name: "mandazi4",
@@ -156,10 +163,11 @@ const props = {
       count: 2,
       rating: 1,
       itemID: 4,
-      packaging:'5',
-      category:'Fast',
-      delivery:'10',
-      description:'A very short description of the food, and how its has been made and any alergens and things like that'
+      packaging: "5",
+      category: "Fast",
+      delivery: "10",
+      description:
+        "A very short description of the food, and how its has been made and any alergens and things like that",
     },
   ],
 };

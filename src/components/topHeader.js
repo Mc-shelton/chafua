@@ -62,9 +62,9 @@ const [cartItemsNum, setCartItemsNum] = useState(0)
         >
           <Text
             style={{
-              marginTop: "-7px",
-              marginLeft: "20px",
-              fontSize: "15px",
+              marginTop: -7,
+              marginLeft: 20,
+              fontSize: 15,
               backgroundColor: "white",
               position:'absolute'
               ,zIndex:4
@@ -87,7 +87,7 @@ const [cartItemsNum, setCartItemsNum] = useState(0)
 }
 const styles = StyleSheet.create({
   main: {
-    height: "70px",
+    height: 70,
     display: "flex",
     flexDirection: "row",
     backgroundColor: "white",
@@ -98,10 +98,10 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   title: {
-    fontSize: "23px",
-    paddingLeft: "10px",
+    fontSize: 23,
+    paddingLeft: 10,
     fontWeight: "bold",
-    height:'28px',
+    height:28,
     flexWrap:'nowrap',
     overflow:'hidden',
   },
@@ -110,31 +110,31 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 15,
     display: "flex",
-    marginTop: "5px",
+    marginTop: 5,
     flexDirection: "row-reverse",
-    flexSpace: "10px",
+    flexSpace: 10,
     alignItems: "flex-end",
-    flexSpace: "20px",
-    paddingBottom: "3px",
+    flexSpace: 20,
+    paddingBottom: 3,
   },
   icons: {
     // border: "2px solid red",
-    borderRadius: "100%",
+    // borderRadius: "100%",
   },
   avator: {
-    width: "50px",
-    height: "50px",
-    marginLeft: "7px",
+    width: 50,
+    height: 50,
+    marginLeft: 7,
     backgroundColor:'#ececec'
   },
   notify: {
-    height: "30px",
-    width: "30px",
-    marginLeft: "15px",
+    height: 30,
+    width: 30,
+    marginLeft: 15,
   },
   cart: {
-    height: "30px",
-    width: "30px",
+    height: 30,
+    width: 30,
   },
 });
 export default TopHeader;

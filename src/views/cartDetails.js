@@ -8,7 +8,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { globalStyles } from "../components/commonStyles";
-import foodSrc from "../../assets/images/image2.jfif";
+import foodSrc from "../../assets/icons/all.png";
 import BackButton from "../components/backButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 function CartDetails({route, navigation }) {
@@ -83,31 +83,31 @@ function CartDetails({route, navigation }) {
 
       <View
         style={{
-          marginTop: "100px",
+          marginTop: 100,
           // border: "2px solid red",
           // height:'300px',
         }}
       >
         <ImageBackground
           style={{
-            height: "300px",
+            height: 300,
             width:'95%',
             marginLeft:'5%'
           }}
           source={foodSrc}
           imageStyle={{
-            borderRadius: "15px",
+            // borderRadius: 15,
           }}
         />
         <View
           style={{
-            padding: "20px",
+            padding: 20,
             paddingBottom: "0",
           }}
         >
           <Text
             style={{
-              fontSize: "30px",
+              fontSize: 30,
               // fontWeight:'bold',
               textAlign: "center",
               color: "rgb(74, 4, 4)",
@@ -118,7 +118,7 @@ function CartDetails({route, navigation }) {
 
           <Text
             style={{
-              fontSize: "20px",
+              fontSize: 20,
               textAlign: "center",
               color: "grey",
             }}
@@ -134,8 +134,8 @@ function CartDetails({route, navigation }) {
             styles.flexBox,
             {
               width: "95%",
-              borderRadius: "20px",
-              paddingBottom: "20px",
+              // borderRadius: 20,
+              paddingBottom: 20,
               border:'2px solid rgb(74, 4, 4)'
             },
           ]}
@@ -194,7 +194,7 @@ function CartDetails({route, navigation }) {
               </span>
               <span
                 style={{
-                  fontSize: "15px",
+                  fontSize: 15,
                   color: "rgb(74, 4, 4)",
                 }}
               >
@@ -232,37 +232,37 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: "10px",
-    paddingBottom: "10px",
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   smallButtons: {
-    marginLeft: "20px",
+    marginLeft: 20,
     border: "2px solid blue",
-    paddingLeft: "10px",
-    paddingRight: "10px",
-    marginRight: "20px",
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginRight: 20,
   },
   Cdetails: {
     // border: "2px solid red",
-    height: "40px",
+    height: 40,
     width: "95%",
-    borderRadius: "10px",
+    // borderRadius: 10,
     flexDirection: "row",
-              boxShadow: " rgb(74, 4, 4) 0px 0px  10px",
+              boxShadow: " rgb(74, 4, 4) 0px 0px 10px",
               justifyContent: "unset",
     // textAlign:'',
-    paddingLeft: "20px",
-    marginTop: "20px",
+    paddingLeft: 20,
+    marginTop: 20,
   },
   circles: {
     border: "2px solid rgb(74, 4, 4)",
-    height: "20px",
-    width: "20px",
-    borderRadius: "100%",
+    height: 20,
+    width: 20,
+    // borderRadius: "100%",
   },
   text: {
-    fontSize: "20px",
-    marginLeft: "15px",
+    fontSize: 20,
+    marginLeft: 15,
   },
 });
 

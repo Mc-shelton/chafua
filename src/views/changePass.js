@@ -79,7 +79,7 @@ function ChangePass({ route, navigation }) {
       <View
         style={{
           // border:'2px solid red',
-          marginTop: "20px",
+          marginTop: 20,
           width: "100%",
           zIndex: "0",
           // position:'absolute',top:'0',
@@ -93,7 +93,7 @@ function ChangePass({ route, navigation }) {
         style={[
           globalStyles.container,
           {
-            marginTop: "60px",
+            marginTop: 60,
             // height: "85%",
             backgroundColor: "white",
             border: "none",
@@ -106,7 +106,7 @@ function ChangePass({ route, navigation }) {
             globalStyles.LButtons,
             globalStyles.iText,
             {
-              // marginTop: "70px",
+              // marginTop: 70,
             },
           ]}
           placeholder="Enter current password"
@@ -128,7 +128,7 @@ function ChangePass({ route, navigation }) {
             globalStyles.container,
             globalStyles.LButtons,
             {
-              marginTop: "50px",
+              marginTop: 50,
             },
           ]}
         >
@@ -142,15 +142,15 @@ function ChangePass({ route, navigation }) {
 const styles = StyleSheet.create({
   buttons: {
     border: "2px solid red",
-    height: "45px",
-    width: "45px",
-    borderRadius: "10px",
+    height: 45,
+    width: 45,
+    // borderRadius: 10,
     transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "30px",
+    marginTop: 30,
     position: "fixed",
-    marginLeft: "20px",
+    marginLeft: 20,
     zIndex: "3",
   },
 });

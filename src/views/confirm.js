@@ -24,7 +24,7 @@ function Confirm({ navigation }) {
       }]}>
         <Text
           style={{
-            fontSize: "25px",
+            fontSize: 25,
             color: "rgb(74, 4, 4)",
           }}
         >
@@ -38,7 +38,7 @@ function Confirm({ navigation }) {
               textAlign: "center",
               color: "grey",
               marginBottom: "15%",
-              marginTop: "10px",
+              marginTop: 10,
             },
           ]}
         >

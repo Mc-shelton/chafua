@@ -6,25 +6,27 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
+  SafeAreaView,
 } from "react-native";
 import { globalStyles } from "../components/commonStyles";
 import { LinearGradient } from "expo-linear-gradient";
 
 import logo from "../../assets/icons/logo.png";
-import image1 from "../../assets/images/image2.jfif";
+import image1 from "../../assets/images/image2.png";
 
 function LandPage({  navigation }) {
   // console.log(navigation);
   return (
+    <SafeAreaView>
     <ImageBackground
       source={image1}
       style={[
         globalStyles.container,
         {
-          border: "none",
-          borderRadius: "0",
+          borderWidth:0 ,
           height: "100%",
           backgroundColor: "white",
+          padding:10
         },
       ]}
       imageStyle={{
@@ -32,6 +34,8 @@ function LandPage({  navigation }) {
         resizeMode: "cover",
         height: "55%",
         // ,width:'80'
+    // borderWidth:1,border
+    // borderColor:'rgb(74, 4, 4)',
       }}
     >
       <LinearGradient
@@ -50,25 +54,28 @@ function LandPage({  navigation }) {
         style={[
           globalStyles.container,
           {
-            height: "150px",
-            width: "150px",
-            // marginTop: "100px",
+            height: 120,
+            width: 120,
+            // marginTop: 100,
+            borderRadius:10,
             backgroundColor: "rgb(255, 255, 255)",
           },
         ]}
         imageStyle={{
           height: "90%",
           width: "90%",
-          top:'6%',
+          top:'5%',
           left:'5%',
-          border:'2px solid rgb(74, 4, 4)',
-          borderRadius:'10px',
-          resizeMode:'center'
+          borderRadius:10,
+          borderWidth:1,
+          borderColor:'brown',
+          resizeMode:'center',
+
         }}
       ></ImageBackground>
       <Text
         style={{
-          fontSize: "30px",
+          fontSize: 30,
           color: "rgb(94, 4, 4)",
           marginTop: "60%",
         }}
@@ -77,14 +84,14 @@ function LandPage({  navigation }) {
       </Text>
       <Text
         style={{
-          fontSize: "20px",
+          fontSize: 15,
           width: "80%",
-          marginTop: "10px",
+          marginTop: 10,
           marginBottom: "10%",
           textAlign: "center",
         }}
       >
-        To 'beti nywandi', happy ordering and eating
+        To chafua, happy ordering and eating
       </Text>
       <TouchableOpacity
         onPress={() => {
@@ -93,10 +100,10 @@ function LandPage({  navigation }) {
         style={[
           globalStyles.container,
           styles.pgButtons,
-          { backgroundColor: "rgb(74, 4, 4)" },
+          { backgroundColor: "rgb(74, 4, 4)", borderRadius:10 },
         ]}
       >
-        <Text style={{ fontSize: "18px", color: "white", fontWeight: "bold" }}>
+        <Text style={{ fontSize: 15, color: "white", fontWeight: "bold" }}>
           Login
         </Text>
       </TouchableOpacity>
@@ -104,17 +111,19 @@ function LandPage({  navigation }) {
         onPress={() => navigation.navigate("SignUp")}
         style={[globalStyles.container, styles.pgButtons]}
       >
-        <Text style={{ fontSize: "18px", fontWeight: "bold",color:'rgb(74, 4, 4)' }}>Sign Up</Text>
+        <Text style={{ fontSize: 15, fontWeight: "bold",color:'rgb(74, 4, 4)' }}>Sign Up</Text>
       </TouchableOpacity>
     </ImageBackground>
+    </SafeAreaView> 
   );
 }
 
 const styles = StyleSheet.create({
   pgButtons: {
     width: "90%",
-    height: "50px",
-    marginTop: "25px",
+    height: 45,
+    marginTop: 25,
+    borderRadius:10
   },
 });
 export default LandPage;

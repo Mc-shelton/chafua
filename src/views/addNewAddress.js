@@ -64,7 +64,7 @@ function AddNewAddress({ route, navigation }) {
         style={[
           globalStyles.container,
           {
-            marginTop: "100px",
+            marginTop: 100,
             height: "85%",
             border: "none",
           },
@@ -72,16 +72,16 @@ function AddNewAddress({ route, navigation }) {
       >
         <Text
           style={{
-            fontSize: "27px",
+            fontSize: 27,
             color: "rgb(74, 4, 4)",
-            // marginTop: "20px",
+            // marginTop: 20,
           }}
         >
           Address
         </Text>
         <Text
           style={{
-            fontSize: "20px",
+            fontSize: 20,
             color: "grey",
           }}
         >
@@ -93,7 +93,7 @@ function AddNewAddress({ route, navigation }) {
             globalStyles.LButtons,
             globalStyles.iText,
             {
-              marginTop: "40px",
+              marginTop: 40,
             },
           ]}
           placeholder={
@@ -184,7 +184,7 @@ function AddNewAddress({ route, navigation }) {
             globalStyles.container,
             globalStyles.LButtons,
             {
-              marginTop: "50px",
+              marginTop: 50,
               backgroundColor: "rgb(74, 4, 4)",
             },
           ]}
@@ -212,7 +212,7 @@ function AddNewAddress({ route, navigation }) {
             globalStyles.container,
             globalStyles.LButtons,
             {
-              marginTop: "10px",
+              marginTop: 10,
               backgroundColor: "rgb(74, 4, 4)",
             },
           ]}

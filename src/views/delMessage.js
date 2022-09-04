@@ -23,8 +23,8 @@ function DelMessage({navigation}) {
         <Text
           style={{
             color: "rgb(74, 4, 4)",
-            fontSize: "25px",
-            marginTop: "50px",
+            fontSize: 25,
+            marginTop: 50,
             fontWeight: "bold",
             textAlign: "center",
           }}
@@ -34,8 +34,8 @@ function DelMessage({navigation}) {
         <Text
           style={{
             color: "grey",
-            padding: "10px",
-            fontSize: "20px",
+            padding: 10,
+            fontSize: 20,
             textAlign: "center",
           }}
         >
@@ -44,9 +44,9 @@ function DelMessage({navigation}) {
         </Text>
         <Text
           style={{
-            fontSize: "20px",
+            fontSize: 20,
             textAlign: "center",
-            marginTop: "20px",
+            marginTop: 20,
           }}
         >
           Est. Delivery Time : 24 mins
@@ -56,19 +56,19 @@ function DelMessage({navigation}) {
         style={[
           globalStyles.container,
           {
-            height: "50px",
+            height: 50,
             backgroundColor: "rgb(74, 4, 4)",
             width: "90%",
             marginLeft: "5%",
-            marginTop: "40px",
+            marginTop: 40,
           },
         ]}
-        onPress={()=>{navigation.navigate('Orders')}}
+        onPress={()=>{navigation.push('Orders')}}
       >
         <Text
           style={{
             color: "white",
-            fontSize: "20px",
+            fontSize: 20,
           }}
         >
           Track My Order

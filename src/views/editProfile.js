@@ -80,7 +80,7 @@ function EditProfile({route, navigation }) {
       <View
         style={{
           // border:'2px solid red',
-          marginTop: "20px",
+          marginTop: 20,
           width: "100%",
           zIndex: "0",
           // position:'absolute',top:'0',
@@ -94,7 +94,7 @@ function EditProfile({route, navigation }) {
         style={[
           globalStyles.container,
           {
-            marginTop: "60px",
+            marginTop: 60,
             // height: "85%",
             backgroundColor: "white",
             border: "none",
@@ -107,7 +107,7 @@ function EditProfile({route, navigation }) {
             globalStyles.LButtons,
             globalStyles.iText,
             {
-              // marginTop: "70px",
+              // marginTop: 70,
             },
           ]}
           placeholder={user.Name}
@@ -139,15 +139,15 @@ function EditProfile({route, navigation }) {
           buttonStyle={{
             border: "2px solid rgb(74, 4, 4)",
             width: "90%",
-            borderRadius: "15px",
-            height: "50px",
+            // borderRadius: 15,
+            height: 50,
             justifyContent: "flex-end",
             alignItems: "center",
-            paddingLeft: "10px",
-            marginTop: "15px",
+            paddingLeft: 10,
+            marginTop: 15,
           }}
           buttonTextStyle={{
-            fontSize: "18px",
+            fontSize: 18,
             // color:'grey'
           }}
           defaultButtonText={user.Institution}
@@ -158,12 +158,12 @@ function EditProfile({route, navigation }) {
             backgroundColor: "#FAFAFA",
           }}
           rowTextStyle={{
-            fontSize: "18px",
-            paddingLeft: "15px",
+            fontSize: 18,
+            paddingLeft: 15,
           }}
           rowStyle={{
-            marginTop: "10px",
-            padding: "10px",
+            marginTop: 10,
+            padding: 10,
             borderBottom: "2px solid rgb(74, 4, 4)",
           }}
         />
@@ -177,7 +177,7 @@ function EditProfile({route, navigation }) {
             globalStyles.container,
             globalStyles.LButtons,
             {
-              marginTop: "50px",
+              marginTop: 50,
             },
           ]}
         >
@@ -191,15 +191,15 @@ function EditProfile({route, navigation }) {
 const styles = StyleSheet.create({
   buttons: {
     border: "2px solid red",
-    height: "45px",
-    width: "45px",
-    borderRadius: "10px",
+    height: 45,
+    width: 45,
+    // borderRadius: 10,
     transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "30px",
+    marginTop: 30,
     position: "fixed",
-    marginLeft: "20px",
+    marginLeft: 20,
     zIndex: "3",
   },
 });

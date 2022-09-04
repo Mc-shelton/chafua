@@ -17,40 +17,23 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 
 function Favorites({ navigation }) {
-  const [cAlert, setcAlert] = useState(true);
   const [cartItems, setCartItems] = useState("");
-  const [cartItemsList, setCartItemsList] = useState(cartItems);
-  const [totalPrice, setTotalPrice] = useState(0);
-  useEffect(() => {
-    setTimeout(() => {
-      setcAlert(false);
-    }, 500);
-  });
 
-  const fetch=()=>{
+  const fetch = () => {
     AsyncStorage.getItem("favorites")
-    .then((res) => {
-      if (res) {
-        let array = JSON.parse(res);
-        let total = 0;
-        array.forEach((value) => {
-          let itTotal = parseInt(value.price) + parseInt(value.packaging);
-          let isTotal = itTotal * parseInt(value.count);
-          total += parseInt(isTotal);
-        });
-        setTotalPrice(total);
-        setCartItems(array);
-
-        console.log('array',array)
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-  useEffect( () => {
+      .then((res) => {
+        if (res) {
+          let array = JSON.parse(res);
+          setCartItems(array);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
-     fetch()
+      fetch();
     });
     return willFocus;
   }, []);
@@ -71,7 +54,7 @@ function Favorites({ navigation }) {
               <TouchableOpacity
                 style={styles.cartItem}
                 onPress={() => {
-                  console.log('item',item.item)
+                  console.log("item", item.item);
                   let ind = cartItems
                     .map((obj) => obj.itemID)
                     .indexOf(item.item.itemID);
@@ -88,36 +71,35 @@ function Favorites({ navigation }) {
                       packaging: item.item.packaging,
                       category: item.item.category,
                       delivery: item.item.delivery,
-                      description:item.item.description,
+                      description: item.item.description,
                     },
                   });
                 }}
                 onLongPress={async () => {
-
                   let filter = cartItems.map((item) => item.itemID);
                   let ind = filter.indexOf(item.item.itemID);
 
                   cartItems.splice(ind, ind + 1);
                   let cartString = JSON.stringify(cartItems);
-                  await AsyncStorage.setItem("cart", cartString);
-                  fetch()
-                  alert('removed')
+                  await AsyncStorage.setItem("favorites", cartString);
+                  fetch();
+                  alert("removed");
                 }}
               >
                 <ImageBackground
                   style={{
-                    height: "100px",
-                    width: "100px",
-                    marginLeft: "10px",
+                    height: 100,
+                    width: 100,
+                    marginLeft: 10,
                   }}
                   source={item.item.thumbNail}
                   imageStyle={{
-                    borderRadius: "15px",
+                    // borderRadius: 15,
                   }}
                 />
                 <View
                   style={{
-                    marginLeft: "20px",
+                    marginLeft: 20,
                     maxWidth: "50%",
                     // border:'2px solid red'
                   }}
@@ -125,8 +107,8 @@ function Favorites({ navigation }) {
                   <Text
                     style={{
                       position: "absolute",
-                      left: "180px",
-                      fontSize: "18px",
+                      left: 180,
+                      fontSize: 18,
                       color: "rgb(74, 4, 4)",
                     }}
                   >
@@ -134,7 +116,7 @@ function Favorites({ navigation }) {
                   </Text>
                   <Text
                     style={{
-                      fontSize: "20px",
+                      fontSize: 20,
                     }}
                   >
                     {item.item.name}
@@ -148,14 +130,14 @@ function Favorites({ navigation }) {
                   </Text>
                   <Text
                     style={{
-                      fontSize: "25px",
-                      marginTop: "10px",
+                      fontSize: 25,
+                      marginTop: 10,
                     }}
                   >
                     {parseInt(item.item.price) + parseInt(item.item.packaging)}{" "}
                     <span
                       style={{
-                        fontSize: "14px",
+                        fontSize: 14,
                         color: "rgb(74, 4, 4)",
                         fontWeight: "bold",
                       }}
@@ -169,8 +151,8 @@ function Favorites({ navigation }) {
           }}
           style={{
             width: "100%",
-            marginTop: "0px",
-            paddingBottom: "10px",
+            marginTop: 0,
+            paddingBottom: 10,
             height: "10%",
             // border:'2px solid red'
           }}
@@ -179,7 +161,7 @@ function Favorites({ navigation }) {
               <Text
                 style={{
                   textAlign: "center",
-                  fontSize: "20px",
+                  fontSize: 20,
                   marginTop: "40%",
                 }}
               >
@@ -203,30 +185,30 @@ const styles = StyleSheet.create({
   },
   totalBox: {
     border: "2px solid rgb(74, 4, 4)",
-    height: "150px",
+    height: 150,
     width: "90%",
     marginLeft: "5%",
-    borderRadius: "20px",
+    // borderRadius: 20,
     backgroundColor: "white",
-    padding: "20px",
+    padding: 20,
   },
   buttons: {
     border: "2px solid rgb(74, 4, 4)",
-    height: "45px",
-    width: "45px",
-    borderRadius: "10px",
+    height: 45,
+    width: 45,
+    // borderRadius: 10,
     transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "30px",
+    marginTop: 30,
     position: "fixed",
-    marginLeft: "20px",
+    marginLeft: 20,
     zIndex: "3",
   },
   cartItem: {
-    height: "120px",
-    borderRadius: "20px",
-    marginTop: "20px",
+    height: 120,
+    // borderRadius: 20,
+    marginTop: 20,
     marginLeft: "5%",
     width: "90%",
     display: "flex",

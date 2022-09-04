@@ -30,7 +30,7 @@ function ForgotPass({navigation}){
             }]}>
 
             <Text style={{
-                fontSize:'28px'
+                fontSize:28
                 ,color:'rgb(74, 4, 4)'
                 ,marginBottom:'10px'
             }}>Forgot Password</Text>

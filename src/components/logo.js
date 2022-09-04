@@ -7,21 +7,21 @@ function Logo(){
     return(
     <View style={[globalStyles.container,{
             marginTop:'100px',
-            height:'200px',
+            height:200,
             overflow:'hidden',
             border:'none'
             ,borderBottom:'4px solid rgb(74, 4, 4)'
-            ,borderRadius:'0'
+            // ,borderRadius:'0'
             ,width:'80%'
             ,marginLeft:'10%'
             
         }]}>
             <ImageBackground style={{
-                height:'200px',
-                marginTop:"80px",
-                width:'200px',
+                height:200,
+                marginTop:80,
+                width:200,
                 backgroundColor:'#ececec',
-                borderRadius:'100%'
+                // borderRadius:'100%'
             }}
             source={logo}
             imageStyle={{
