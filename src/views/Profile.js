@@ -97,7 +97,8 @@ function Profile({ navigation }) {
           <Text style={[globalStyles.iText]}>Are you sure?</Text>
           <TouchableOpacity
             onPress={async () => {
-              AsyncStorage.clear();
+              AsyncStorage.removeItem('user');
+              AsyncStorage.removeItem('isLoggedIn');
               window.location.reload();
             }}
             style={[
