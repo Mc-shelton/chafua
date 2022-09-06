@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    position: "fixed",
+    // position: "fixed",
     marginLeft: 20,
     zIndex: "3",
   },

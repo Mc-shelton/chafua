@@ -23,7 +23,7 @@ function AddAddress({ navigation }) {
   const [totalPrice, setTotalPrice] = useState();
   const [totalPack, setTotalPack] = useState();
   const [deliveryFee, setDeliveryFee] = useState();
-  useEffect(async () => {
+  useEffect( () => {
     const willFocus = navigation.addListener("focus", () => {
       AsyncStorage.getItem("addresses")
         .then((res) => {
@@ -39,7 +39,7 @@ function AddAddress({ navigation }) {
     return willFocus;
   }, []);
 
-  useEffect(async () => {
+  useEffect( () => {
     const willFocus = navigation.addListener("focus", () => {
       AsyncStorage.getItem("user")
         .then((res) => {
@@ -55,7 +55,7 @@ function AddAddress({ navigation }) {
     return willFocus;
   }, []);
 
-  useEffect(async () => {
+  useEffect( () => {
     const willFocus = navigation.addListener("focus", () => {
       AsyncStorage.getItem("cart").then((res) => {
         if (res) {
@@ -98,27 +98,30 @@ function AddAddress({ navigation }) {
     return willFocus;
   }, []);
   const handleOrder = () => {
-    if(checkItems != ''){
-    axios({
-      method: "POST",
-      url: "http://localhost/chafua/makeOrder.php",
-      data: {
-        userID: userID.userID,
-        orders: JSON.stringify(checkItems),
-        addresses:JSON.stringify(pickedAddress)
-      },
-    }).then(async(res)=>{
-      if(res.data.orders){
-        alert('Success !!! Order received successfully')
-        await AsyncStorage.setItem('cart', JSON.stringify([]))
-        navigation.navigate('DelMessage')
-      }else{
-        alert(res.data)
-      }
-    }).catch((err)=>{
-      alert('something went wrong please check on your network')
-    });}else{
-      alert('Nothing to check out!!, please add something to cart')
+    if (checkItems != "") {
+      axios({
+        method: "POST",
+        url: "http://localhost/chafua/makeOrder.php",
+        data: {
+          userID: userID.userID,
+          orders: JSON.stringify(checkItems),
+          addresses: JSON.stringify(pickedAddress),
+        },
+      })
+        .then(async (res) => {
+          if (res.data.orders) {
+            alert("Success !!! Order received successfully");
+            await AsyncStorage.setItem("cart", JSON.stringify([]));
+            navigation.navigate("DelMessage");
+          } else {
+            alert(res.data);
+          }
+        })
+        .catch((err) => {
+          alert("something went wrong please check on your network");
+        });
+    } else {
+      alert("Nothing to check out!!, please add something to cart");
     }
   };
 
@@ -133,11 +136,18 @@ function AddAddress({ navigation }) {
       <FlatList
         data={addresses}
         keyExtractor={(item) => item.room}
-        ListEmptyComponent={()=><Text style={{
-          textAlign:'center'
-          ,marginTop:'20%'
-          ,fontSize:18
-        }}>You haven't added an Address yet</Text>}
+        ListEmptyComponent={() => (
+          <Text
+            style={{
+              textAlign: "center",
+              marginTop: "20%",
+              
+              fontSize: 15,
+            }}
+          >
+            You haven't added an Address yet
+          </Text>
+        )}
         renderItem={(item) => {
           return (
             <TouchableOpacity
@@ -149,16 +159,16 @@ function AddAddress({ navigation }) {
             >
               <View
                 style={{
-                  border: "2px solid rgb(74, 4, 4)",
-                  height: 25,
-                  width: 25,
-                  // borderRadius: "100%",
+                  height: 15,
+                  width: 15,
+                  // borderWidth:1,
+                  borderRadius: 100,
                   position: "absolute",
                   right: 15,
                   top: 20,
-                  // display:'flex',
-                  // justifyContent:'center',
-                  // alignItems:'center',
+                  display:'flex',
+                  justifyContent:'center',
+                  alignItems:'center',
                   padding: 1,
                 }}
               >
@@ -168,29 +178,31 @@ function AddAddress({ navigation }) {
                       isChosen == item.item.room ? "rgb(74, 4, 4) " : "white",
                     height: "100%",
                     width: "100%",
-                    // borderRadius: "100%",
+                    borderRadius: 100,
                   }}
                 ></View>
               </View>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 18,
+                  // borderWidth:1,
+                  // color:'red'
                 }}
               >
                 {item.item.title}
               </Text>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 12,
                   color: "grey",
-                  marginTop: 10,
+                  marginTop: 0,
                 }}
               >
                 {item.item.location}
               </Text>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 12,
                   color: "grey",
                 }}
               >
@@ -198,7 +210,7 @@ function AddAddress({ navigation }) {
               </Text>
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 12,
                   color: "grey",
                 }}
               >
@@ -210,19 +222,30 @@ function AddAddress({ navigation }) {
         style={{
           width: "90%",
           marginLeft: "5%",
-          marginTop: 90,
+          marginTop: 50,
           paddingBottom: 5,
+          // borderWidth:1,
           height: "90%",
         }}
         showsHorizontalScrollIndicator={false}
       />
       <View
         style={{
-          backgroundColor: "white",
-          boxShadow: " rgb(74, 4, 4) 0px 14px  30px",
-          height: 350,
+          height: 250,
+          width:'90%',
+          marginLeft:'5%',
           display: "flex",
           // justifyContent:'center',
+          
+          borderWidth:1,
+
+          shadowColor: "black",
+          shadowOffset: { width: 5, height: 5 },
+          shadowOpacity: 0.2,
+          shadowRadius: 8,
+          elevation: 25,
+          borderRadius:15,
+          backgroundColor:'white',
           alignItems: "center",
         }}
       >
@@ -231,19 +254,21 @@ function AddAddress({ navigation }) {
             navigation.navigate("MyAddress");
           }}
           style={{
-            border: "2px solid rgb(74, 4, 4)",
-            marginTop: 30,
+            // backgroundColor: "rgb(74, 4, 4)",
+            marginTop: 10,
             height: 35,
-            width: 200,
-            // borderRadius: 10,
+            width: 150,
+            borderRadius: 10,
+            borderWidth:1
           }}
         >
           <Text
             style={{
               color: "rgb(74, 4, 4)",
-              fontSize: 15,
+              fontSize: 13,
               textAlign: "center",
               marginTop: 8,
+              // color:'white'
             }}
           >
             + Add/Edit Address
@@ -254,7 +279,7 @@ function AddAddress({ navigation }) {
           style={[
             {
               border: "2px solid rgb(74, 4, 4)",
-              height: 140,
+              height: 120,
               padding: 20,
               overflow: "hidden",
               width: "80%",
@@ -273,21 +298,21 @@ function AddAddress({ navigation }) {
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 15,
               }}
             >
               Items Price
             </Text>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 15,
               }}
             >
               Packaging Fees
             </Text>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 15,
               }}
             >
               Delivery Fees
@@ -295,7 +320,7 @@ function AddAddress({ navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
-                fontSize: 23,
+                fontSize: 20,
                 color: "rgb(74, 4, 4)",
                 marginTop: 10,
               }}
@@ -314,28 +339,28 @@ function AddAddress({ navigation }) {
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 15,
               }}
             >
               {totalPrice}/=
             </Text>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 15,
               }}
             >
               {totalPack}/=
             </Text>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 15,
               }}
             >
               {deliveryFee}/=
             </Text>
             <Text
               style={{
-                fontSize: 23,
+                fontSize: 20,
                 fontWeight: "bold",
                 color: "rgb(74, 4, 4)",
                 marginTop: 10,
@@ -343,23 +368,23 @@ function AddAddress({ navigation }) {
               }}
             >
               {deliveryFee + totalPack + totalPrice}
-              <span
+              <Text
                 style={{
                   fontSize: 14,
                 }}
               >
                 /=
-              </span>
+              </Text>
             </Text>
           </View>
         </View>
         <TouchableOpacity
           style={{
             height: 35,
-            // borderRadius: 10,
             width: "70%",
             backgroundColor: "rgb(74, 4, 4)",
-            marginTop: 50,
+              borderRadius:10,
+              // marginTop: 50,
           }}
           onPress={() => {
             if (isChosen != "") {
@@ -373,7 +398,7 @@ function AddAddress({ navigation }) {
             style={{
               color: "white",
               textAlign: "center",
-              fontSize: 20,
+              fontSize: 15,
               fontWeight: "bold",
               marginTop: 7,
             }}
@@ -395,9 +420,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    position: "fixed",
+    // position: "fixed",
     marginLeft: 20,
-    zIndex: "3",
+    zIndex: 3,
   },
 });
 export default AddAddress;

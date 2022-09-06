@@ -11,8 +11,8 @@ export const globalStyles = StyleSheet.create({
     // border: "2px solid rgb(74, 4, 4)",
     borderWidth: 1,
     borderColor: "rgb(74, 4, 4)",
-    height: 45,
-    width: 45,
+    height: 35,
+    width: 35,
     borderRadius: 10,
     borderStyle: "solid",
     alignItems: "center",
@@ -27,7 +27,7 @@ export const globalStyles = StyleSheet.create({
   title: {
     textAlign: "center",
     marginTop: -35,
-    fontSize: 20,
+    fontSize: 18,
     // backgroundColor:'red',
     // position: "fixed",
     width: "100%",
@@ -62,7 +62,7 @@ export const globalStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   iText: {
-    fontSize: 15,
+    fontSize: 13,
   },
   paddedButton: {
     backgroundColor: "rgb(74, 4, 4)",
@@ -77,11 +77,14 @@ export const globalStyles = StyleSheet.create({
   cartItem: {
     // border: "2px solid rgb(74, 4, 4)",
 
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: "rgb(74, 4, 4)",
     // borderRadius: 20,
-    marginTop: 20,
-    padding: 20,
+    marginBottom: 20,
+    padding: 10,
+    paddingLeft:20,
+    paddingRight:20,
+    borderRadius:10,
     overflow: "hidden",
   },
 });

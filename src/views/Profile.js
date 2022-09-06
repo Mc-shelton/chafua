@@ -26,11 +26,14 @@ function Profile({ navigation }) {
     });
   }, [user]);
   return (
+    <View style={[globalStyles.main,{
+    }]}>
     <View
       style={[
         globalStyles.container,
         {
           // borderRadius: "0",
+          borderWidth:0,
           height: "100%",
           backgroundColor: "white",
         },
@@ -43,9 +46,9 @@ function Profile({ navigation }) {
           style={{
             position: "absolute",
             right: "7%",
-            top: 30,
-            height: 34,
-            width: 34,
+            top: 60,
+            height: 24,
+            width: 24,
             // borderRadius:'100%',
             zIndex:4
           }}> 
@@ -64,10 +67,10 @@ function Profile({ navigation }) {
           style={{
             position: "absolute",
             right: "7%",
-            top: 80,
+            top: 100,
             border:'2px solid rgb(74, 4, 4)',
-            height: 35,
-            width: 35,
+            height: 25,
+            width: 25,
             // borderRadius:'100%',
             zIndex:4
           }}> 
@@ -85,7 +88,7 @@ function Profile({ navigation }) {
             globalStyles.container,
             {
               padding: 100,
-              position: "fixed",
+              // position: "fixed",
               backgroundColor: "white",
               zIndex: "3",
             },
@@ -116,10 +119,10 @@ function Profile({ navigation }) {
             style={[
               globalStyles.container,
               {
-                padding: "5px",
-                paddingLeft: "30px",
-                paddingRight: "30px",
-                marginTop: "10px",
+                padding: 5,
+                paddingLeft: 30,
+                paddingRight: 30,
+                marginTop: 10,
               },
             ]}
           >
@@ -131,7 +134,7 @@ function Profile({ navigation }) {
       )}
       <View
         style={{
-          marginTop: "-100px",
+          marginTop: -100,
           width: "100%",
         }}
       >
@@ -139,7 +142,7 @@ function Profile({ navigation }) {
       </View>
       <Text
         style={{
-          fontSize: 21,
+          fontSize: 18,
           marginTop: 30,
         }}
       >
@@ -147,7 +150,7 @@ function Profile({ navigation }) {
       </Text>
       <Text
         style={{
-          fontSize: 15,
+          fontSize: 10,
           width: "80%",
           color: "grey",
           //   marginBottom: "30%",
@@ -155,8 +158,7 @@ function Profile({ navigation }) {
         }}
       >
         {JSON.parse(user).Email}
-
-        <br />
+{'\n'}
         {JSON.parse(user).Phone}
       </Text>
       <TouchableOpacity
@@ -168,16 +170,16 @@ function Profile({ navigation }) {
         style={[
           {
             backgroundColor: "rgb(74, 4, 4)",
-            marginTop: 20,
-            padding: 10,
-            paddingLeft: 30,
-            paddingRight: 30,
-            // borderRadius: 10,
+            marginTop: 10,
+            padding: 5,
+            paddingLeft: 20,
+            paddingRight: 20,
+            borderRadius: 5,
             marginBottom: 30,
           },
         ]}
       >
-        <Text style={{ fontSize: 18, color: "white" }}>Edit Profile</Text>
+        <Text style={{ fontSize: 15, color: "white" }}>Edit Profile</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
@@ -201,11 +203,19 @@ function Profile({ navigation }) {
             params: { userData: JSON.parse(user) },
           });
         }}
-        style={[globalStyles.LButtons, { justifyContent: "center" }]}
+        style={[globalStyles.LButtons, { justifyContent: "center"}]}
       >
         <Text style={[globalStyles.iText]}>Change Password</Text>
       </TouchableOpacity>
-      <BottomNav props={navigation} />
+
+    </View>
+    <View style={{
+      position:'absolute'
+      ,bottom:0
+    }}>
+    <BottomNav props={navigation} />
+
+    </View>
     </View>
   );
 }

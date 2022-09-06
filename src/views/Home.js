@@ -110,7 +110,7 @@ function Home({ navigation }) {
           }
         />
         <View style={styles.advert}>
-          {/* <SliderBox
+          <SliderBox
             ImageComponent={FastImage}
             images={stateImages}
             sliderBoxHeight={200}
@@ -148,7 +148,7 @@ function Home({ navigation }) {
               marginTop: 5,
             }}
             imageLoadingColor="#2196F3"
-          /> */}
+          />
           <ImageBackground
             style={{
               height: "100%",
@@ -453,7 +453,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     height: 200,
     backgroundColor: "white",
-    // borderRadius: 15,
+    borderWidth:1,
+    borderRadius: 15,
   },
   categBox: {
     display: "flex",

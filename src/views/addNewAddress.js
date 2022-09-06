@@ -5,8 +5,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  CheckBox,
-} from "react-native-web";
+} from "react-native";
 import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
 
@@ -23,7 +22,7 @@ function AddNewAddress({ route, navigation }) {
   const [addresses, setAddresses] = useState([]);
 
   console.log();
-  useEffect(async () => {
+  useEffect( () => {
     const willFocus = navigation.addListener("focus", () => {
       AsyncStorage.getItem("addresses")
         .then((res) => {
@@ -64,7 +63,7 @@ function AddNewAddress({ route, navigation }) {
         style={[
           globalStyles.container,
           {
-            marginTop: 100,
+            marginTop: 0,
             height: "85%",
             border: "none",
           },
@@ -99,15 +98,16 @@ function AddNewAddress({ route, navigation }) {
           placeholder={
             edit ? edit.title : "Title of Address e.g My Class Address"
           }
-          onChange={(e) => {
-            setTitle(e.target.value);
+          onChangeText={(e) => {
+            setTitle(e);
           }}
         />
         <TextInput
           style={[globalStyles.LButtons, globalStyles.iText]}
           placeholder={edit ? edit.location : "Part of institution e.g Hostel"}
-          onChange={(e) => {
-            setLocation(e.target.value);
+          
+          onChangeText={(e) => {
+            setLocation(e);
           }}
         />
         <TextInput
@@ -115,22 +115,24 @@ function AddNewAddress({ route, navigation }) {
           placeholder={
             edit ? edit.room : "Room number e.g C14, pref 02/03 e.t.c"
           }
-          onChange={(e) => {
-            setRoom(e.target.value);
+          onChangeText={(e) => {
+            setRoom(e);
           }}
         />
         <TextInput
           style={[globalStyles.LButtons, globalStyles.iText]}
           placeholder={edit ? edit.phone : "Phone number i.e Delivery number"}
-          onChange={(e) => {
-            setPhone(e.target.value);
+          
+          onChangeText={(e) => {
+            setPhone(e);
           }}
         />
         <TextInput
           style={[globalStyles.LButtons, globalStyles.iText]}
           placeholder={edit ? edit.details : "More specific details"}
-          onChange={(e) => {
-            setDetails(e.target.value);
+          
+          onChangeText={(e) => {
+            setDetails(e);
           }}
           ay
         />
