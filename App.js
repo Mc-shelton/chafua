@@ -38,190 +38,191 @@ import Hotel from "./src/views/hotel";
 const Stack = createNativeStackNavigator();
 
 class App extends Component {
-  // const [isLoggedIn, setisLoggedIn] = useState("");
+  // const [isLoggedIn, setLoggedIn] = useState(true);
 
-  constructor(){
-    super()
-    this.state={
-      isLoggedIn:''
-    }
+  constructor() {
+    super();
+    this.state = {
+      isLoggedIn: true,
+    };
   }
 
-  async componentDidMount(){
-    try{
-      let token = await AsyncStorage.getItem('isLoggedIn')
+  async componentDidMount() {
+    try {
+      let token = await AsyncStorage.getItem("isLoggedIn");
 
-      if(token){
-        this.setState({isLoggedIn:true})
-      }else{
-        this.setState({isLoggedIn:false})
+      if (token) {
+        this.setState({ isLoggedIn: true });
+        console.log("reloaded true");
+      } else {
+        this.setState({ isLoggedIn: false });
+        console.log("reloaded flee");
       }
-    }catch(error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   }
-  render(){
-  if (this.state.isLoggedIn == true) {
-    return (
-      <NavigationContainer>
-        {/* {true?<TopHeader props={navigation} />:<></>} */}
-        <Stack.Navigator
-         >
-         <Stack.Screen
-           name="Home"
-           component={Home}
-           options={{ headerShown: false }}
-         />
-         <Stack.Screen
-           name="Orders"
-           component={Orders}
-           options={{
-             headerShown: false,
-           }}
-         />
-         <Stack.Screen
-           name="AddAddress"
-           component={AddAddress}
-           options={{
-             headerShown: false,
-           }}
-         />
-         <Stack.Screen
-           name="DelMessage"
-           component={DelMessage}
-           options={{
-             headerShown: false,
-           }}
-         />
-         <Stack.Screen
-           name="Cart"
-           component={Cart}
-           options={{
-             headerShown: false,
-           }}
-         />
-         <Stack.Screen
-           name="MyAddress"
-           component={MyAddress}
-           options={{
-             headerShown: false,
-           }}
-         />
-         <Stack.Screen
-           name="AddNewAddress"
-           component={AddNewAddress}
-           options={{
-             headerShown: false,
-           }}
-         />
-         <Stack.Screen
-           name="CartDetails"
-           component={CartDetails}
-           options={{
-             headerShown: false,
-           }}
-         />
-         <Stack.Screen
-           name="Details"
-           component={Details}
-           options={{
-             headerShown: false,
-           }}
-         />
-         <Stack.Screen
-           name="Hotel"
-           component={Hotel}
-           options={{ headerShown: false }}
-         />
-         <Stack.Screen
-           name="Profile"
-           component={Profile}
-           options={{
-             headerShown: false,
-           }}
-         />
-          <Stack.Screen
-            name="Favorites"
-            component={Favorites}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Search"
-            component={Search}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="EditProfile"
-            component={EditProfile}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Views"
-            component={Views}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Info"
-            component={Info}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="ChangePass"
-            component={ChangePass}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  } else {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="LandPage">
-          <Stack.Screen
-            name="LandPage"
-            component={LandPage}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="LogIn"
-            component={LogIn}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="ForgotPass"
-            component={ForgotPass}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Confirm"
-            component={Confirm}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+  render() {
+    if (this.state.isLoggedIn == true) {
+      return (
+        <NavigationContainer>
+          {/* {true?<TopHeader props={navigation} />:<></>} */}
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Orders"
+              component={Orders}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="AddAddress"
+              component={AddAddress}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="DelMessage"
+              component={DelMessage}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Cart"
+              component={Cart}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="MyAddress"
+              component={MyAddress}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="AddNewAddress"
+              component={AddNewAddress}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="CartDetails"
+              component={CartDetails}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Details"
+              component={Details}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Hotel"
+              component={Hotel}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Favorites"
+              component={Favorites}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Search"
+              component={Search}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="EditProfile"
+              component={EditProfile}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Views"
+              component={Views}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Info"
+              component={Info}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="ChangePass"
+              component={ChangePass}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
+    } else {
+      return (
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="LandPage">
+            <Stack.Screen
+              name="ForgotPass"
+              component={ForgotPass}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="LandPage"
+              component={LandPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="LogIn"
+              component={LogIn}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Confirm"
+              component={Confirm}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
+    }
   }
-}
 }
 const headerNone = {
   headerShown: false,
 };
 
-export default App
+export default App;

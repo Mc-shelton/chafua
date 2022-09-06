@@ -153,7 +153,7 @@ function Search({ route, navigation }) {
 
       <TextInput
         placeholder="search bar"
-        style={[styles.search, { outline: "none", marginTop: 30 }]}
+        style={[styles.search, { marginTop: 30 }]}
         // onSubmitEditing={()=>navigation.navigate('Cart')}
         onChange={(e) => {
           let value = e.target.value;
@@ -165,11 +165,11 @@ function Search({ route, navigation }) {
         autoFocus={route.params ? route.params.params.isSearching : false}
       />
       <View style={styles.trending}>
-        <h4 style={{ margin: 0, marginLeft: 20,lineHeight:'0'}}>
+        <Text style={{ margin: 0, marginLeft: 20}}>
           {hotelList.length == hotelConstList.length
             ? "Search"
             : `${hotelList.length} results found`}
-        </h4>
+        </Text>
 
         <ScrollView
           style={{

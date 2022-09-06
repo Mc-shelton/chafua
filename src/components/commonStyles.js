@@ -2,45 +2,46 @@ import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
   main: {
-    paddingTop:'10%',
+    paddingTop: "10%",
     height: "100%",
     backgroundColor: "white",
-    overflowX:'hidden'
+    overflowX: "hidden",
   },
   buttons: {
     // border: "2px solid rgb(74, 4, 4)",
-    borderWidth:1,
-    borderColor:'rgb(74, 4, 4)',
+    borderWidth: 1,
+    borderColor: "rgb(74, 4, 4)",
     height: 45,
     width: 45,
     borderRadius: 10,
-    borderStyle:'solid',
+    borderStyle: "solid",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: -80,
-        transform: [{ rotate: '45deg' }],
-        // position: "fixed",
+    marginTop: 50,
+    transform: [{ rotate: "45deg" }],
+    // position: "fixed",
     // backgroundColor:'red',
     zIndex: 3,
     left: 20,
   },
   title: {
     textAlign: "center",
-    //   marginTop: "1,
+    marginTop: -35,
     fontSize: 20,
     // backgroundColor:'red',
     // position: "fixed",
-    width: "100%",    backgroundColor:'red',
-    height: 100,
-    backgroundColor: "white",
-    paddingTop: 25,
+    width: "100%",
+    // backgroundColor: "red",
+    // height: 30,
+    // backgroundColor: "red",
+    // paddingTop: 25,
     zIndex: 2,
   },
   container: {
-    // borderRadius: 15,
+    borderRadius: 10,
     // border: "2px solid rgb(74, 4, 4) ",
-    borderWidth:1,
-    borderColor:'rgb(74, 4, 4)',
+    borderWidth: 1,
+    borderColor: "rgb(74, 4, 4)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -48,8 +49,8 @@ export const globalStyles = StyleSheet.create({
   LButtons: {
     // border: "2px solid rgb(74, 4, 4)",
 
-    borderWidth:1,
-    borderColor:'rgb(74, 4, 4)',
+    borderWidth: 1,
+    borderColor: "rgb(74, 4, 4)",
     width: "90%",
     borderRadius: 10,
     height: 45,
@@ -59,7 +60,6 @@ export const globalStyles = StyleSheet.create({
   bText: {
     fontSize: 18,
     fontWeight: "bold",
-    
   },
   iText: {
     fontSize: 15,
@@ -77,8 +77,8 @@ export const globalStyles = StyleSheet.create({
   cartItem: {
     // border: "2px solid rgb(74, 4, 4)",
 
-    borderWidth:2,
-    borderColor:'rgb(74, 4, 4)',
+    borderWidth: 2,
+    borderColor: "rgb(74, 4, 4)",
     // borderRadius: 20,
     marginTop: 20,
     padding: 20,

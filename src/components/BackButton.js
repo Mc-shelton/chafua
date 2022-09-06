@@ -1,5 +1,5 @@
 import React from "react";
-import { View,TouchableOpacity,Text } from "react-native-web";
+import { View,TouchableOpacity,Text } from "react-native";
 import { globalStyles } from "./commonStyles";
 
 const BackButton = ({props})=>{
@@ -8,7 +8,7 @@ const BackButton = ({props})=>{
     return(
 <View>
         <TouchableOpacity
-          onPress={() => navigation.goBack()}
+          onPress={() => props.navigation.goBack()}
           style={[globalStyles.buttons]}
         >
           <View
@@ -25,8 +25,7 @@ const BackButton = ({props})=>{
           />
         </TouchableOpacity>
         <Text style={[globalStyles.title]}>
-          titled
-          {/* {props.title} */}
+          {props.title}
         </Text>
       </View>
     )

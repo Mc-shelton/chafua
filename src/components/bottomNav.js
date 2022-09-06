@@ -4,7 +4,7 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
+  ImageBackground,Text
 } from "react-native";
 import { FlipInEasyX } from "react-native-reanimated";
 
@@ -15,7 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 function BottomNav({ props }) {
   const [showDot, setShowDot] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
     const willFocus = props.addListener("focus", () => {
       AsyncStorage.getItem("cart")
         .then((res) => {
@@ -36,11 +36,14 @@ function BottomNav({ props }) {
   }, []);
   return (
     <View
+      // elevation={5}
+
       style={[
         styles.main,
         {
-          boxShadow: " rgba(149, 157, 165) 0px 8px 24px",
+          // boxShadow: " rgba(149, 157, 165) 0px 8px 24px",
           // borderRadius: 10,
+
         },
       ]}
     >
@@ -80,10 +83,10 @@ function BottomNav({ props }) {
         {showDot ? (
           <View
             style={{
-              height: 10,
-              width: 10,
+              height: 7,
+              width: 7,
               backgroundColor: "rgb(74, 4, 4)",
-              // borderRadius: "100%",
+              borderRadius: 100,
               position: "absolute",
               right: 5,
               top: 0,
@@ -107,20 +110,23 @@ function BottomNav({ props }) {
 }
 const styles = StyleSheet.create({
   main: {
-    height: 60,
-    display: "flex",
+    borderTopWidth:1,
+    // display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
-    bottom: "0",
+    // flex: 1,
+    // height:100,
+    borderRadius:50,
+    // bottom: 0,
     backgroundColor: "white",
     width: "100%",
+    paddingTop:5
   },
   iconBox: {
     // border: "2px solid rgb(74, 4, 4)",
-    height: 50,
-    width: 50,
+    height: 35,
+    width: 35,
     backgroundColor: "white",
     marginRight: 20,
     // borderRadius: "100%",
@@ -128,12 +134,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     // backgroundColor: "#E8E8E8",
+    // borderWidth:1,
+    borderRadius:100
     // boxShadow:' rgba(149, 157, 165) 2px 8px 24px'
+,
+    // backgroundColor:'#d9d9d9',
   },
   focused: {
-    height: 65,
-    width: 65,
-    marginTop: -20,
+    height: 45,
+    width: 45,
+    // marginTop: -20,
   },
 });
 export default BottomNav;

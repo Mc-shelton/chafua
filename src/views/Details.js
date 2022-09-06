@@ -26,17 +26,19 @@ function Details({ route, navigation }) {
     time++;
   }, 500);
 
-  console.log(route.params);
-  useEffect(async () => {
-    let cartString = await AsyncStorage.getItem("cart");
-    let cartList = JSON.parse(cartString);
+  useEffect(() => {
+    AsyncStorage.getItem("cart").then((res) => {
+      let cartString = res;
+      let cartList = JSON.parse(cartString);
 
-    let filter = cartList.map((item) => item.itemID);
-    let ind = filter.indexOf(loadObj.itemID);
+      let filter = cartList.map((item) => item.itemID);
+      let ind = filter.indexOf(loadObj.itemID);
 
-    if (ind > -1) {
-      setCountNum(cartList[ind].count);
-    }
+      if (ind > -1) {
+        setCountNum(cartList[ind].count);
+        setReRender(cartList[ind].count);
+      }
+    });
   });
   const handleLoadCart = async (par) => {
     let cartString = await AsyncStorage.getItem("cart");
@@ -68,21 +70,31 @@ function Details({ route, navigation }) {
     await AsyncStorage.setItem("cart", cartString);
   };
   return (
-    <View style={globalStyles.main}>
+    <View
+      style={[
+        globalStyles.main,
+        {
+          paddingTop: -20,
+        },
+      ]}
+    >
       <BackButton props={{ navigation: navigation, title: "Details" }} />
       {logBox ? (
         <View
           style={[
             globalStyles.container,
             {
-              padding: 100,
-              position: "fixed",
+              paddingTop: 100,
+              paddingBottom: 100,
+              // flex:1,
+              position:'absolute',
               backgroundColor: "white",
-              zIndex: "3",
+              zIndex: 3,
               top: "30%",
               left: "5%",
               boxShadow: " rgba(149, 157, 165) 0px 8px 24px",
               width: "90%",
+              borderRadius:10
             },
           ]}
         >
@@ -104,9 +116,9 @@ function Details({ route, navigation }) {
             style={[
               globalStyles.container,
               {
-                padding: 5,
-                paddingLeft: 30,
-                paddingRight: 30,
+                width:140,
+                paddingTop:5,
+                paddingBottom:5,
                 marginTop: 20,
               },
             ]}
@@ -130,10 +142,11 @@ function Details({ route, navigation }) {
             style={[
               globalStyles.container,
               {
-                padding: 5,
-                paddingLeft: 30,
-                paddingRight: 30,
+                width:140,
+                paddingTop:5,
+                paddingBottom:5,
                 marginTop: 10,
+                backgroundColor:'rgb(74,4,4)'
               },
             ]}
           >
@@ -142,6 +155,7 @@ function Details({ route, navigation }) {
                 globalStyles.bText,
                 {
                   fontSize: 15,
+                  color:'white'
                 },
               ]}
             >
@@ -158,18 +172,25 @@ function Details({ route, navigation }) {
           {
             right: 25,
             overflow: "hidden",
+            position: "absolute",
+            top: 15,
+            zIndex:4
           },
         ]}
       >
         <View
-          style={{
-            transform: "rotate(-45deg)",
-          }}
+          style={
+            {
+              // transform: "rotate(-45deg)",
+            }
+          }
         >
           <Rating
             type="heart"
             ratingColor="rgb(74, 4, 4)"
             ratingCount={1}
+            // size={3}
+            // imageSize={15}
             ratingBackgroundColor="rgb(74, 4, 4)"
             startingValue={0}
             onFinishRating={async () => {
@@ -177,12 +198,11 @@ function Details({ route, navigation }) {
               let paramList = [];
               paramList.push(favItem);
               let storeList = await AsyncStorage.getItem("favorites");
-              console.log(storeList)
-              storeList = JSON.parse(storeList)
+              console.log(storeList);
+              storeList = JSON.parse(storeList);
               let set = [...new Set([...storeList, ...paramList])];
-              set = JSON.stringify(set)
+              set = JSON.stringify(set);
               await AsyncStorage.setItem("favorites", set);
-              
             }}
           />
         </View>
@@ -190,19 +210,19 @@ function Details({ route, navigation }) {
 
       <ScrollView
         style={{
-          marginTop: 100,
+          marginTop: 30,
           maxHeight: "85%",
           overflow: "hidden",
-          paddingBottom: 65,
+          // backgroundColor:'red'
         }}
       >
         <ImageBackground
           style={{
-            height: 300,
+            height: 250,
           }}
-          source={logo}
+          source={{ uri: loadObj.thumbNail }}
           imageStyle={{
-            // borderRadius: 15,
+            borderRadius: 15,
           }}
         />
         <View
@@ -221,14 +241,16 @@ function Details({ route, navigation }) {
                 handleLoadCart("Sub");
               } else {
                 setCountNum(0);
+                setReRender(0);
                 handleLoadCart("SubNull");
               }
             }}
             style={[
-              styles.buttons,
+              globalStyles.buttons,
               {
-                position: "relative",
-                margin: "0",
+                // position: "relative",
+                marginLeft: -50,
+                marginTop: -0,
                 height: 35,
                 width: 35,
                 // borderRadius: 7,
@@ -238,11 +260,12 @@ function Details({ route, navigation }) {
           >
             <Text
               style={{
-                transform: "rotate(135deg)",
-                fontSize: 40,
-                marginTop: 0,
+                transform: [{ rotate: "135deg" }],
+                // transform: "rotate(135deg)",
+                fontSize: 20,
+                marginTop: 5,
                 textAlign: "center",
-                marginLeft: 4,
+                marginLeft: -0,
                 color: "white",
                 // fontWeight:'bold'
               }}
@@ -258,10 +281,11 @@ function Details({ route, navigation }) {
             <Text
               style={{
                 textAlign: "center",
-                fontSize: 20,
+                fontSize: 18,
+                marginLeft: 40,
               }}
             >
-              {countNum}
+              {reRender}
             </Text>
           </View>
           <TouchableOpacity
@@ -270,10 +294,11 @@ function Details({ route, navigation }) {
               handleLoadCart("Add");
             }}
             style={[
-              styles.buttons,
+              globalStyles.buttons,
               {
-                position: "relative",
-                margin: "0",
+                // position: "relative",
+                marginTop: -0,
+                // margin: "0",
                 height: 35,
                 width: 35,
                 // borderRadius: 7,
@@ -283,11 +308,12 @@ function Details({ route, navigation }) {
           >
             <Text
               style={{
-                transform: "rotate(135deg)",
-                fontSize: 30,
-                marginTop: 0,
+                transform: [{ rotate: "135deg" }],
+                // transform: "rotate(135deg)",
+                fontSize: 20,
+                marginTop: 3,
                 textAlign: "center",
-                marginLeft: 0,
+                marginLeft: -0,
                 color: "white",
                 // fontWeight:'bold'
               }}
@@ -302,20 +328,32 @@ function Details({ route, navigation }) {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            // backgroundColor:'red'
+            
+            paddingBottom:20,
+            paddingTop:20,
           }}
         >
           <View
             style={{
               width: "95%",
               // border: "2px solid rgb(74, 4, 4)",
-              // borderRadius: 20,
-              padding: 20,
-              boxShadow: " rgba(149, 157, 165) 0px 8px 24px",
+              borderRadius: 20,
+              padding: 10,
+
+              shadowColor: "black",
+              shadowOffset: { width: 5, height: 5 },
+              shadowOpacity: 0.2,
+              shadowRadius: 8,
+              elevation: 5,
+              backgroundColor:'white',
+              // borderWidth:1
+              // boxShadow: " rgba(149, 157, 165) 0px 8px 24px",
             }}
           >
             <AirbnbRating
               showRating={false}
-              size={15}
+              size={12}
               count={5}
               defaultRating={loadObj.rating}
               isDisabled
@@ -323,7 +361,7 @@ function Details({ route, navigation }) {
             />
             <Text
               style={{
-                fontSize: 25,
+                fontSize: 20,
                 marginTop: 5,
               }}
             >
@@ -331,8 +369,8 @@ function Details({ route, navigation }) {
             </Text>
             <Text
               style={{
-                marginTop: 15,
-                fontSize: 18,
+                // marginTop: 5,
+                fontSize: 13,
                 color: "grey",
               }}
             >
@@ -341,14 +379,14 @@ function Details({ route, navigation }) {
             <Text
               style={{
                 marginTop: 10,
-                fontSize: 18,
+                fontSize: 14,
               }}
             >
               Packaging: {loadObj.packaging} /=
             </Text>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 14,
               }}
             >
               item Price: {loadObj.price} /=
@@ -378,8 +416,8 @@ function Details({ route, navigation }) {
                 position: "absolute",
                 right: 20,
                 bottom: 20,
-                height: 50,
-                width: 50,
+                height: 35,
+                width: 35,
                 // borderRadius: "100%",
                 boxShadow: " rgba(149, 157, 165) 0px 8px 24px",
               }}
@@ -396,7 +434,7 @@ function Details({ route, navigation }) {
               >
                 <Text
                   style={{
-                    fontSize: 18,
+                    fontSize: 15,
                     position: "absolute",
                     top: -15,
                     right: 0,
@@ -424,11 +462,11 @@ const styles = StyleSheet.create({
     height: 45,
     width: 45,
     // borderRadius: 10,
-    transform: "rotate(45deg)",
+    // transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    position: "fixed",
+    // position: "fixed",
   },
 });
 

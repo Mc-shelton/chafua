@@ -24,20 +24,30 @@ function Hotel({ route, navigation }) {
   const [hotelList, setHotelList] = useState([]);
   const [hotelConstList, setConstHotelList] = useState([]);
   const [hotelParams, setHotelParams] = useState(route.params.params);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
+      setLoading(true);
       axios({
         method: "POST",
-        url: "http://localhost/chafua/getItems.php",
+        url: "http://192.168.0.101/chafua/getItems.php",
         data: { hotelID: hotelParams.hotelID },
-      }).then((res) => {
-        console.log(res);
-        if (typeof res.data != "string") {
-          setHotelList(res.data);
-          setConstHotelList(res.data);
-        }
-      });
+      })
+        .then((res) => {
+          console.log(res);
+          setLoading(false);
+          if (typeof res.data != "string") {
+            setHotelList(res.data);
+            setConstHotelList(res.data);
+          } else {
+            alert(res.data);
+          }
+        })
+        .catch(() => {
+          setLoading(false);
+          alert("Seems like  something wrong with your network");
+        });
     });
 
     return willFocus;
@@ -59,8 +69,9 @@ function Hotel({ route, navigation }) {
           globalStyles.container,
           {
             marginTop: 20,
+            paddingLeft: 5,
             flexDirection: "row",
-            border: "none",
+            borderWidth: 0,
           },
         ]}
       >
@@ -75,6 +86,7 @@ function Hotel({ route, navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 12,
               }}
             >
               All
@@ -82,8 +94,10 @@ function Hotel({ route, navigation }) {
             <View style={styles.categIcon}>
               <View
                 style={{
-                  height: "100%",
-                  width: "100%",
+                  height: "70%",
+                  width: "70%",
+                  marginTop: 4,
+                  marginLeft: 10,
                 }}
               >
                 <Icons props={{ iconName: iconNames.allIcon }} />
@@ -100,6 +114,7 @@ function Hotel({ route, navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 12,
               }}
             >
               Fast
@@ -107,8 +122,10 @@ function Hotel({ route, navigation }) {
             <View style={styles.categIcon}>
               <View
                 style={{
-                  height: "100%",
-                  width: "100%",
+                  height: "70%",
+                  width: "70%",
+                  marginTop: 4,
+                  marginLeft: 10,
                 }}
               >
                 <Icons props={{ iconName: iconNames.fastIcon }} />
@@ -125,6 +142,7 @@ function Hotel({ route, navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 12,
               }}
             >
               Drinks
@@ -132,8 +150,10 @@ function Hotel({ route, navigation }) {
             <View style={styles.categIcon}>
               <View
                 style={{
-                  height: "100%",
-                  width: "100%",
+                  height: "70%",
+                  width: "70%",
+                  marginTop: 4,
+                  marginLeft: 10,
                 }}
               >
                 <Icons props={{ iconName: iconNames.drinkIcon }} />
@@ -150,6 +170,7 @@ function Hotel({ route, navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 12,
               }}
             >
               Tea
@@ -157,8 +178,10 @@ function Hotel({ route, navigation }) {
             <View style={styles.categIcon}>
               <View
                 style={{
-                  height: "100%",
-                  width: "100%",
+                  height: "70%",
+                  width: "70%",
+                  marginTop: 4,
+                  marginLeft: 10,
                 }}
               >
                 <Icons props={{ iconName: iconNames.teaIcon }} />
@@ -175,6 +198,7 @@ function Hotel({ route, navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 12,
               }}
             >
               Fruits
@@ -182,8 +206,10 @@ function Hotel({ route, navigation }) {
             <View style={styles.categIcon}>
               <View
                 style={{
-                  height: "100%",
-                  width: "100%",
+                  height: "70%",
+                  width: "70%",
+                  marginTop: 4,
+                  marginLeft: 10,
                 }}
               >
                 <Icons props={{ iconName: iconNames.fruitIcon }} />
@@ -195,7 +221,7 @@ function Hotel({ route, navigation }) {
 
       <TextInput
         placeholder="search bar"
-        style={[styles.search, { outline: "none" }]}
+        style={[styles.search, {}]}
         onFocus={(e) =>
           navigation.navigate("Search", {
             params: { isSearching: true, word: e.target.value },
@@ -221,7 +247,11 @@ function Hotel({ route, navigation }) {
             return (
               <View>
                 {/* <Loader/> */}
-                <Text>Seems like Nothing is here... </Text>
+                {loading ? (
+                  <Text>Loading...</Text>
+                ) : (
+                  <Text>Seems like Nothing is here... </Text>
+                )}
               </View>
             );
           }}
@@ -230,6 +260,7 @@ function Hotel({ route, navigation }) {
               <TouchableOpacity
                 style={styles.item}
                 onPress={() => {
+                  if(item.status == 1){
                   let ind = hotelList
                     .map((obj) => obj.itemID)
                     .indexOf(item.itemID);
@@ -248,18 +279,26 @@ function Hotel({ route, navigation }) {
                       delivery: item.delivery,
                       description: item.description,
                     },
-                  });
+                  });}else{
+                    alert('Sorry this item is not available as at now')
+                  }
                 }}
               >
                 <ImageBackground
-                  source={item.thumbNail}
+                  source={{ uri: item.thumbNail }}
                   style={{
                     borderBottom: "2px solid rgb(74, 4, 4)",
-                    height: 100,
+                    borderBottomWidth: 1,
+                    height: 120,
                     width: "100%",
-                    // borderRadius: 15,
-                    // paddingTop:"9%",
-                    overflow: "hidden",
+                    borderRadius: 55,
+                    // overflow: "hidden",
+                    paddingBottom: 10,
+                  }}
+                  imageStyle={{
+                    height: 105,
+                    borderRadius: 10,
+                    // paddingBottom:10
                   }}
                 />
                 <View
@@ -267,28 +306,39 @@ function Hotel({ route, navigation }) {
                     width: 120,
                   }}
                 >
+                  <View
+                    style={{
+                      height: 10,
+                      width: 10,
+                      borderRadius: 100,
+                      borderWidth: 0.5,
+                      position: "absolute",
+                      right: 10,
+                      backgroundColor: item.status == 1?'green':'red',
+                    }}
+                  ></View>
                   <Text
                     style={{
-                      fontSize: 18,
-                      marginTop: 10,
+                      fontSize: 15,
+                      marginTop: 5,
                       marginBottom: 5,
                     }}
                   >
                     {item.name}
                   </Text>
-                  <Text>Price : {item.price}</Text>
-                  <Text>Hotel : {item.hotel}</Text>
-                  <Text>Est : {item.estDelTime}</Text>
+                  <Text style={{ fontSize: 12 }}>Price : {item.price}</Text>
+                  <Text style={{ fontSize: 12 }}>Hotel : {item.hotel}</Text>
+                  <Text style={{ fontSize: 12 }}>Est : {item.estDelTime}</Text>
 
                   <View
                     style={{
                       marginLeft: -10,
-                      marginTop: 10,
+                      marginTop: 5,
                     }}
                   >
                     <AirbnbRating
                       count={5}
-                      size={12}
+                      size={10}
                       defaultRating={item.rating}
                       isDisabled
                       showRating={false}
@@ -310,15 +360,15 @@ function Hotel({ route, navigation }) {
 const styles = StyleSheet.create({
   main: {
     backgroundColor: "white",
-    padding: "0",
+    // padding: "0",
     overflow: "none",
     height: "100%",
   },
   search: {
-    border: "2px solid rgb(74, 4, 4)",
+    borderWidth: 1,
+    borderColor: "grey",
     height: 35,
-    fontSize: 18,
-    // borderRadius: 15,
+    borderRadius: 15,
     paddingLeft: 10,
     width: "80%",
     marginTop: 10,
@@ -353,11 +403,13 @@ const styles = StyleSheet.create({
   },
   categMiniBox: {
     border: "2px solid rgb(74, 4, 4)",
+    borderWidth: 1,
+    borderColor: "rgb(74,4,4)",
     minWidth: 85,
     paddingRight: 10,
     paddingLeft: 10,
-    height: 40,
-    // borderRadius: 15,
+    height: 30,
+    borderRadius: 10,
     marginLeft: 10,
     display: "flex",
     flexDirection: "row-reverse",
@@ -378,11 +430,13 @@ const styles = StyleSheet.create({
     // border:'2px solid red'
   },
   item: {
-    border: "2px solid rgb(74, 4, 4)",
-    height: "fit-content",
+    // border: "2px solid rgb(74, 4, 4)",
+    borderWidth: 1,
+    // height: "fit-content",n
     paddingBottom: 5,
-    width: 150,
-    // borderRadius: 15,
+    width: 130,
+    borderRadius: 15,
+    borderColor: "rgb(74,4,4)",
     marginBottom: 20,
     overflow: "hidden",
     backgroundColor: "white",

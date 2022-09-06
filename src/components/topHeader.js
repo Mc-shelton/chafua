@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -12,21 +12,22 @@ import Icons from "./icons";
 import { iconNames } from "./iconNames";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 function TopHeader({ props }) {
-const [cartItemsNum, setCartItemsNum] = useState(0)
-  useEffect(async()=>{
-
-    const willFocus = props.navigation.addListener('focus', () => {
-    AsyncStorage.getItem('cart').then((res)=>{
-      if(res){
-      let array = JSON.parse(res)
-      setCartItemsNum(array.length)
-    }
-    }).catch((err)=>{
-      console.log(err)
-    })
-  })
-  return willFocus
-    },[])
+  const [cartItemsNum, setCartItemsNum] = useState(0);
+  useEffect( () => {
+    const willFocus = props.navigation.addListener("focus", () => {
+      AsyncStorage.getItem("cart")
+        .then((res) => {
+          if (res) {
+            let array = JSON.parse(res);
+            setCartItemsNum(array.length);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+    return willFocus;
+  }, []);
   return (
     <View style={styles.main}>
       <View style={styles.leftPane}>
@@ -37,11 +38,14 @@ const [cartItemsNum, setCartItemsNum] = useState(0)
           onPress={() => props.navigation.navigate("Profile")}
           style={[styles.icons, styles.avator]}
         >
-          <View style={{
-            height:'160%',
-            width:'160%'
-          }}>
-          <Icons props={{iconName:iconNames.logoIcon}}/>
+          <View
+            style={{
+              height: "160%",
+              width: "160%",
+              marginTop:-5
+            }}
+          >
+            <Icons props={{ iconName: iconNames.logoIcon }} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.icons, styles.notify]}>
@@ -63,22 +67,24 @@ const [cartItemsNum, setCartItemsNum] = useState(0)
           <Text
             style={{
               marginTop: -7,
-              marginLeft: 20,
-              fontSize: 15,
+              marginLeft: 15,
+              fontSize: 10,
               backgroundColor: "white",
-              position:'absolute'
-              ,zIndex:4
+              position: "absolute",
+              zIndex: 4,
             }}
           >
             {cartItemsNum}
           </Text>
-          <View style={{
-            height:'130%'
-            ,width:'130%',
-            position:'absolute'
-            ,top:'0'
-          }}>
-          <Icons props={{iconName:iconNames.cartIcon2}}/>
+          <View
+            style={{
+              height: "130%",
+              width: "130%",
+              position: "absolute",
+              // ,top:'0'
+            }}
+          >
+            <Icons props={{ iconName: iconNames.cartIcon2 }} />
           </View>
         </TouchableOpacity>
       </View>
@@ -90,20 +96,20 @@ const styles = StyleSheet.create({
     height: 70,
     display: "flex",
     flexDirection: "row",
-    backgroundColor: "white",
-    // paddingBottom:'10px'
+    // backgroundColor: "grey",
+    marginTop:20
   },
   leftPane: {
     width: "60%",
     alignSelf: "flex-end",
   },
   title: {
-    fontSize: 23,
+    fontSize: 20,
     paddingLeft: 10,
     fontWeight: "bold",
-    height:28,
-    flexWrap:'nowrap',
-    overflow:'hidden',
+    height: 28,
+    flexWrap: "nowrap",
+    overflow: "hidden",
   },
   rightPane: {
     height: "90%",
@@ -118,23 +124,23 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
   },
   icons: {
-    // border: "2px solid red",
-    // borderRadius: "100%",
+    borderRadius: 100,
   },
   avator: {
     width: 50,
     height: 50,
     marginLeft: 7,
-    backgroundColor:'#ececec'
+    backgroundColor: "#ececec",
+
   },
   notify: {
-    height: 30,
-    width: 30,
+    height: 20,
+    width: 20,
     marginLeft: 15,
   },
   cart: {
-    height: 30,
-    width: 30,
+    height: 20,
+    width: 20,
   },
 });
 export default TopHeader;

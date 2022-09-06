@@ -6,7 +6,7 @@ import {
   Text,
   TextInput,
 } from "react-native";
-// import BackButton from "../components/BackButton";
+import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,15 +14,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 function LogIn({ navigation }) {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-
+  const [loading, setLoading] = useState(false)
   const handleLogIn = () => {
     console.log(Email);
     console.log(Password);
+    setLoading(true)
 
     if (Email != "" && Password != "") {
       axios({
         method: "POST",
-        url: "http://localhost/chafua/logIn.php",
+        url: "http://192.168.0.101/chafua/logIn.php",
         data: {
           Email: Email,
           Password: Password,
@@ -32,19 +33,23 @@ function LogIn({ navigation }) {
           if (response.data.Name != undefined) {
             let data = JSON.stringify(response.data);
             await AsyncStorage.setItem("user", data);
-            await AsyncStorage.setItem("isLoggedIn", true);
+            await AsyncStorage.setItem("isLoggedIn", 'true');
             await AsyncStorage.setItem("cart", JSON.stringify([]));
             await AsyncStorage.setItem("addresses", JSON.stringify([]));
             await AsyncStorage.setItem("favorites", JSON.stringify([]));
-            window.location.reload();
+            setLoading(false)
+            // window.location.reload();
+            console.log(window)
             //  console.log()
           } else {
             alert(response.data);
           }
         } catch (e) {
-          console.log(e.message);
-          alert("You are offline");
+          alert("Error storing data");
+          console.log(e);
         }
+      }).catch((e)=>{
+        alert('You might be offline please check your network')
       });
     } else {
       alert("Some fields are not filled");
@@ -53,31 +58,8 @@ function LogIn({ navigation }) {
 
   return (
     <View style={[globalStyles.main]}>
-      <View>
-        {/* <BackButton props={{ navigation: navigation, title: "Log In" }} /> */}
+      <BackButton props={{ navigation: navigation, title: "Log In" }} />
 
-        <Text style={[globalStyles.title]}>
-          LogIn
-          {/* {props.title} */}
-        </Text>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={[globalStyles.buttons]}
-        >
-          <View
-            style={{
-              // borderLeft: "3px solid rgb(74, 4, 4)",
-              // borderBottom: "3px solid rgb(74, 4, 4)",
-              borderColor: "rgb(74, 4, 4)",
-              borderLeftWidth: 2,
-              borderBottomWidth: 2,
-              height: 13,
-              marginLeft: 5,
-              width: 13,
-            }}
-          />
-        </TouchableOpacity>
-      </View>
       <View
         style={[
           globalStyles.container,
@@ -118,9 +100,8 @@ function LogIn({ navigation }) {
           ]}
           placeholder="Email"
           keyboardType="email-address"
-          
-          onChange={(event) => {
-            setEmail(event.target.value);
+          onChangeText={(event) => {
+            setEmail(event);
           }}
         />
         <TextInput
@@ -133,8 +114,8 @@ function LogIn({ navigation }) {
           ]}
           secureTextEntry={true}
           placeholder="Password"
-          onChange={(event) => {
-            setPassword(event.target.value);
+          onChangeText={(event) => {
+            setPassword(event);
           }}
         />
         <TouchableOpacity
@@ -163,14 +144,12 @@ function LogIn({ navigation }) {
             globalStyles.LButtons,
             {
               marginTop: 50,
-              backgroundColor:'rgb(74, 4, 4)'
+              backgroundColor: "rgb(74, 4, 4)",
             },
           ]}
           onPress={handleLogIn}
         >
-          <Text style={[globalStyles.bText, { color: "white" }]}>
-            Login
-          </Text>
+          <Text style={[globalStyles.bText, { color: "white" }]}>Login</Text>
         </TouchableOpacity>
         <Text
           style={[
@@ -185,6 +164,7 @@ function LogIn({ navigation }) {
             onPress={() => navigation.navigate("SignUp")}
             style={{
               color: "rgb(74, 4, 4)",
+              marginTop:20
             }}
           >
             <Text style={[globalStyles.iText]}>Sign Up</Text>

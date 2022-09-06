@@ -6,6 +6,7 @@ import {
   TextInput,
   ScrollView,
   FlatList,
+  ImageBackground,
   TouchableOpacity,
 } from "react-native";
 import props from "../props/props";
@@ -14,7 +15,6 @@ import BottomNav from "../components/bottomNav";
 import Icons from "../components/icons";
 import { iconNames } from "../components/iconNames";
 import { globalStyles } from "../components/commonStyles";
-import { ImageBackground } from "react-native-web";
 import Loader from "../components/loader";
 import { AirbnbRating, Rating } from "react-native-ratings";
 import MasonryList from "@react-native-seoul/masonry-list";
@@ -30,14 +30,16 @@ function Home({ navigation }) {
     "https://media.npr.org/assets/img/2022/06/06/gettyimages-1199291938-40_custom-7191b02345de50bf85961f6342c202dd9d6d20a0-s800-c85.webp",
     "https://media.npr.org/assets/img/2022/06/06/gettyimages-1199291938-40_custom-7191b02345de50bf85961f6342c202dd9d6d20a0-s800-c85.webp",
   ]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
       AsyncStorage.getItem("user").then((res) => {
+        setLoading(true);
         let campusID = JSON.parse(res).campusID;
         axios({
           method: "POST",
-          url: "http://localhost/chafua/getHotels.php",
+          url: "http://192.168.0.101/chafua/getHotels.php",
           data: { campusID: campusID },
         })
           .then(async (res) => {
@@ -45,10 +47,12 @@ function Home({ navigation }) {
               console.log(res.data);
               setHotelList(res.data);
               setConstHotelList(res.data);
+              setLoading(false);
             }
           })
           .catch((eer) => {
-            alert("error");
+            alert("Network error");
+            setLoading(false);
           });
       });
     });
@@ -61,6 +65,7 @@ function Home({ navigation }) {
         .then((res) => {
           let parse = JSON.parse(res);
           setUserDetails(parse);
+          // alert('user')
         })
         .catch((err) => {
           console.log(err);
@@ -79,7 +84,14 @@ function Home({ navigation }) {
     }
   };
   return (
-    <View style={[globalStyles.main]}>
+    <View
+      style={[
+        globalStyles.main,
+        {
+          paddingTop: -10,
+        },
+      ]}
+    >
       {/* {true?<TopHeader props={navigation} />:<></>} */}
       <TopHeader props={{ navigation: navigation, title: "Home" }} />
 
@@ -90,7 +102,7 @@ function Home({ navigation }) {
       >
         <TextInput
           placeholder="search bar"
-          style={[styles.search, { outline: "none" }]}
+          style={[styles.search, { fontSize: 15 }]}
           onFocus={(e) =>
             navigation.navigate("Search", {
               params: { isSearching: true, word: e.target.value },
@@ -182,6 +194,7 @@ function Home({ navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 12,
               }}
             >
               All
@@ -189,8 +202,10 @@ function Home({ navigation }) {
             <View style={styles.categIcon}>
               <View
                 style={{
-                  height: "100%",
-                  width: "100%",
+                  height: "70%",
+                  width: "70%",
+                  marginTop: 4,
+                  marginLeft: 10,
                 }}
               >
                 <Icons props={{ iconName: iconNames.allIcon }} />
@@ -207,6 +222,7 @@ function Home({ navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 12,
               }}
             >
               Fast
@@ -214,8 +230,10 @@ function Home({ navigation }) {
             <View style={styles.categIcon}>
               <View
                 style={{
-                  height: "100%",
-                  width: "100%",
+                  height: "70%",
+                  width: "70%",
+                  marginTop: 4,
+                  marginLeft: 10,
                 }}
               >
                 <Icons props={{ iconName: iconNames.fastIcon }} />
@@ -232,6 +250,7 @@ function Home({ navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 12,
               }}
             >
               Drinks
@@ -239,8 +258,10 @@ function Home({ navigation }) {
             <View style={styles.categIcon}>
               <View
                 style={{
-                  height: "100%",
-                  width: "100%",
+                  height: "70%",
+                  width: "70%",
+                  marginTop: 4,
+                  marginLeft: 10,
                 }}
               >
                 <Icons props={{ iconName: iconNames.drinkIcon }} />
@@ -257,6 +278,7 @@ function Home({ navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 12,
               }}
             >
               Tea
@@ -264,8 +286,10 @@ function Home({ navigation }) {
             <View style={styles.categIcon}>
               <View
                 style={{
-                  height: "100%",
-                  width: "100%",
+                  height: "70%",
+                  width: "70%",
+                  marginTop: 4,
+                  marginLeft: 10,
                 }}
               >
                 <Icons props={{ iconName: iconNames.teaIcon }} />
@@ -282,6 +306,7 @@ function Home({ navigation }) {
             <Text
               style={{
                 fontWeight: "bold",
+                fontSize: 12,
               }}
             >
               Fruits
@@ -289,8 +314,10 @@ function Home({ navigation }) {
             <View style={styles.categIcon}>
               <View
                 style={{
-                  height: "100%",
-                  width: "100%",
+                  height: "70%",
+                  width: "70%",
+                  marginTop: 4,
+                  marginLeft: 10,
                 }}
               >
                 <Icons props={{ iconName: iconNames.fruitIcon }} />
@@ -299,11 +326,13 @@ function Home({ navigation }) {
           </TouchableOpacity>
         </ScrollView>
       </View>
-      <ScrollView style={styles.trending}>
-        <h4 style={{ margin: 0, paddingBottom: 20 }}>
+      <Text style={{ margin: 0, paddingBottom: 15,paddingLeft:10,
+           fontWeight: "bold", }}>
           {userDetails ? userDetails.campName : "Hotels"}
-        </h4>
+        </Text>
 
+      <ScrollView style={styles.trending}>
+        
         <MasonryList
           data={hotelList}
           keyExtractor={(item) => item.id}
@@ -317,7 +346,11 @@ function Home({ navigation }) {
           ListEmptyComponent={() => {
             return (
               <View>
-                <Text>Seems like you are offline... </Text>
+                {loading ? (
+                  <Text>Loading...</Text>
+                ) : (
+                  <Text>Seems like you are offline... </Text>
+                )}
               </View>
             );
           }}
@@ -326,19 +359,30 @@ function Home({ navigation }) {
               <TouchableOpacity
                 style={styles.item}
                 onPress={() => {
+                  if(item.status == 'Open'){
                   navigation.navigate("Hotel", {
                     params: { hotelID: item.hotelID, name: item.name },
-                  });
+                  });}else{
+                    alert('Hotel Clossed')
+                  }
                 }}
               >
                 <ImageBackground
-                  source={item.image}
+                  source={{ uri: item.image }}
+                  // onError={(e)=>alert('error image',e)}
                   style={{
                     borderBottom: "2px solid rgb(74, 4, 4)",
-                    height: 100,
+                    borderBottomWidth: 1,
+                    height: 120,
                     width: "100%",
-                    // borderRadius: 15,
-                    overflow: "hidden",
+                    borderRadius: 55,
+                    // overflow: "hidden",
+                    paddingBottom: 10,
+                  }}
+                  imageStyle={{
+                    height: 105,
+                    borderRadius: 10,
+                    // paddingBottom:10
                   }}
                 />
                 <View
@@ -348,25 +392,25 @@ function Home({ navigation }) {
                 >
                   <Text
                     style={{
-                      fontSize: 18,
-                      marginTop: 10,
+                      fontSize: 15,
+                      marginTop: 5,
                       marginBottom: 5,
                     }}
                   >
                     {item.name}
                   </Text>
-                  <Text>Status : {item.status}</Text>
-                  <Text>Est : {item.estTime}</Text>
+                  <Text style={{ fontSize: 12 }}>Status : {item.status}</Text>
+                  <Text style={{ fontSize: 12 }}>Est : {item.estTime}</Text>
 
                   <View
                     style={{
                       marginLeft: -10,
-                      marginTop: 10,
+                      marginTop: 5,
                     }}
                   >
                     <AirbnbRating
                       count={5}
-                      size={12}
+                      size={10}
                       defaultRating={item.rating}
                       isDisabled
                       showRating={false}
@@ -380,7 +424,12 @@ function Home({ navigation }) {
           flexDirection="true"
         />
       </ScrollView>
-      <BottomNav props={navigation} />
+      <BottomNav
+        style={{
+          height: 50,
+        }}
+        props={navigation}
+      />
     </View>
   );
 }
@@ -389,12 +438,12 @@ const styles = StyleSheet.create({
   search: {
     // border: "2px solid rgb(74, 4, 4)",
 
-    borderWidth:2,
-    borderColor:'rgb(74, 4, 4)',
+    borderWidth: 1,
+    borderColor: "rgb(74, 4, 4)",
     height: 35,
     fontSize: 18,
-    // borderRadius: 15,
-    paddingLeft: 10,
+    borderRadius: 15,
+    paddingLeft: 15,
     width: "80%",
     marginTop: 10,
     marginLeft: 10,
@@ -412,14 +461,16 @@ const styles = StyleSheet.create({
     overflow: "scroll",
     marginTop: 5,
     paddingBottom: 15,
+    paddingLeft: 5,
   },
   categMiniBox: {
-    border: "2px solid rgb(74, 4, 4)",
+    // border: "2px solid rgb(74, 4, 4)",
+    borderWidth: 1,
     minWidth: 85,
     paddingRight: 10,
     paddingLeft: 10,
-    height: 40,
-    // borderRadius: 15,
+    height: 30,
+    borderRadius: 10,
     marginLeft: 10,
     display: "flex",
     flexDirection: "row-reverse",
@@ -436,15 +487,17 @@ const styles = StyleSheet.create({
     // marginTop:'5px',
     paddingLeft: 5,
     // paddingTop: 15,
-    height: "42%  ",
+    height: "42%",
     // border:'2px solid red'
   },
   item: {
-    border: "2px solid rgb(74, 4, 4)",
-    height: "fit-content",
+    // border: "2px solid rgb(74, 4, 4)",
+    borderWidth: 1,
+    // height: "fit-content",n
     paddingBottom: 5,
-    width: 150,
-    // borderRadius: 15,
+    width: 130,
+    borderRadius: 15,
+    borderColor: "rgb(74,4,4)",
     marginBottom: 20,
     overflow: "hidden",
     backgroundColor: "white",

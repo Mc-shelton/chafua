@@ -6,26 +6,27 @@ import {
   TouchableOpacity,
   Link,
   Linking,
+  // CheckBox
 } from "react-native";
-// import BackButton from "../components/backButton";
+import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
 import axios from "axios";
 import Picker from "react-native-picker-select";
 import SelectDropdown from "react-native-select-dropdown";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { CheckBox } from "@react-native-community/checkbox";
-const countries = ["Egypt", "Ireland"];
+// import { CheckBox } from "@react-native-community/checkbox";
+const countries = ["Egypt", "Ireland", "Ireland", "Ireland"];
 
 function SignUp({ navigation }) {
   const [isSelected, setSelection] = useState(false);
-  const [isDisabled, setDisabled] = useState(true);
+  const [isDisabled, setDisabled] = useState(false);
 
-  // const [Email, setEmail] = useState("");
-  // const [Phone, setPhone] = useState("");
-  // const [Name, setName] = useState("");
-  // const [Institution, setInstitution] = useState("");
-  // const [Password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Phone, setPhone] = useState("");
+  const [Name, setName] = useState("");
+  const [Institution, setInstitution] = useState("");
+  const [Password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignIn = () => {
     if (
@@ -39,7 +40,7 @@ function SignUp({ navigation }) {
       if (Password === confirmPassword) {
         axios({
           method: "POST",
-          url: "http://localhost/chafua/signUp.php",
+          url: "http://192.168.0.101/chafua/signUp.php",
           data: {
             Email: Email,
             Phone: Phone,
@@ -53,14 +54,17 @@ function SignUp({ navigation }) {
               let data = JSON.stringify(response.data);
 
               await AsyncStorage.setItem("user", data);
-              await AsyncStorage.setItem("isLoggedIn", true);
-              await AsyncStorage.setItem("cart", "");
+              await AsyncStorage.setItem("isLoggedIn", 'true');
+              await AsyncStorage.setItem("cart", JSON.stringify([]));
+              await AsyncStorage.setItem("addresses", JSON.stringify([]));
+              await AsyncStorage.setItem("favorites", JSON.stringify([]));
               window.location.reload();
             } else {
               alert(response.data);
             }
           } catch (e) {
             console.log(e);
+            alert('Error occurred while storing data')
           }
         });
       } else {
@@ -77,7 +81,11 @@ function SignUp({ navigation }) {
         backgroundColor: "white",
       }}
     >
-      {/* <BackButton props={{ navigation: navigation, title: "Sign Up" }} /> */}
+      <View style={{
+        flex:1,
+      }}>
+      <BackButton props={{ navigation: navigation, title: "Sign Up" }} />
+      </View>
       <View
         style={[
           globalStyles.container,
@@ -85,13 +93,13 @@ function SignUp({ navigation }) {
             marginTop: 100,
             height: "85%",
             backgroundColor: "white",
-            border: "none",
+            borderWidth: 0,
           },
         ]}
       >
         <Text
           style={{
-            fontSize: 27,
+            fontSize: 25,
             color: "rgb(94, 4, 4)",
             // marginTop: 20,
           }}
@@ -100,12 +108,11 @@ function SignUp({ navigation }) {
         </Text>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 15,
           }}
         >
           create your new account
         </Text>
-
         <TextInput
           style={[
             globalStyles.LButtons,
@@ -116,8 +123,8 @@ function SignUp({ navigation }) {
             },
           ]}
           placeholder="Email "
-          onChange={(event) => {
-            setEmail(event.target.value);
+          onChangeText={(text) => {
+            setEmail(text);
           }}
         />
         <TextInput
@@ -129,8 +136,8 @@ function SignUp({ navigation }) {
             },
           ]}
           placeholder="Phone number"
-          onChange={(event) => {
-            setPhone(event.target.value);
+          onChangeText={(text) => {
+            setPhone(text);
           }}
         />
         <TextInput
@@ -142,13 +149,15 @@ function SignUp({ navigation }) {
             },
           ]}
           placeholder="firstName secondName"
-          onChange={(event) => {
-            setName(event.target.value);
+          
+          onChangeText={(text) => {
+            setName(text);
           }}
         />
         <SelectDropdown
           data={countries}
           onSelect={(value) => {
+            
             setInstitution(value);
           }}
           style={[
@@ -159,29 +168,37 @@ function SignUp({ navigation }) {
             },
           ]}
           buttonStyle={{
-            border: "2px solid rgb(74, 4, 4)",
             width: "90%",
-            // borderRadius: 15,
+            borderWidth: 1,
+            borderColor: "rgb(74, 4, 4)",
+            borderRadius: 10,
             height: 50,
             justifyContent: "flex-end",
             alignItems: "center",
-            paddingLeft: 10,
+            // paddingLeft: 10,
             marginTop: 15,
+            backgroundColor: "transparent",
           }}
           buttonTextStyle={{
-            fontSize: 18,
-            // color:'grey'
+            fontSize: 15,
+            textAlign: "left",
+            color: "grey",
           }}
           defaultButtonText="Choose institution"
           // placeholder="Choose institution"
-          dropdownStyle={{
-            backgroundColor: "white",
-            border: "2px solid rgb(74, 4, 4)",
-            backgroundColor: "#FAFAFA",
-          }}
+          dropdownStyle={[
+            {
+              backgroundColor: "white",
+              border: "2px solid rgb(74, 4, 4)",
+              backgroundColor: "#FAFAFA",
+              textAlign:'left'
+            },
+          ]}
+          
           rowTextStyle={{
             fontSize: 18,
-            paddingLeft: 15,
+            textAlign:'left',
+            // paddingLeft: 15,
           }}
           rowStyle={{
             marginTop: 10,
@@ -199,8 +216,9 @@ function SignUp({ navigation }) {
             },
           ]}
           placeholder="Password"
-          onChange={(event) => {
-            setPassword(event.target.value);
+          
+          onChangeText={(text) => {
+            setPassword(text);
           }}
           secureTextEntry={true}
         />
@@ -213,8 +231,9 @@ function SignUp({ navigation }) {
             },
           ]}
           placeholder="Confrim Password"
-          onChange={(event) => {
-            setConfirmPassword(event.target.value);
+          
+          onChangeText={(text) => {
+            setConfirmPassword(text);
           }}
           secureTextEntry={true}
         />
@@ -226,8 +245,8 @@ function SignUp({ navigation }) {
               flexDirection: "row",
               paddingLeft: 20,
               paddingRight: 20,
-              marginTop: "5%",
-              border: "none",
+              // marginTop: "5%",
+              borderWidth:0 ,
             },
           ]}
         >
@@ -272,11 +291,12 @@ function SignUp({ navigation }) {
             globalStyles.LButtons,
             {
               marginTop: 20,
-            },
+    backgroundColor: "rgb(74, 4, 4)",
+  },
           ]}
           onPress={handleSignIn}
         >
-          <Text style={[globalStyles.bText]}>Sign Up</Text>
+          <Text style={[globalStyles.bText,{color:'white'}]}>Sign Up</Text>
         </TouchableOpacity>
 
         <Text

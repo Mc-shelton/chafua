@@ -140,7 +140,7 @@ function Cart({ navigation }) {
                     }}
                   >
                     {parseInt(item.item.price) + parseInt(item.item.packaging)}{" "}
-                    <span
+                    <Text
                       style={{
                         fontSize: 14,
                         color: "rgb(74, 4, 4)",
@@ -148,7 +148,7 @@ function Cart({ navigation }) {
                       }}
                     >
                       /=
-                    </span>
+                    </Text>
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -179,7 +179,7 @@ function Cart({ navigation }) {
       </View>
       <View
         style={{
-          position: "fixed",
+          // position: "fixed",
           bottom: 20,
           width: "100%",
           backgroundColor: "white",
@@ -243,7 +243,7 @@ function Cart({ navigation }) {
             }}
           >
             {totalPrice}
-            <span
+            <Text
               style={{
                 fontSize: 20,
                 color: "rgb(74, 4, 4)",
@@ -251,7 +251,7 @@ function Cart({ navigation }) {
               }}
             >
               /=
-            </span>
+            </Text>
           </Text>
           <TouchableOpacity
             style={{
@@ -276,7 +276,7 @@ function Cart({ navigation }) {
               }
             }}
           >
-            <p>Check Out</p>
+            <Text>Check Out</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -314,8 +314,8 @@ function Cart({ navigation }) {
 const styles = StyleSheet.create({
   main: {
     backgroundColor: "white",
-    padding: "0",
-    overflow: "none",
+    // padding: "0",
+    // overflow: "none",
     height: "100%",
   },
   totalBox: {
@@ -332,13 +332,13 @@ const styles = StyleSheet.create({
     height: 45,
     width: 45,
     // borderRadius: 10,
-    transform: "rotate(45deg)",
+    // transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    position: "fixed",
+    // position: "fixed",
     marginLeft: 20,
-    zIndex: "3",
+    zIndex: 3,
   },
   cartItem: {
     height: 120,
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     boxShadow: " rgba(149, 157, 165) 0px 3px 15px",
     alignItems: "center",
-    overflow: "hidden",
+    // overflow: "hidden",
   },
 });
 export default Cart;
