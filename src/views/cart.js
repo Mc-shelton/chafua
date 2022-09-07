@@ -147,7 +147,7 @@ function Cart({ navigation }) {
                     {parseInt(item.item.price) + parseInt(item.item.packaging)}{" "}
                     <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: 10,
                         color: "rgb(74, 4, 4)",
                         fontWeight: "bold",
                       }}
@@ -175,7 +175,7 @@ function Cart({ navigation }) {
               <Text
                 style={{
                   textAlign: "center",
-                  fontSize: 20,
+                  fontSize: 15,
                   marginTop: "40%",
                 }}
               >
@@ -242,7 +242,7 @@ function Cart({ navigation }) {
             />
             <Text
               style={{
-                marginLeft: 5,
+                marginLeft: 3,
                 fontSize: 13,
                 fontWeight: "bold",
               }}
@@ -317,7 +317,7 @@ function Cart({ navigation }) {
         >
           <Text
             style={{
-              fontSize: 17,
+              fontSize: 15,
               color: "white",
             }}
           >

@@ -14,7 +14,7 @@ import props from "../props/props";
 function MyAddress({ navigation }) {
   const [addresses, setAddresses] = useState([]);
 
-  useEffect(async () => {
+  useEffect( () => {
     const willFocus = navigation.addListener("focus", () => {
       AsyncStorage.getItem("addresses")
         .then((res) => {
@@ -113,7 +113,8 @@ function MyAddress({ navigation }) {
         style={{
           width: "90%",
           marginLeft: "5%",
-          marginTop: 90,
+          marginTop: 30,
+          borderWidth:1,
           paddingBottom: 5,
           height: "90%",
         }}

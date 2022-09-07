@@ -23,16 +23,16 @@ import axios from "axios";
 function Hotel({ route, navigation }) {
   const [hotelList, setHotelList] = useState([]);
   const [hotelConstList, setConstHotelList] = useState([]);
-  const [hotelParams, setHotelParams] = useState(route.params.params);
+  // const [route.params.params, setHotelParams] = useState(route.params.params);
   const [loading, setLoading] = useState(true);
-
+// alert(route.params.params.name)
   useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
       setLoading(true);
       axios({
         method: "POST",
-        url: "http://192.168.0.101/chafua/getItems.php",
-        data: { hotelID: hotelParams.hotelID },
+        url: "http://172.16.60.131/chafua/getItems.php",
+        data: { hotelID: route.params.params.hotelID },
       })
         .then((res) => {
           console.log(res);
@@ -63,7 +63,7 @@ function Hotel({ route, navigation }) {
 
   return (
     <View style={globalStyles.main} showsVerticalScrollIndicator={false}>
-      <TopHeader props={{ navigation: navigation, title: hotelParams.name }} />
+      <TopHeader props={{ navigation: navigation, title: route.params.params.name }} />
       <View
         style={[
           globalStyles.container,
@@ -267,7 +267,7 @@ function Hotel({ route, navigation }) {
                   navigation.navigate("Details", {
                     cartItems: {
                       name: item.name,
-                      hotel: hotelParams.name,
+                      hotel: route.params.params.name,
                       price: item.price,
                       estDelTime: item.estDelTime,
                       thumbNail: item.thumbNail,

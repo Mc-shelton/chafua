@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity,View } from "react-native";
 import { SlideInUp } from "react-native-reanimated";
-import { View } from "react-native-web";
 import { globalStyles } from "../components/commonStyles";
 import Logo from "../components/logo";
 
@@ -13,10 +12,7 @@ function DelMessage({navigation}) {
   })
   return (
     <View
-      style={{
-        height: "100%",
-        backgroundColor: "white",
-      }}
+      style={globalStyles.main}
     >
       <Logo/>
       <View>
@@ -35,7 +31,9 @@ function DelMessage({navigation}) {
           style={{
             color: "grey",
             padding: 10,
-            fontSize: 20,
+            fontSize: 13,
+            width:'80%',
+            marginLeft:'10%',
             textAlign: "center",
           }}
         >
@@ -44,9 +42,9 @@ function DelMessage({navigation}) {
         </Text>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 18,
             textAlign: "center",
-            marginTop: 20,
+            // marginTop: 10,
           }}
         >
           Est. Delivery Time : 24 mins
@@ -56,10 +54,10 @@ function DelMessage({navigation}) {
         style={[
           globalStyles.container,
           {
-            height: 50,
+            height: 40,
             backgroundColor: "rgb(74, 4, 4)",
-            width: "90%",
-            marginLeft: "5%",
+            width: "70%",
+            marginLeft: "15%",
             marginTop: 40,
           },
         ]}
@@ -68,7 +66,7 @@ function DelMessage({navigation}) {
         <Text
           style={{
             color: "white",
-            fontSize: 20,
+            fontSize: 15,
           }}
         >
           Track My Order

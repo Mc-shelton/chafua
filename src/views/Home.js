@@ -20,7 +20,9 @@ import { AirbnbRating, Rating } from "react-native-ratings";
 import MasonryList from "@react-native-seoul/masonry-list";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { SliderBox } from "react-native-image-slider-box";
+import { SliderBox } from "react-native-image-slider-box";
+import FastImage from "react-native-fast-image";
+
 function Home({ navigation }) {
   const [hotelList, setHotelList] = useState([]);
   const [hotelConstList, setConstHotelList] = useState([]);
@@ -39,7 +41,7 @@ function Home({ navigation }) {
         let campusID = JSON.parse(res).campusID;
         axios({
           method: "POST",
-          url: "http://192.168.0.101/chafua/getHotels.php",
+          url: "http://172.16.60.131/chafua/getHotels.php",
           data: { campusID: campusID },
         })
           .then(async (res) => {
@@ -111,44 +113,18 @@ function Home({ navigation }) {
         />
         <View style={styles.advert}>
           <SliderBox
-            ImageComponent={FastImage}
             images={stateImages}
-            sliderBoxHeight={200}
-            onCurrentImagePressed={(index) =>
-              console.warn(`image ${index} pressed`)
-            }
-            dotColor="#FFEE58"
-            inactiveDotColor="#90A4AE"
-            paginationBoxVerticalPadding={20}
-            autoplay
-            circleLoop
-            resizeMethod={"resize"}
-            resizeMode={"cover"}
-            paginationBoxStyle={{
-              position: "absolute",
-              bottom: 0,
-              padding: 0,
-              alignItems: "center",
-              alignSelf: "center",
-              justifyContent: "center",
-              paddingVertical: 10,
+            onCurrentImagePressed={(e) => {
+              alert(e);
             }}
             dotStyle={{
-              width: 10,
-              height: 10,
-              // borderRadius: 5,
-              marginHorizontal: 0,
-              padding: 0,
-              margin: 0,
-              backgroundColor: "rgba(128, 128, 128, 0.92)",
+              display:'none'
             }}
-            ImageComponentStyle={{
-              // borderRadius: 15,
-              width: "97%",
-              marginTop: 5,
-            }}
-            imageLoadingColor="#2196F3"
+            autoplay
+            circleLoop
+            autoplayInterval={5000}
           />
+
           <ImageBackground
             style={{
               height: "100%",
@@ -326,13 +302,18 @@ function Home({ navigation }) {
           </TouchableOpacity>
         </ScrollView>
       </View>
-      <Text style={{ margin: 0, paddingBottom: 15,paddingLeft:10,
-           fontWeight: "bold", }}>
-          {userDetails ? userDetails.campName : "Hotels"}
-        </Text>
+      <Text
+        style={{
+          margin: 0,
+          paddingBottom: 15,
+          paddingLeft: 10,
+          fontWeight: "bold",
+        }}
+      >
+        {userDetails ? userDetails.campName : "Hotels"}
+      </Text>
 
       <ScrollView style={styles.trending}>
-        
         <MasonryList
           data={hotelList}
           keyExtractor={(item) => item.id}
@@ -359,11 +340,13 @@ function Home({ navigation }) {
               <TouchableOpacity
                 style={styles.item}
                 onPress={() => {
-                  if(item.status == 'Open'){
-                  navigation.navigate("Hotel", {
-                    params: { hotelID: item.hotelID, name: item.name },
-                  });}else{
-                    alert('Hotel Clossed')
+                  // alert(item.name)
+                  if (item.status == "Open") {
+                    navigation.navigate("Hotel", {
+                      params: { hotelID: item.hotelID, name: item.name },
+                    });
+                  } else {
+                    alert("Hotel Closed");
                   }
                 }}
               >
@@ -453,8 +436,11 @@ const styles = StyleSheet.create({
     marginTop: 15,
     height: 200,
     backgroundColor: "white",
-    borderWidth:1,
-    borderRadius: 15,
+    borderWidth: 1,
+    borderRadius: 10,
+    overflow:'hidden'
+    ,marginLeft:'1.5%'
+    ,width:'97%'
   },
   categBox: {
     display: "flex",

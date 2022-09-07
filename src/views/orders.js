@@ -8,7 +8,7 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  ImageBackground,  
+  ImageBackground,
 } from "react-native";
 import BottomNav from "../components/bottomNav";
 import { globalStyles } from "../components/commonStyles";
@@ -17,7 +17,7 @@ import props from "../props/props";
 import time from "../../assets/icons/time.png";
 
 function Orders({ navigation }) {
-  console.log(navigation)
+  console.log(navigation);
   const [orderList, setOrderList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const handleCancel = (items, ind) => {
@@ -28,7 +28,7 @@ function Orders({ navigation }) {
     }
     axios({
       method: "POST",
-      url: "http://localhost/chafua/cancelOrder.php",
+      url: "http://172.16.60.131/chafua/cancelOrder.php",
       data: {
         orderID: ind,
         orders: items,
@@ -36,15 +36,13 @@ function Orders({ navigation }) {
     })
       .then((res) => {
         fetch();
-        navigation.isFocused()
+        navigation.isFocused();
         alert(res.data);
-        console.log(orderList)
-        if(res.data == 'Order Removed' && orderList ==0){
-          console.log('did that')
-        //  navigation.push('Orders')
+        console.log(orderList);
+        if (res.data == "Order Removed" && orderList == 0) {
+          console.log("did that");
+          //  navigation.push('Orders')
         }
-
-
       })
       .catch(() => {
         alert("Sorry, network error!!");
@@ -58,7 +56,7 @@ function Orders({ navigation }) {
       let resData;
       axios({
         method: "POST",
-        url: "http://localhost/chafua/getOrders.php",
+        url: "http://172.16.60.131/chafua/getOrders.php",
         data: {
           userID: user.userID,
         },
@@ -76,9 +74,9 @@ function Orders({ navigation }) {
               });
             });
             setTotalPrice(total);
-          }else{
-            setOrderList([])
-            setTotalPrice(0)
+          } else {
+            setOrderList([]);
+            setTotalPrice(0);
           }
         })
         .catch((err) => {
@@ -94,18 +92,25 @@ function Orders({ navigation }) {
   });
   return (
     <View style={globalStyles.main} showsVerticalScrollIndicator={false}>
+      <View style={{
+        marginTop:-35
+      }} >
       <TopHeader props={{ navigation: navigation, title: "Orders" }} />
+      </View>
       <ScrollView
         style={{
           height: "65%",
           width: "100%",
-          paddingBottom: "70%",
+          // paddingBottom: "70%",
+          marginTop:20
+          // ,borderWidth:1
+
         }}
         showsHorizontalScrollIndicator={false}
       >
-        {orderList != [] && orderList.length >0 ? (
+        {orderList != [] && orderList.length > 0 ? (
           orderList.map((item) => (
-            <View key={item.orderID}>
+            <View key={item.orderID} style={{paddingTop:10,}}>
               {JSON.parse(item.orders).map((val) => (
                 <TouchableOpacity
                   key={val.itemID}
@@ -128,13 +133,14 @@ function Orders({ navigation }) {
                   <ImageBackground
                     style={{
                       height: 100,
-                      width: 100,
-                      borderRadius: "100%",
+                      width: 95,
                       marginLeft: 10,
                     }}
-                    source={val.thumbNail}
+                    source={{ uri: val.thumbNail }}
                     imageStyle={{
-                      // borderRadius: 15,
+                      borderRadius: 15,
+                      height: "90%",
+                      marginTop: 5,
                     }}
                   />
                   <View
@@ -142,19 +148,20 @@ function Orders({ navigation }) {
                       marginLeft: 20,
                       maxWidth: "50%",
                       // border:'2px solid red'
+                      borderLeftWidth: 1,
+                      paddingLeft: 10,
                     }}
                   >
                     <Text
                       style={{
                         position: "absolute",
-                        left: 180,
-                        fontSize: 18,
+                        right: -80,
+                        fontSize: 15,
                         color: "rgb(74, 4, 4)",
-                        display: "flex",
-                        flexDirection: "column",
                       }}
                     >
                       x{val.count}
+                      {"\n"}
                       <Text
                         style={{
                           marginTop: "100%",
@@ -166,7 +173,7 @@ function Orders({ navigation }) {
                     </Text>
                     <Text
                       style={{
-                        fontSize: 20,
+                        fontSize: 18,
                       }}
                     >
                       {val.name}
@@ -174,26 +181,27 @@ function Orders({ navigation }) {
                     <Text
                       style={{
                         color: "grey",
+                        fontSize: 10,
                       }}
                     >
                       {val.hotel}
                     </Text>
                     <Text
                       style={{
-                        fontSize: 25,
-                        marginTop: 10,
+                        fontSize: 20,
+                        marginTop: 5,
                       }}
                     >
                       {parseInt(val.price) + parseInt(val.packaging)}{" "}
-                      <span
+                      <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           color: "rgb(74, 4, 4)",
                           fontWeight: "bold",
                         }}
                       >
                         /=
-                      </span>
+                      </Text>
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -201,7 +209,7 @@ function Orders({ navigation }) {
             </View>
           ))
         ) : (
-          <Text style={{ marginTop: "50%", textAlign: "center", fontSize:18 }}>
+          <Text style={{ marginTop: "50%", textAlign: "center", fontSize: 15 }}>
             You have no orders as yet
           </Text>
         )}
@@ -210,20 +218,30 @@ function Orders({ navigation }) {
 
       <View
         style={{
-          position: "fixed",
-          bottom: 20,
-          width: "100%",
+          // position: "fixed",
+          marginBottom: 10,
+          marginLeft:'5%',
+          marginTop:10,
+          borderRadius:10,
+          borderWidth:1,
+          width: "90%",
           backgroundColor: "white",
-          paddingTop: 10,
-          paddingBottom: 60,
-          boxShadow: " rgba(149, 157, 165) 0px 3px 15px",
+          // paddingTop: 10,
+          // paddingBottom: 60,
+          // boxShadow: " rgba(149, 157, 165) 0px 3px 15px" ,
           // border: "2px solid red",
+              shadowColor: "black",
+              shadowOffset: { width: 5, height: 5 },
+              shadowOpacity: 0.2,
+              shadowRadius: 8,
+              elevation: 10,
+              backgroundColor:'white',
         }}
       >
         <View style={styles.totalBox}>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 18,
             }}
           >
             Delivery time
@@ -233,28 +251,30 @@ function Orders({ navigation }) {
               position: "absolute",
               display: "flex",
               right: 10,
-              marginTop: -5,
+              marginTop: 5,
               flexDirection: "row",
               alignItems: "center",
             }}
           >
             <ImageBackground
               style={{
-                height: 30,
-                width: 30,
+                height: 20,
+                width: 20,
                 border: "2px solid rgb(74, 4, 4)",
                 // borderRadius: "100%",
                 marginRight: 5,
               }}
               source={time}
-              imageStyle={{
-                // borderRadius: 15,
-              }}
+              imageStyle={
+                {
+                  // borderRadius: 15,
+                }
+              }
             />
             <Text
               style={{
-                marginLeft: 5,
-                fontSize: 17,
+                marginLeft: 3,
+                fontSize: 13,
                 fontWeight: "bold",
               }}
             >
@@ -263,43 +283,47 @@ function Orders({ navigation }) {
           </View>
           <Text
             style={{
-              marginTop: 16,
+              marginTop: 10,
             }}
           >
             Total Price
           </Text>
           <Text
             style={{
-              fontSize: 40,
+              fontSize: 30,
             }}
           >
             {totalPrice}
-            <span
+            <Text
               style={{
-                fontSize: 20,
+                fontSize: 15,
                 color: "rgb(74, 4, 4)",
                 fontWeight: "bold",
               }}
             >
               /=
-            </span>
+            </Text>
           </Text>
           <TouchableOpacity
             style={{
               height: 40,
               width: 150,
               border: "2px solid rgb(74, 4, 4)",
-              // borderRadius: 15,
+              borderRadius: 10,
               position: "absolute",
-              bottom: 20,
+              bottom: 30,
               backgroundColor: "rgb(74, 4, 4)",
               color: "white",
               alignItems: "center",
               justifyContent: "center",
-              right: 20,
+              right: 10,
             }}
           >
-            {orderList != 0 ? <p>On the way!!</p> : <p>Make Order</p>}
+            {orderList != 0 ? (
+              <Text style={{color:'white'}}>On the way!!</Text>
+            ) : (
+              <Text style={{color:'white'}}>Make Order</Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>
@@ -311,7 +335,7 @@ function Orders({ navigation }) {
 const styles = StyleSheet.create({
   main: {
     backgroundColor: "white",
-    padding: "0",
+    // padding: "0",
     overflow: "none",
     height: "100%",
   },
@@ -332,17 +356,24 @@ const styles = StyleSheet.create({
     height: 35,
   },
   cartItem: {
-    height: 120,
-    // borderRadius: 20,
-    marginTop: 20,
-    display: "flex",
-    width: "95%",
+    height: 100,
+    borderRadius: 20,
+    marginBottom: 20,
     marginLeft: "2.5%",
+    width: "95%",
+    display: "flex",
     // justifyContent:'center',
     flexDirection: "row",
     boxShadow: " rgba(149, 157, 165) 0px 3px 15px",
     alignItems: "center",
-    overflow: "hidden",
+    // overflow: "hidden",
+    shadowColor: "black",
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 15,
+    backgroundColor: "white",
+    // borderWidth:1
   },
 });
 export default Orders;

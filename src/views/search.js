@@ -27,6 +27,7 @@ function Search({ route, navigation }) {
   const [categFilter, setCategFilter] = useState([]);
   const [descFilter, setDescFilter] = useState([]);
   const [nameFilter, setNameFilter] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   const [searchValue, setSearchValue] = useState("");
   const searchEng = (value) => {
@@ -106,7 +107,7 @@ function Search({ route, navigation }) {
     const willFocus = navigation.addListener("focus", () => {
       axios({
         method: "GET",
-        url: "http://localhost/chafua/allItems.php",
+        url: "http://172.16.60.131/chafua/allItems.php",
       }).then((res) => {
         console.log(res);
         if (typeof res.data != "string") {
@@ -123,7 +124,12 @@ function Search({ route, navigation }) {
 
           filteredHotelList = res.data.map((item) => item.name);
           setNameFilter(filteredHotelList);
+          setLoading(false)
         }
+      }).catch(()=>{
+        setLoading(false)
+        alert('Network Error')
+
       });
     });
 
@@ -153,7 +159,7 @@ function Search({ route, navigation }) {
 
       <TextInput
         placeholder="search bar"
-        style={[styles.search, { marginTop: 30 }]}
+        style={[styles.search, { marginTop: 20 }]}
         // onSubmitEditing={()=>navigation.navigate('Cart')}
         onChange={(e) => {
           let value = e.target.value;
@@ -165,7 +171,7 @@ function Search({ route, navigation }) {
         autoFocus={route.params ? route.params.params.isSearching : false}
       />
       <View style={styles.trending}>
-        <Text style={{ margin: 0, marginLeft: 20}}>
+        <Text style={{ margin: 0, marginLeft: 20,fontWeight:'bold',marginTop:-10}}>
           {hotelList.length == hotelConstList.length
             ? "Search"
             : `${hotelList.length} results found`}
@@ -173,14 +179,14 @@ function Search({ route, navigation }) {
 
         <ScrollView
           style={{
-            marginTop: 20,
+            marginTop: 10,
           }}
         >
           <MasonryList
             data={hotelList}
             keyExtractor={(item) => item.id}
             numColumns={2}
-            style={{ alignSelf: "stretch" }}
+            style={{ alignSelf: "stretch" ,}}
             contentContainerStyle={{
               paddingHorizontal: 24,
               alignSelf: "stretch",
@@ -190,7 +196,7 @@ function Search({ route, navigation }) {
               return (
                 <View>
                   {/* <Loader/> */}
-                  <Text>Seems like its empty in here... </Text>
+                  {loading?<Text>Loading...</Text>:<Text>Seems like its empty in here... </Text>}
                 </View>
               );
             }}
@@ -221,46 +227,51 @@ function Search({ route, navigation }) {
                   }}
                 >
                   <ImageBackground
-                    source={item.thumbNail}
+                    source={{uri:item.thumbNail}}
                     style={{
                       borderBottom: "2px solid rgb(74, 4, 4)",
-                      height: 100,
+                      borderBottomWidth: 1,
+                      height: 120,
                       width: "100%",
-                      // borderRadius: 15,
-                      // paddingTop:"9%",
-                      overflow: "hidden",
+                      borderRadius: 55,
+                      // overflow: "hidden",
+                      paddingBottom: 10,
                     }}
+
+                  imageStyle={{
+                    height: 105,
+                    borderRadius: 10,
+                    // paddingBottom:10
+                  }}
                   />
                   <View
                     style={{
-                      // width: 120,
-                      paddingLeft:'5%'
+                      width: 120,
+                      // paddingLeft:'5%'
                     }}
                   >
                     <Text
                       style={{
-                        fontSize: 18,
-                        marginTop: 10,
+                        fontSize: 15,
+                        marginTop: 5,
                         marginBottom: 5,
                       }}
                     >
                       {item.name}
                     </Text>
-                    <Text>Hotel : {item.hotel}</Text>
-                    <Text>Est : {item.estDelTime}</Text>
+                    <Text style={{ fontSize: 12 }}>Hotel : {item.hotel}</Text>
+                    <Text style={{ fontSize: 12 }}>Est : {item.estDelTime}</Text>
 
                     <View
                       style={{
-                        // marginLeft: 10,
-                        marginTop: 10,
-                        // position:'absolute'
-                        marginLeft:'-10px'
+                        marginLeft: -10,
+                        marginTop: 5,
                       }}
                     >
                       <AirbnbRating
                         count={5}
-                        size={12}
-                        defaultRating={3}
+                        size={10}
+                        defaultRating={item.rating}
                         isDisabled
                         showRating={false}
                         selectedColor="rgb(74, 4, 4)"
@@ -274,36 +285,44 @@ function Search({ route, navigation }) {
           />
         </ScrollView>
       </View>
+    {/* <View  style={{
+        bottom:200
+        // bac
+      }} > */}
       <BottomNav props={navigation} />
+      {/* </View> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   search: {
-    border: "2px solid grey",
+    borderWidth: 1,
+    borderColor: "grey",
     height: 35,
-    fontSize: 18,
-    // borderRadius: 15,
+    borderRadius: 15,
     paddingLeft: 10,
     width: "80%",
     marginTop: 10,
     marginLeft: 10,
   },
   trending: {
-    height: "75%",
+    height: "70%",
     marginTop : 20,
   },
   item: {
-    border: "2px solid rgb(74, 4, 4)",
-    // height: 200,
-    paddingBottom:'5px',
-    width: 150,
-    // borderRadius: 15,
-    marginTop: 20,
+    // border: "2px solid rgb(74, 4, 4)",
+    borderWidth: 1,
+    // height: "fit-content",n
+    paddingBottom: 5,
+    width: 130,
+    borderRadius: 15,
+    borderColor: "rgb(74,4,4)",
+    marginBottom: 20,
     overflow: "hidden",
     backgroundColor: "white",
     marginLeft: "7%",
+    alignItems: "center",
   },
 });
 

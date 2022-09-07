@@ -14,8 +14,8 @@ function Logo() {
           overflow: "hidden",
           borderWidth: 0,
           borderBottomWidth: 3,
-          borderBottomColor:'rgb(74,4,4)',
-          // ,borderRadius:'0'
+          borderBottomColor:'rgb(74,4,4)'
+          ,borderRadius:0,
           width: "80%",
           marginLeft: "10%",
         },
