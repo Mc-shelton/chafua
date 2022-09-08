@@ -312,12 +312,13 @@ function Cart({ navigation }) {
               width: "70%",
               padding: 5,
               left: "14%",
+              borderWidth:0
             },
           ]}
         >
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 12,
               color: "white",
             }}
           >

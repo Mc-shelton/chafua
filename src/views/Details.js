@@ -111,7 +111,7 @@ function Details({ route, navigation }) {
           <TouchableOpacity
             onPress={async () => {
               setLogBox(false);
-              // navigation.navigate('')
+              navigation.goBack()
             }}
             style={[
               globalStyles.container,
@@ -290,9 +290,10 @@ function Details({ route, navigation }) {
           </View>
           <TouchableOpacity
             onPress={() => {
+              if(loadObj.status == '1'){
               setReRender(reRender + 1);
               handleLoadCart("Add");
-            }}
+            }}}
             style={[
               globalStyles.buttons,
               {

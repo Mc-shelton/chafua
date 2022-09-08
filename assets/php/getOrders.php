@@ -20,10 +20,9 @@ $results = mysqli_query($db_conn, $query);
 
 if (mysqli_num_rows($results) > 0) {
     while ($row[] = mysqli_fetch_assoc($results)) {
-        $item = $row;
          $jsonData = json_encode($row);
     }
     echo $jsonData;
 } else {
-    echo 'Failed to log In, Check your details';
+    echo 'Failed, try again';
 }

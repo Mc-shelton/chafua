@@ -85,3 +85,84 @@
         }}
         showsHorizontalScrollIndicator={false}
       />
+
+
+
+
+
+
+
+
+
+
+
+
+      orderList
+
+       const handleCancel = (items, ind) => {
+    if (items.length > 0) {
+      items = JSON.stringify(items);
+    } else {
+      items = "Remove";
+    }
+    axios({
+      method: "POST",
+      url: "http://localhost/chafua/cancelOrder.php",
+      data: {
+        orderID: ind,
+        orders: items,
+      },
+    })
+      .then((res) => {
+        fetch();
+        navigation.isFocused()
+        alert(res.data);
+        if(res.data == 'Order Removed'){
+          window.location.reload()
+        }
+
+
+      })
+      .catch(() => {
+        alert("Sorry, network error!!");
+        fetch();
+      });
+  };
+
+  const fetch = () => {
+    AsyncStorage.getItem("user").then((res) => {
+      let user = JSON.parse(res);
+      let resData;
+      axios({
+        method: "POST",
+        url: "http://localhost/chafua/getOrders.php",
+        data: {
+          userID: user.userID,
+        },
+      })
+        .then((response) => {
+          if (typeof response.data != "string") {
+            setOrderList(response.data);
+            let filter = response.data.filter((item) => item.orders);
+            let total = 0;
+            filter.forEach((array) => {
+              JSON.parse(array.orders).forEach((value) => {
+                let itTotal = parseInt(value.price) + parseInt(value.packaging);
+                let isTotal = itTotal * parseInt(value.count);
+                total += parseInt(isTotal);
+              });
+            });
+            setTotalPrice(total);
+          }
+        })
+        .catch((err) => {
+          alert("Failed to fetch");
+        });
+    });
+  };
+  useEffect(() => {
+    const willFocus = navigation.addListener("focus", () => {
+      fetch();
+    });
+    return willFocus;
+  });

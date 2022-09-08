@@ -19,33 +19,36 @@ $name = $DecodedData['Name'];
 $Phone = $DecodedData['Phone'];
 $inst = $DecodedData['Institution'];
 
+echo $Pass;
 
 $Pass = md5($Pass);
 // echo $Pass;
 
+echo $email;
+// echo 'helllo';
 
 
-$query = "SELECT * FROM users WHERE Email = '$email'";
-$results = mysqli_query($db_conn,$query);
+// $query = "SELECT * FROM users WHERE Email = '$email'";
+// $results = mysqli_query($db_conn,$query);
 
 
-$query1 = "SELECT * FROM users";
-$results1 = mysqli_query($db_conn,$query1);
+// $query1 = "SELECT * FROM users";
+// $results1 = mysqli_query($db_conn,$query1);
 
-$userID = mysqli_num_rows($results1)
-$userID = $userID + 1
-// echo mysqli_num_rows($results);
-if(mysqli_num_rows($results)>0){
-    echo 'Email already used';
-}else{
-    $query2= "INSERT INTO users(Name,Email,Phone,Institution, Password) VALUES('$name','$email','$Phone','$inst','$Pass')";
-    $results2 = mysqli_query($db_conn, $query2);
+// $userID = mysqli_num_rows($results1);
+// $userID = $userID + 1;
+// // echo mysqli_num_rows($results);
+// if(mysqli_num_rows($results)>0){
+//     echo 'Email already used';
+// }else{
+//     $query2= "INSERT INTO users(Name,Email,Phone,Institution, Password) VALUES('$name','$email','$Phone','$inst','$Pass')";
+//     $results2 = mysqli_query($db_conn, $query2);
 
-if($results2){
-    $row = array('Name'=>$name,'Password'=>$Pass,'Institution'=>$inst,'Email'=>$email,'Phone'=>$Phone,'userID'=>$userID);
-    echo $jsonData = json_encode($row);
-}else{
-    echo 'something went wrong...';
-}
-}
-?>
+// if($results2){
+//     $row = array('Name'=>$name,'Password'=>$Pass,'Institution'=>$inst,'Email'=>$email,'Phone'=>$Phone,'userID'=>$userID);
+//     echo $jsonData = json_encode($row);
+// }else{
+//     echo 'something went wrong...';
+// }
+// }
+// ?>

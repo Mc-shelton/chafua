@@ -71,6 +71,7 @@ function Favorites({ navigation }) {
                       packaging: item.item.packaging,
                       category: item.item.category,
                       delivery: item.item.delivery,
+                      status: item.item.status,
                       description: item.item.description,
                     },
                   });
@@ -108,16 +109,6 @@ function Favorites({ navigation }) {
                     paddingLeft: 10,
                   }}
                 >
-                  <Text
-                    style={{
-                      position: "absolute",
-                      right: -60,
-                      fontSize: 15,
-                      color: "rgb(74, 4, 4)",
-                    }}
-                  >
-                    x{item.item.count}
-                  </Text>
                   <Text
                     style={{
                       fontSize: 18,

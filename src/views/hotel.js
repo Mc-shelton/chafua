@@ -26,28 +26,32 @@ function Hotel({ route, navigation }) {
   // const [route.params.params, setHotelParams] = useState(route.params.params);
   const [loading, setLoading] = useState(true);
 // alert(route.params.params.name)
+
+const fetch=()=>{
+  setLoading(true);
+  axios({
+    method: "POST",
+    url: "https://asdf/chafua/getItems.php",
+    data: { hotelID: route.params.params.hotelID },
+  })
+    .then((res) => {
+      console.log(res);
+      setLoading(false);
+      if (typeof res.data != "string") {
+        setHotelList(res.data);
+        setConstHotelList(res.data);
+      } else {
+        alert(res.data);
+      }
+    })
+    .catch(() => {
+      setLoading(false);
+      alert("Seems like  something wrong with your network");
+    });
+}
   useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
-      setLoading(true);
-      axios({
-        method: "POST",
-        url: "http://172.16.60.25/chafua/getItems.php",
-        data: { hotelID: route.params.params.hotelID },
-      })
-        .then((res) => {
-          console.log(res);
-          setLoading(false);
-          if (typeof res.data != "string") {
-            setHotelList(res.data);
-            setConstHotelList(res.data);
-          } else {
-            alert(res.data);
-          }
-        })
-        .catch(() => {
-          setLoading(false);
-          alert("Seems like  something wrong with your network");
-        });
+     fetch()
     });
 
     return willFocus;
@@ -250,7 +254,12 @@ function Hotel({ route, navigation }) {
                 {loading ? (
                   <Text>Loading...</Text>
                 ) : (
+                  <View>
                   <Text>Seems like Nothing is here... </Text>
+                  <View><TouchableOpacity onPress={()=>{
+fetch()
+                  }}>reload</TouchableOpacity></View>
+                  </View>
                 )}
               </View>
             );
@@ -277,6 +286,7 @@ function Hotel({ route, navigation }) {
                       packaging: item.packaging,
                       category: item.category,
                       delivery: item.delivery,
+                      status: item.status,
                       description: item.description,
                     },
                   });}else{
