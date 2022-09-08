@@ -20,6 +20,7 @@ function Details({ route, navigation }) {
   const [logBox, setLogBox] = useState(false);
   const [reRender, setReRender] = useState(0);
   const [loadObj, setLoadObj] = useState(route.params.cartItems);
+  const [favorites, setFavorites] = useState(0);
 
   let time = 0;
   setTimeout(() => {
@@ -40,6 +41,29 @@ function Details({ route, navigation }) {
       }
     });
   });
+
+  const fav = ()=>{
+
+    AsyncStorage.getItem('favorites').then((res)=>{
+      let favList = JSON.parse(res)
+      if(res){
+        favList = favList.map(item=>item.itemID)
+        let index = favList.indexOf(loadObj.itemID)
+        if(index != -1){
+          setFavorites(1)
+        }else{
+          setFavorites(0)
+        }
+
+
+      }
+    }).catch((err)=>{
+      // alert(err)
+    })
+  }
+  useEffect(()=>{
+    fav()
+  })
   const handleLoadCart = async (par) => {
     let cartString = await AsyncStorage.getItem("cart");
     let cartList = JSON.parse(cartString);
@@ -192,7 +216,7 @@ function Details({ route, navigation }) {
             // size={3}
             // imageSize={15}
             ratingBackgroundColor="rgb(74, 4, 4)"
-            startingValue={0}
+            startingValue={favorites}
             onFinishRating={async () => {
               let favItem = route.params.cartItems;
               let paramList = [];
@@ -203,7 +227,9 @@ function Details({ route, navigation }) {
               let set = [...new Set([...storeList, ...paramList])];
               set = JSON.stringify(set);
               await AsyncStorage.setItem("favorites", set);
+              fav()
             }}
+            readonly = {favorites == 1?true:false}
           />
         </View>
       </View>

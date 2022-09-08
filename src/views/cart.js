@@ -21,6 +21,7 @@ function Cart({ navigation }) {
   const [cartItems, setCartItems] = useState("");
   const [cartItemsList, setCartItemsList] = useState(cartItems);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     setTimeout(() => {
       setcAlert(false);
@@ -28,6 +29,7 @@ function Cart({ navigation }) {
   });
 
   const fetch=()=>{
+    setLoading(true)
     AsyncStorage.getItem("cart")
     .then((res) => {
       if (res) {
@@ -40,10 +42,12 @@ function Cart({ navigation }) {
         });
         setTotalPrice(total);
         setCartItems(array);
+        setLoading(false)
       }
     })
     .catch((err) => {
       console.log(err);
+      setLoading(false)
     });
   }
   useEffect( () => {
@@ -179,7 +183,7 @@ function Cart({ navigation }) {
                   marginTop: "40%",
                 }}
               >
-                Nothing in cart as at now
+                {loading?"Loading...":"Nothing in cart as at now"}
               </Text>
             );
           }}

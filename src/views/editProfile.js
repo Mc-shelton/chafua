@@ -69,7 +69,7 @@ function EditProfile({route, navigation }) {
       <View
         style={{
           position: "absolute",
-          zIndex: "4",
+          zIndex: 4,
           width: "100%",
           // border:'2px solid red',
         }}
@@ -82,7 +82,7 @@ function EditProfile({route, navigation }) {
           // border:'2px solid red',
           marginTop: 20,
           width: "100%",
-          zIndex: "0",
+          zIndex: 0,
           // position:'absolute',top:'0',
           // border:'2px solid red'
           overflow: "hidden",
@@ -198,9 +198,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    position: "fixed",
+    // position: "fixed",
     marginLeft: 20,
-    zIndex: "3",
+    zIndex: 3,
   },
 });
 

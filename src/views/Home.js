@@ -6,6 +6,7 @@ import {
   TextInput,
   ScrollView,
   FlatList,
+  Image,
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
@@ -22,7 +23,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SliderBox } from "react-native-image-slider-box";
 import FastImage from "react-native-fast-image";
-
+import refresh from "../../assets/icons/refresh.png";
 function Home({ navigation }) {
   const [hotelList, setHotelList] = useState([]);
   const [hotelConstList, setConstHotelList] = useState([]);
@@ -33,30 +34,54 @@ function Home({ navigation }) {
     "https://media.npr.org/assets/img/2022/06/06/gettyimages-1199291938-40_custom-7191b02345de50bf85961f6342c202dd9d6d20a0-s800-c85.webp",
   ]);
   const [loading, setLoading] = useState(true);
+ 
 
+  useEffect(()=>{
+    AsyncStorage.getItem("user").then((res) => {
+      let campusID = JSON.parse(res).campusID;
+      axios({
+        method: "POST",
+        url: "http://172.16.60.25/chafua/ads.php",
+        data: { campusID: campusID },
+      })
+        .then(async (res) => {
+          if (typeof res.data != "string") {
+            setStateImages(res.data);
+            let data= JSON.stringify(res.data)
+            alert(data)
+          }
+        })
+        .catch((eer) => {
+          alert(eer)
+        });
+    });
+  })
+  const fetch=()=>{
+    AsyncStorage.getItem("user").then((res) => {
+      setLoading(true);
+      let campusID = JSON.parse(res).campusID;
+      axios({
+        method: "POST",
+        url: "http://172.16.60.25/chafua/getHotels.php",
+        data: { campusID: campusID },
+      })
+        .then(async (res) => {
+          if (typeof res.data != "string") {
+            console.log(res.data);
+            setHotelList(res.data);
+            setConstHotelList(res.data);
+            setLoading(false);
+          }
+        })
+        .catch((eer) => {
+          alert("Seems like you are offline");
+          setLoading(false);
+        });
+    });
+  }
   useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
-      AsyncStorage.getItem("user").then((res) => {
-        setLoading(true);
-        let campusID = JSON.parse(res).campusID;
-        axios({
-          method: "POST",
-          url: "http://172.16.60.25/chafua/getHotels.php",
-          data: { campusID: campusID },
-        })
-          .then(async (res) => {
-            if (typeof res.data != "string") {
-              console.log(res.data);
-              setHotelList(res.data);
-              setConstHotelList(res.data);
-              setLoading(false);
-            }
-          })
-          .catch((eer) => {
-            alert("Network error");
-            setLoading(false);
-          });
-      });
+      fetch()
     });
     return willFocus;
   });
@@ -118,7 +143,7 @@ function Home({ navigation }) {
               alert(e);
             }}
             dotStyle={{
-              display:'none'
+              display: "none",
             }}
             autoplay
             circleLoop
@@ -328,9 +353,45 @@ function Home({ navigation }) {
             return (
               <View>
                 {loading ? (
-                  <Text>Loading...</Text>
+                  <Text style={{
+                    textAlign:'center'
+                    ,marginTop:40
+                  }}>Loading...</Text>
                 ) : (
-                  <Text>Seems like you are offline... </Text>
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Loader />
+                    <Text>Seems like Nothing is here... </Text>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => {
+                          fetch();
+                        }}
+                      >
+                        <ImageBackground
+                          source={refresh}
+                          style={{
+                            height: 20,
+                            width: 20,
+                            marginTop: 20,
+                            transform: [{ rotate: "45deg" }],
+                            borderWidth:1,
+                            borderRadius:100
+                            ,
+                            padding:20
+                          }}
+                          imageStyle={{
+                            marginTop:10,
+                            marginLeft:10
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 )}
               </View>
             );
@@ -438,9 +499,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderWidth: 1,
     borderRadius: 10,
-    overflow:'hidden'
-    ,marginLeft:'1.5%'
-    ,width:'97%'
+    overflow: "hidden",
+    marginLeft: "1.5%",
+    width: "97%",
   },
   categBox: {
     display: "flex",

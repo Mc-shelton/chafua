@@ -74,8 +74,8 @@ function CartDetails({route, navigation }) {
     <View style={globalStyles.main}>
       <View
         style={{
-          position: "fixed",
-          zIndex: "5",
+          // position: "fixed",
+          zIndex: 5,
         }}
       >
         <BackButton props={{ navigation: navigation, title: "Cart Details" }} />
@@ -102,7 +102,7 @@ function CartDetails({route, navigation }) {
         <View
           style={{
             padding: 20,
-            paddingBottom: "0",
+            paddingBottom: 0,
           }}
         >
           <Text
@@ -185,14 +185,14 @@ function CartDetails({route, navigation }) {
             <View style={[styles.circles]} />
             <Text style={styles.text}>
               Total  :{" "}
-              <span
+              <Text
                 style={{
                   color: "rgb(74, 4, 4)",
                 }}
               >
                 {total}
-              </span>
-              <span
+              </Text>
+              <Text
                 style={{
                   fontSize: 15,
                   color: "rgb(74, 4, 4)",
@@ -200,7 +200,7 @@ function CartDetails({route, navigation }) {
               >
                 {" "}
                 /=
-              </span>
+              </Text>
             </Text>
           </View>
           <TouchableOpacity
@@ -216,7 +216,7 @@ function CartDetails({route, navigation }) {
               navigation.goBack()
             }}
           >
-            <Text style={[styles.text, { color: "white", margin: "0" }]}>
+            <Text style={[styles.text, { color: "white", margin: 0 }]}>
               Done
             </Text>
           </TouchableOpacity>

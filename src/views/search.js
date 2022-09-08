@@ -18,6 +18,8 @@ import MasonryList from "@react-native-seoul/masonry-list";
 import { default as list } from "../props/props";
 import { AirbnbRating } from "react-native-ratings";
 import axios from "axios";
+import Loader from "../components/loader";
+import refresh from "../../assets/icons/refresh.png";
 
 function Search({ route, navigation }) {
   const [hotelList, setHotelList] = useState([]);
@@ -27,7 +29,7 @@ function Search({ route, navigation }) {
   const [categFilter, setCategFilter] = useState([]);
   const [descFilter, setDescFilter] = useState([]);
   const [nameFilter, setNameFilter] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const [searchValue, setSearchValue] = useState("");
   const searchEng = (value) => {
@@ -65,7 +67,7 @@ function Search({ route, navigation }) {
     });
 
     value.forEach((string) => {
-      if (string != " " && value != '' ) {
+      if (string != " " && value != "") {
         searchedList.forEach((item, ind) => {
           if (item.name.toUpperCase().includes(string)) {
             if (descList.indexOf(hotelConstList[ind] != -1)) {
@@ -95,20 +97,22 @@ function Search({ route, navigation }) {
         });
         set = [...new Set([...set, ...categList])];
 
-    searchedList = set;
-    setHotelList(set);
-      }else{
-        console.log(hotelConstList)
-    setHotelList(hotelConstList);
+        searchedList = set;
+        setHotelList(set);
+      } else {
+        console.log(hotelConstList);
+        setHotelList(hotelConstList);
       }
     });
   };
-  useEffect(() => {
-    const willFocus = navigation.addListener("focus", () => {
-      axios({
-        method: "GET",
-        url: "http://172.16.60.131/chafua/allItems.php",
-      }).then((res) => {
+
+  const fetch = ()=>{
+    setLoading(true)
+    axios({
+      method: "GET",
+      url: "http://172.16.60.25/chafua/allItems.php",
+    })
+      .then((res) => {
         console.log(res);
         if (typeof res.data != "string") {
           setHotelList(res.data);
@@ -124,13 +128,17 @@ function Search({ route, navigation }) {
 
           filteredHotelList = res.data.map((item) => item.name);
           setNameFilter(filteredHotelList);
-          setLoading(false)
+          setLoading(false);
         }
-      }).catch(()=>{
-        setLoading(false)
-        alert('Network Error')
-
+      })
+      .catch(() => {
+        setLoading(false);
+        alert("Network Error");
       });
+  }
+  useEffect(() => {
+    const willFocus = navigation.addListener("focus", () => {
+     fetch()
     });
 
     return willFocus;
@@ -171,7 +179,14 @@ function Search({ route, navigation }) {
         autoFocus={route.params ? route.params.params.isSearching : false}
       />
       <View style={styles.trending}>
-        <Text style={{ margin: 0, marginLeft: 20,fontWeight:'bold',marginTop:-10}}>
+        <Text
+          style={{
+            margin: 0,
+            marginLeft: 20,
+            fontWeight: "bold",
+            marginTop: -10,
+          }}
+        >
           {hotelList.length == hotelConstList.length
             ? "Search"
             : `${hotelList.length} results found`}
@@ -186,7 +201,7 @@ function Search({ route, navigation }) {
             data={hotelList}
             keyExtractor={(item) => item.id}
             numColumns={2}
-            style={{ alignSelf: "stretch" ,}}
+            style={{ alignSelf: "stretch" }}
             contentContainerStyle={{
               paddingHorizontal: 24,
               alignSelf: "stretch",
@@ -196,7 +211,47 @@ function Search({ route, navigation }) {
               return (
                 <View>
                   {/* <Loader/> */}
-                  {loading?<Text>Loading...</Text>:<Text>Seems like its empty in here... </Text>}
+                  {loading ? (
+                    <Text style={{
+                      textAlign:'center'
+                      ,marginTop:50
+                    }}>Loading...</Text>
+                  ) : (
+                    <View
+                      style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginTop:30
+                      }}
+                    >
+                      <Loader />
+                      <Text>Seems like Nothing is here... </Text>
+                      <View>
+                        <TouchableOpacity
+                          onPress={() => {
+                            fetch();
+                          }}
+                        >
+                          <ImageBackground
+                            source={refresh}
+                            style={{
+                              height: 20,
+                              width: 20,
+                              marginTop: 20,
+                              transform: [{ rotate: "45deg" }],
+                              borderWidth: 1,
+                              borderRadius: 100,
+                              padding: 20,
+                            }}
+                            imageStyle={{
+                              marginTop: 10,
+                              marginLeft: 10,
+                            }}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  )}
                 </View>
               );
             }}
@@ -221,13 +276,13 @@ function Search({ route, navigation }) {
                         packaging: item.packaging,
                         category: item.category,
                         delivery: item.delivery,
-                        description:item.description,
+                        description: item.description,
                       },
                     });
                   }}
                 >
                   <ImageBackground
-                    source={{uri:item.thumbNail}}
+                    source={{ uri: item.thumbNail }}
                     style={{
                       borderBottom: "2px solid rgb(74, 4, 4)",
                       borderBottomWidth: 1,
@@ -237,12 +292,11 @@ function Search({ route, navigation }) {
                       // overflow: "hidden",
                       paddingBottom: 10,
                     }}
-
-                  imageStyle={{
-                    height: 105,
-                    borderRadius: 10,
-                    // paddingBottom:10
-                  }}
+                    imageStyle={{
+                      height: 105,
+                      borderRadius: 10,
+                      // paddingBottom:10
+                    }}
                   />
                   <View
                     style={{
@@ -260,7 +314,9 @@ function Search({ route, navigation }) {
                       {item.name}
                     </Text>
                     <Text style={{ fontSize: 12 }}>Hotel : {item.hotel}</Text>
-                    <Text style={{ fontSize: 12 }}>Est : {item.estDelTime}</Text>
+                    <Text style={{ fontSize: 12 }}>
+                      Est : {item.estDelTime}
+                    </Text>
 
                     <View
                       style={{
@@ -285,7 +341,7 @@ function Search({ route, navigation }) {
           />
         </ScrollView>
       </View>
-    {/* <View  style={{
+      {/* <View  style={{
         bottom:200
         // bac
       }} > */}
@@ -308,7 +364,7 @@ const styles = StyleSheet.create({
   },
   trending: {
     height: "70%",
-    marginTop : 20,
+    marginTop: 20,
   },
   item: {
     // border: "2px solid rgb(74, 4, 4)",

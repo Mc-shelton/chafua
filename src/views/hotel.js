@@ -19,39 +19,41 @@ import { default as list } from "../props/props";
 import MasonryList from "@react-native-seoul/masonry-list";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import Loader from "../components/loader";
+import refresh from "../../assets/icons/refresh.png";
 
 function Hotel({ route, navigation }) {
   const [hotelList, setHotelList] = useState([]);
   const [hotelConstList, setConstHotelList] = useState([]);
   // const [route.params.params, setHotelParams] = useState(route.params.params);
   const [loading, setLoading] = useState(true);
-// alert(route.params.params.name)
+  // alert(route.params.params.name)
 
-const fetch=()=>{
-  setLoading(true);
-  axios({
-    method: "POST",
-    url: "https://asdf/chafua/getItems.php",
-    data: { hotelID: route.params.params.hotelID },
-  })
-    .then((res) => {
-      console.log(res);
-      setLoading(false);
-      if (typeof res.data != "string") {
-        setHotelList(res.data);
-        setConstHotelList(res.data);
-      } else {
-        alert(res.data);
-      }
+  const fetch = () => {
+    setLoading(true);
+    axios({
+      method: "POST",
+      url: "http://172.16.60.25/chafua/getItems.php",
+      data: { hotelID: route.params.params.hotelID },
     })
-    .catch(() => {
-      setLoading(false);
-      alert("Seems like  something wrong with your network");
-    });
-}
+      .then((res) => {
+        console.log(res)
+        setLoading(false);
+        if (typeof res.data != "string") {
+          setHotelList(res.data);
+          setConstHotelList(res.data);
+        } else {
+          alert(res.data);
+        }
+      })
+      .catch(() => {
+        setLoading(false);
+        alert("Seems like you are offline");
+      });
+  };
   useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
-     fetch()
+      fetch();
     });
 
     return willFocus;
@@ -67,7 +69,9 @@ const fetch=()=>{
 
   return (
     <View style={globalStyles.main} showsVerticalScrollIndicator={false}>
-      <TopHeader props={{ navigation: navigation, title: route.params.params.name }} />
+      <TopHeader
+        props={{ navigation: navigation, title: route.params.params.name }}
+      />
       <View
         style={[
           globalStyles.container,
@@ -254,11 +258,39 @@ const fetch=()=>{
                 {loading ? (
                   <Text>Loading...</Text>
                 ) : (
-                  <View>
-                  <Text>Seems like Nothing is here... </Text>
-                  <View><TouchableOpacity onPress={()=>{
-fetch()
-                  }}>reload</TouchableOpacity></View>
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Loader />
+                    <Text>Seems like Nothing is here... </Text>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => {
+                          fetch();
+                        }}
+                      >
+                        <ImageBackground
+                          source={refresh}
+                          style={{
+                            height: 20,
+                            width: 20,
+                            marginTop: 20,
+                            transform: [{ rotate: "45deg" }],
+                            borderWidth:1,
+                            borderRadius:100
+                            ,
+                            padding:20
+                          }}
+                          imageStyle={{
+                            marginTop:10,
+                            marginLeft:10
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 )}
               </View>
@@ -269,28 +301,29 @@ fetch()
               <TouchableOpacity
                 style={styles.item}
                 onPress={() => {
-                  if(item.status == 1){
-                  let ind = hotelList
-                    .map((obj) => obj.itemID)
-                    .indexOf(item.itemID);
-                  navigation.navigate("Details", {
-                    cartItems: {
-                      name: item.name,
-                      hotel: route.params.params.name,
-                      price: item.price,
-                      estDelTime: item.estDelTime,
-                      thumbNail: item.thumbNail,
-                      count: parseInt(item.count),
-                      rating: parseInt(item.rating),
-                      itemID: parseInt(item.itemID),
-                      packaging: item.packaging,
-                      category: item.category,
-                      delivery: item.delivery,
-                      status: item.status,
-                      description: item.description,
-                    },
-                  });}else{
-                    alert('Sorry this item is not available as at now')
+                  if (item.status == 1) {
+                    let ind = hotelList
+                      .map((obj) => obj.itemID)
+                      .indexOf(item.itemID);
+                    navigation.navigate("Details", {
+                      cartItems: {
+                        name: item.name,
+                        hotel: route.params.params.name,
+                        price: item.price,
+                        estDelTime: item.estDelTime,
+                        thumbNail: item.thumbNail,
+                        count: parseInt(item.count),
+                        rating: parseInt(item.rating),
+                        itemID: parseInt(item.itemID),
+                        packaging: item.packaging,
+                        category: item.category,
+                        delivery: item.delivery,
+                        status: item.status,
+                        description: item.description,
+                      },
+                    });
+                  } else {
+                    alert("Sorry this item is not available as at now");
                   }
                 }}
               >
@@ -324,7 +357,7 @@ fetch()
                       borderWidth: 0.5,
                       position: "absolute",
                       right: 10,
-                      backgroundColor: item.status == 1?'green':'red',
+                      backgroundColor: item.status == 1 ? "green" : "red",
                     }}
                   ></View>
                   <Text

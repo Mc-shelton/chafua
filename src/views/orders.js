@@ -15,11 +15,16 @@ import { globalStyles } from "../components/commonStyles";
 import TopHeader from "../components/topHeader";
 import props from "../props/props";
 import time from "../../assets/icons/time.png";
+import Loader from "../components/loader";
+import refresh from "../../assets/icons/refresh.png";
+
 
 function Orders({ navigation }) {
   console.log(navigation);
   const [orderList, setOrderList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [loading, setLoading] = useState(true);
+
   const handleCancel = (items, ind) => {
     if (items.length > 0) {
       items = JSON.stringify(items);
@@ -51,6 +56,7 @@ function Orders({ navigation }) {
   };
 
   const fetch = () => {
+    setLoading(true)
     AsyncStorage.getItem("user").then((res) => {
       let user = JSON.parse(res);
       let resData;
@@ -62,6 +68,7 @@ function Orders({ navigation }) {
         },
       })
         .then((response) => {
+          setLoading(false)
           if (typeof response.data != "string") {
             setOrderList(response.data);
             let filter = response.data.filter((item) => item.orders);
@@ -80,7 +87,8 @@ function Orders({ navigation }) {
           }
         })
         .catch((err) => {
-          alert("Failed to fetch");
+          setLoading(false)
+          alert("Sorry you might be offline");
         });
     });
   };
@@ -209,9 +217,51 @@ function Orders({ navigation }) {
             </View>
           ))
         ) : (
-          <Text style={{ marginTop: "50%", textAlign: "center", fontSize: 15 }}>
-            You have no orders as yet
-          </Text>
+          <View>
+            {/* <Loader/> */}
+            {loading ? (
+              <Text style={{
+                textAlign:'center'
+                ,marginTop:50
+              }}>Loading...</Text>
+            ) : (
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop:50
+                }}
+              >
+                <Loader />
+                <Text>Seems like Nothing is here... </Text>
+                <View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      fetch();
+                    }}
+                  >
+                    <ImageBackground
+                      source={refresh}
+                      style={{
+                        height: 20,
+                        width: 20,
+                        marginTop: 20,
+                        transform: [{ rotate: "45deg" }],
+                        borderWidth:1,
+                        borderRadius:100
+                        ,
+                        padding:20
+                      }}
+                      imageStyle={{
+                        marginTop:10,
+                        marginLeft:10
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+          </View>
         )}
       </ScrollView>
       {/* </View> */}
