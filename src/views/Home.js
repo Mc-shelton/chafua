@@ -46,13 +46,14 @@ function Home({ navigation }) {
       })
         .then(async (res) => {
           if (typeof res.data != "string") {
-            setStateImages(res.data);
-            let data= JSON.stringify(res.data)
-            alert(data)
+            let stateFilter = res.data.map(item=>item.thumbNail)
+            setStateImages(stateFilter);
+
+            // alert(data)
           }
         })
         .catch((eer) => {
-          alert(eer)
+          // alert(eer)
         });
     });
   })

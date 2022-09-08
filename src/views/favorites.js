@@ -18,16 +18,19 @@ import { useIsFocused } from "@react-navigation/native";
 
 function Favorites({ navigation }) {
   const [cartItems, setCartItems] = useState([]);
-
+  const [loading, setLoading] = useState([])
   const fetch = () => {
+    setLoading(true)
     AsyncStorage.getItem("favorites")
       .then((res) => {
         if (res) {
           let array = JSON.parse(res);
           setCartItems(array);
+          setLoading(false)
         }
       })
       .catch((err) => {
+        setLoading(false)
         console.log(err);
       });
   };
@@ -165,7 +168,7 @@ function Favorites({ navigation }) {
                   marginTop: "40%",
                 }}
               >
-                Nothing in here as at now
+                {loading?'Loading...':'Nothing in here as at now'}
               </Text>
             );
           }}

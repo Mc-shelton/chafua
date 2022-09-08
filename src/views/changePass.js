@@ -66,9 +66,9 @@ function ChangePass({ route, navigation }) {
       <View
         style={{
           position: "absolute",
-          zIndex: "4",
+          zIndex: 4,
           width: "100%",
-          // border:'2px solid red',
+          // border:'2px solid red'r
         }}
       >
         <BackButton
@@ -81,7 +81,7 @@ function ChangePass({ route, navigation }) {
           // border:'2px solid red',
           marginTop: 20,
           width: "100%",
-          zIndex: "0",
+          zIndex: 0,
           // position:'absolute',top:'0',
           // border:'2px solid red'
           overflow: "hidden",
@@ -96,7 +96,8 @@ function ChangePass({ route, navigation }) {
             marginTop: 60,
             // height: "85%",
             backgroundColor: "white",
-            border: "none",
+            // border: "none",
+            borderWidth:0
           },
         ]}
       >
@@ -110,13 +111,13 @@ function ChangePass({ route, navigation }) {
             },
           ]}
           placeholder="Enter current password"
-          onChange={(e) => setCurPassWord(e.target.value)}
+          onChangeText={(e) => setCurPassWord(e)}
           secureTextEntry={true}
         />
         <TextInput
           style={[globalStyles.LButtons, globalStyles.iText]}
           placeholder="Enter new password"
-          onChange={(e) => setNewPassword(e.target.value)}
+          onChangeText={(e) => setNewPassword(e)}
           secureTextEntry={true}
         />
 
@@ -129,10 +130,11 @@ function ChangePass({ route, navigation }) {
             globalStyles.LButtons,
             {
               marginTop: 50,
+              backgroundColor:'rgb(74,4,4)'
             },
           ]}
         >
-          <Text style={[globalStyles.bText]}>Save</Text>
+          <Text style={[globalStyles.bText,{color:'white'}]}>Save</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -149,9 +151,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    position: "fixed",
+    // position: "fixed",
     marginLeft: 20,
-    zIndex: "3",
+    zIndex: 3,
   },
 });
 

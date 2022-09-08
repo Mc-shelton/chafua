@@ -80,6 +80,7 @@ function Cart({ navigation }) {
                       name: item.item.name,
                       count: item.item.count,
                       itemID: item.item.itemID,
+                      thumbNail: item.item.thumbNail
                     },
                   });
                 }}

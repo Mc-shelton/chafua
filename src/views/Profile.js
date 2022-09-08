@@ -17,7 +17,7 @@ function Profile({ navigation }) {
 
   const getUser = async () => {
     let user = await AsyncStorage.getItem("user");
-
+    // alert(user)
     return user;
   };
   useEffect(() => {
