@@ -56,22 +56,24 @@ function AddNewAddress({ route, navigation }) {
 
   return (
     <View style={[globalStyles.main]}>
-      <BackButton
-        props={{ navigation: navigation, title: "Add New Address" }}
-      />
+      <View style={{
+        marginTop:-20,
+      }}>
+      <BackButton props={{ navigation: navigation, title: "Add New Address" }} />
+      </View>
       <View
         style={[
           globalStyles.container,
           {
             marginTop: 0,
             height: "85%",
-            border: "none",
+            borderWidth:0
           },
         ]}
       >
         <Text
           style={{
-            fontSize: 27,
+            fontSize: 23,
             color: "rgb(74, 4, 4)",
             // marginTop: 20,
           }}
@@ -80,7 +82,7 @@ function AddNewAddress({ route, navigation }) {
         </Text>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 15,
             color: "grey",
           }}
         >

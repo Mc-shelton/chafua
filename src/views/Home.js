@@ -41,7 +41,7 @@ function Home({ navigation }) {
         let campusID = JSON.parse(res).campusID;
         axios({
           method: "POST",
-          url: "http://172.16.60.131/chafua/getHotels.php",
+          url: "http://172.16.60.25/chafua/getHotels.php",
           data: { campusID: campusID },
         })
           .then(async (res) => {

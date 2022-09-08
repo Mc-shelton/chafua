@@ -23,7 +23,7 @@ function LogIn({ navigation }) {
     if (Email != "" && Password != "") {
       axios({
         method: "POST",
-        url: "http://192.168.0.101/chafua/logIn.php",
+        url: "http://172.16.60.25/chafua/logIn.php",
         data: {
           Email: Email,
           Password: Password,
@@ -45,14 +45,17 @@ function LogIn({ navigation }) {
             alert(response.data);
           }
         } catch (e) {
-          alert("Error storing data");
+            setLoading(false)
+            alert("Error storing data");
           console.log(e);
         }
       }).catch((e)=>{
-        alert('You might be offline please check your network')
+            setLoading(false)
+            alert('You might be offline please check your network')
       });
     } else {
-      alert("Some fields are not filled");
+            setLoading(false)
+            alert("Some fields are not filled");
     }
   };
 
@@ -151,6 +154,7 @@ function LogIn({ navigation }) {
         >
           <Text style={[globalStyles.bText, { color: "white" }]}>Login</Text>
         </TouchableOpacity>
+        {loading?<Text>loading...</Text>:<></>}
         <Text
           style={[
             globalStyles.iText,

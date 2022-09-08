@@ -31,7 +31,7 @@ function Hotel({ route, navigation }) {
       setLoading(true);
       axios({
         method: "POST",
-        url: "http://172.16.60.131/chafua/getItems.php",
+        url: "http://172.16.60.25/chafua/getItems.php",
         data: { hotelID: route.params.params.hotelID },
       })
         .then((res) => {

@@ -190,14 +190,15 @@ class App extends Component {
       return (
         <NavigationContainer>
           <Stack.Navigator initialRouteName="LandPage">
-            <Stack.Screen
-              name="ForgotPass"
-              component={ForgotPass}
+
+          <Stack.Screen
+              name="LandPage"
+              component={LandPage}
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="LandPage"
-              component={LandPage}
+              name="ForgotPass"
+              component={ForgotPass}
               options={{ headerShown: false }}
             />
             <Stack.Screen

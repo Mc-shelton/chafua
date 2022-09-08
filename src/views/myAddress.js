@@ -14,7 +14,7 @@ import props from "../props/props";
 function MyAddress({ navigation }) {
   const [addresses, setAddresses] = useState([]);
 
-  useEffect( () => {
+  useEffect(() => {
     const willFocus = navigation.addListener("focus", () => {
       AsyncStorage.getItem("addresses")
         .then((res) => {
@@ -45,7 +45,14 @@ function MyAddress({ navigation }) {
         keyExtractor={(item) => item.room}
         renderItem={(item) => {
           return (
-            <View style={globalStyles.cartItem}>
+            <View
+              style={[
+                globalStyles.cartItem,
+                {
+                  // backgroundColor:'red'
+                },
+              ]}
+            >
               <TouchableOpacity
                 style={[
                   globalStyles.paddedButton,
@@ -53,9 +60,8 @@ function MyAddress({ navigation }) {
                   {
                     position: "absolute",
                     top: 0,
-                    right: 20,
-                    backgroundColor: "none",
-                    border: "2px solid grey",
+                    right: 10,
+                    borderRadius: 10,
                   },
                 ]}
                 onPress={() => {
@@ -65,47 +71,47 @@ function MyAddress({ navigation }) {
                   });
                 }}
               >
-                <Text style={[globalStyles.iText, { color: "grey" }]}>
+                <Text style={[globalStyles.iText, { color: "white" }]}>
                   Edit
                 </Text>
               </TouchableOpacity>
-              <View style={{
-                width:'60%'
-              }}>
-              <Text
+              <View
                 style={{
-                  fontSize: 20,
+                  width: "60%",
                 }}
               >
-                {item.item.title}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "grey",
-                  marginTop: 10,
-                }}
-              >
-                {item.item.location}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "grey",
-                }}
-              >
-                {item.item.room}
-                
-              </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "grey",
-                }}
-              >
-                {item.item.phone}
-                
-              </Text>
+                <Text
+                  style={{
+                    fontSize: 18,
+                  }}
+                >
+                  {item.item.title}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: "grey",
+                    marginTop: 10,
+                  }}
+                >
+                  {item.item.location}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: "grey",
+                  }}
+                >
+                  {item.item.room}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: "grey",
+                  }}
+                >
+                  {item.item.phone}
+                </Text>
               </View>
             </View>
           );
@@ -113,8 +119,7 @@ function MyAddress({ navigation }) {
         style={{
           width: "90%",
           marginLeft: "5%",
-          marginTop: 30,
-          borderWidth:1,
+          marginTop: 40,
           paddingBottom: 5,
           height: "90%",
         }}
@@ -124,14 +129,14 @@ function MyAddress({ navigation }) {
               style={[
                 globalStyles.container,
                 {
-                  border: "none",
+                  borderWidth:0,
                   marginTop: "30%",
                 },
               ]}
             >
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 15,
                 }}
               >
                 No addresses here, please add one{" "}
@@ -156,9 +161,13 @@ function MyAddress({ navigation }) {
           style={{
             border: "2px solid rgb(74, 4, 4)",
             marginTop: 30,
-            height: 35,
+            // height: 35,
             width: 200,
-            // borderRadius: 10,
+            // paddingTop:10,
+            paddingBottom: 10,
+            borderWidth: 1,
+            borderColor: "rgb(74,4,4)",
+            borderRadius: 10,
           }}
           onPress={() => {
             navigation.navigate("AddNewAddress", { ops: "Add" });

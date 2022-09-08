@@ -17,7 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 
 function Favorites({ navigation }) {
-  const [cartItems, setCartItems] = useState("");
+  const [cartItems, setCartItems] = useState([]);
 
   const fetch = () => {
     AsyncStorage.getItem("favorites")
@@ -39,10 +39,10 @@ function Favorites({ navigation }) {
   }, []);
   return (
     <View style={styles.main} showsVerticalScrollIndicator={false}>
-      <TopHeader props={{ navigation: navigation, title: "Cart" }} />
+      <TopHeader props={{ navigation: navigation, title: "Favorites" }} />
       <View
         style={{
-          height: "65%",
+          height: "81.5%",
           width: "100%",
         }}
       >
@@ -89,12 +89,14 @@ function Favorites({ navigation }) {
                 <ImageBackground
                   style={{
                     height: 100,
-                    width: 100,
+                    width: 95,
                     marginLeft: 10,
                   }}
-                  source={item.item.thumbNail}
+                  source={{ uri: item.item.thumbNail }}
                   imageStyle={{
-                    // borderRadius: 15,
+                    borderRadius: 15,
+                    height: "90%",
+                    marginTop: 5,
                   }}
                 />
                 <View
@@ -102,13 +104,15 @@ function Favorites({ navigation }) {
                     marginLeft: 20,
                     maxWidth: "50%",
                     // border:'2px solid red'
+                    borderLeftWidth: 1,
+                    paddingLeft: 10,
                   }}
                 >
                   <Text
                     style={{
                       position: "absolute",
-                      left: 180,
-                      fontSize: 18,
+                      right: -60,
+                      fontSize: 15,
                       color: "rgb(74, 4, 4)",
                     }}
                   >
@@ -116,7 +120,7 @@ function Favorites({ navigation }) {
                   </Text>
                   <Text
                     style={{
-                      fontSize: 20,
+                      fontSize: 18,
                     }}
                   >
                     {item.item.name}
@@ -124,35 +128,40 @@ function Favorites({ navigation }) {
                   <Text
                     style={{
                       color: "grey",
+                      fontSize: 10,
                     }}
                   >
                     {item.item.hotel}
                   </Text>
                   <Text
                     style={{
-                      fontSize: 25,
-                      marginTop: 10,
+                      fontSize: 20,
+                      marginTop: 5,
                     }}
                   >
                     {parseInt(item.item.price) + parseInt(item.item.packaging)}{" "}
-                    <span
+                    <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: 10,
                         color: "rgb(74, 4, 4)",
                         fontWeight: "bold",
                       }}
                     >
                       /=
-                    </span>
+                    </Text>
                   </Text>
                 </View>
               </TouchableOpacity>
             );
           }}
+          contentContainerStyle={{
+            paddingTop:20
+          }}
           style={{
             width: "100%",
             marginTop: 0,
             paddingBottom: 10,
+            // borderWidth:1,
             height: "10%",
             // border:'2px solid red'
           }}
@@ -161,16 +170,20 @@ function Favorites({ navigation }) {
               <Text
                 style={{
                   textAlign: "center",
-                  fontSize: 20,
+                  fontSize: 15,
                   marginTop: "40%",
                 }}
               >
-                Nothing in cart as at now
+                Nothing in here as at now
               </Text>
             );
           }}
           showsHorizontalScrollIndicator={false}
         />
+        <Text style={{
+          fontSize:10,
+          textAlign:'center'
+        }}>Long press to remove</Text>
       </View>
       <BottomNav props={navigation} />
     </View>
@@ -179,12 +192,12 @@ function Favorites({ navigation }) {
 const styles = StyleSheet.create({
   main: {
     backgroundColor: "white",
-    padding: "0",
-    overflow: "none",
+    // padding: "0",
+    // overflow: "none",
     height: "100%",
   },
   totalBox: {
-    border: "2px solid rgb(74, 4, 4)",
+    // border: "2px solid rgb(74, 4, 4)",
     height: 150,
     width: "90%",
     marginLeft: "5%",
@@ -193,30 +206,37 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   buttons: {
-    border: "2px solid rgb(74, 4, 4)",
+    // border: "2px solid rgb(74, 4, 4)",
     height: 45,
     width: 45,
     // borderRadius: 10,
-    transform: "rotate(45deg)",
+    // transform: "rotate(45deg)",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    position: "fixed",
+    // position: "fixed",
     marginLeft: 20,
-    zIndex: "3",
+    zIndex: 3,
   },
   cartItem: {
-    height: 120,
-    // borderRadius: 20,
-    marginTop: 20,
-    marginLeft: "5%",
-    width: "90%",
+    height: 100,
+    borderRadius: 20,
+    marginBottom: 20,
+    marginLeft: "2.5%",
+    width: "95%",
     display: "flex",
     // justifyContent:'center',
     flexDirection: "row",
     boxShadow: " rgba(149, 157, 165) 0px 3px 15px",
     alignItems: "center",
-    overflow: "hidden",
+    // overflow: "hidden",
+    shadowColor: "black",
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 15,
+    backgroundColor: "white",
+    // borderWidth:1
   },
 });
 export default Favorites;
