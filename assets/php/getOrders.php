@@ -15,6 +15,7 @@ $DecodedData = json_decode($EncodedData, true);
 
 $userID = $DecodedData['userID'];
 
+
 $query = "SELECT * FROM orders WHERE userID = '$userID'";
 $results = mysqli_query($db_conn, $query);
 

@@ -22,15 +22,24 @@ $inst = $DecodedData['Institution'];
 $prevEmail = $DecodedData['prevEmail'];
 $userID = $DecodedData['userID'];
 
+$queryCamp = "SELECT * FROM campuses WHERE campusID = '$inst'";
+$resultsCamp = mysqli_query($db_conn,$queryCamp);
+
+while($row = mysqli_fetch_assoc($resultsCamp) ){
+    $campName = $row['name'];
+    $regionSpecs =  $row['regionSpecs'];
+
+}
+
 $query = "SELECT * FROM users WHERE Email = '$prevEmail'";
 $results = mysqli_query($db_conn,$query);
 
 if(mysqli_num_rows($results)>0){
-$query2 = "UPDATE users SET Name='$name',Email='$email',Phone='$Phone',Institution='$inst' WHERE Email = '$prevEmail' AND Password = '$Pass'";
+$query2 = "UPDATE users SET Name='$name',Email='$email',Phone='$Phone',campusID='$inst' WHERE Email = '$prevEmail' AND Password = '$Pass'";
 $results2 = mysqli_query($db_conn,$query2);
     
 if($results2){
-    $row = array('Name'=>$name,'Password'=>$Pass,'Institution'=>$inst,'Email'=>$email,'Phone'=>$Phone,'userID'=>$userID);
+    $row = array('Name'=>$name,'Password'=>$Pass,'campusID'=>$inst,'Email'=>$email,'Phone'=>$Phone,'userID'=>$userID,'campName'=>$campName, 'regionSpecs'=>$regionSpecs);
     echo $jsonData = json_encode($row);
 }else{
     echo 'something went wrong...';
@@ -39,6 +48,3 @@ if($results2){
 
     echo 'Email not found';
 }
-
-
-?>

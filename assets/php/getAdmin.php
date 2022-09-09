@@ -13,9 +13,9 @@ $db_conn = new mysqli($db_host,$db_user,$db_password,$db_name);
 $EncodedData = file_get_contents('php://input');
 $DecodedData = json_decode($EncodedData, true);
 
-$campusID = $DecodedData['campusID'];
+$hotelID = $DecodedData['hotelID'];
 
-$query = "SELECT * FROM adverts INNER JOIN campuses ON adverts.campusID = campuses.campusID WHERE adverts.campusID = '$campusID'";
+$query = "SELECT items.*, hotels.name AS hotel FROM items INNER JOIN hotels ON items.hotelID = hotels.hotelID WHERE items.hotelID = '$hotelID'";
 
 $results = mysqli_query($db_conn,$query);
 if(mysqli_num_rows($results)>0){
@@ -25,5 +25,5 @@ while ($row[] = mysqli_fetch_assoc($results)){
 
 echo $jsonData;
 }else{
-    echo 'Failed Fetch';
+    echo 'No admin found!';
 }
