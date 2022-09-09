@@ -15,16 +15,14 @@ function Profile({ navigation }) {
 
   var globalObject = ["tempUser"];
 
-  const getUser = async () => {
-    let user = await AsyncStorage.getItem("user");
-    // alert(user)
-    return user;
-  };
   useEffect(() => {
-    getUser().then((res) => {
-      setUser(res);
-    });
-  }, [user]);
+    const willFocus = navigation.addListener('focus',()=>{
+      AsyncStorage.getItem("user").then((res) => {
+        setUser(res);
+      });
+    })
+    return willFocus
+  }, []);
   return (
     <View style={[globalStyles.main,{
     }]}>

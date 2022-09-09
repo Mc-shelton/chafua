@@ -48,7 +48,6 @@ function Home({ navigation }) {
           if (typeof res.data != "string") {
             let stateFilter = res.data.map(item=>item.thumbNail)
             setStateImages(stateFilter);
-
             // alert(data)
           }
         })
@@ -61,6 +60,7 @@ function Home({ navigation }) {
     AsyncStorage.getItem("user").then((res) => {
       setLoading(true);
       let campusID = JSON.parse(res).campusID;
+      // alert(campusID)
       axios({
         method: "POST",
         url: "http://172.16.60.25/chafua/getHotels.php",

@@ -9,6 +9,8 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  Linking,
+  Image,
 } from "react-native";
 import BottomNav from "../components/bottomNav";
 import { globalStyles } from "../components/commonStyles";
@@ -17,13 +19,30 @@ import props from "../props/props";
 import time from "../../assets/icons/time.png";
 import Loader from "../components/loader";
 import refresh from "../../assets/icons/refresh.png";
-
+import phone from "../../assets/icons/phone.png";
 
 function Orders({ navigation }) {
   console.log(navigation);
   const [orderList, setOrderList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [adminPhone, setAdminPhone] = useState("0742092433");
+  const [ret, setRet] = useState("");
+  // useEffect(() => {
+  //   // setLoading(true);
+  //   axios({
+  //     method: "POST",
+  //     url: "http://172.16.60.25/chafua/getAdmin.php",
+  //     data:user
+  //   })
+  //     .then((res) => {
+  //       setAdminPhone(res.data);
+
+  //     })
+  //     .catch((err) => {
+  //       alert(`Something broke looking for admin!`)
+  //     });
+  // },[]);
 
   const handleCancel = (items, ind) => {
     if (items.length > 0) {
@@ -33,7 +52,7 @@ function Orders({ navigation }) {
     }
     axios({
       method: "POST",
-      url: "http://172.16.60.131/chafua/cancelOrder.php",
+      url: "http://172.16.60.25/chafua/cancelOrder.php",
       data: {
         orderID: ind,
         orders: items,
@@ -56,19 +75,19 @@ function Orders({ navigation }) {
   };
 
   const fetch = () => {
-    setLoading(true)
+    setLoading(true);
     AsyncStorage.getItem("user").then((res) => {
       let user = JSON.parse(res);
       let resData;
       axios({
         method: "POST",
-        url: "http://172.16.60.131/chafua/getOrders.php",
+        url: "http://172.16.60.25/chafua/getOrders.php",
         data: {
           userID: user.userID,
         },
       })
         .then((response) => {
-          setLoading(false)
+          setLoading(false);
           if (typeof response.data != "string") {
             setOrderList(response.data);
             let filter = response.data.filter((item) => item.orders);
@@ -87,7 +106,7 @@ function Orders({ navigation }) {
           }
         })
         .catch((err) => {
-          setLoading(false)
+          setLoading(false);
           alert("Sorry you might be offline");
         });
     });
@@ -100,25 +119,26 @@ function Orders({ navigation }) {
   });
   return (
     <View style={globalStyles.main} showsVerticalScrollIndicator={false}>
-      <View style={{
-        marginTop:-35
-      }} >
-      <TopHeader props={{ navigation: navigation, title: "Orders" }} />
+      <View
+        style={{
+          marginTop: -35,
+        }}
+      >
+        <TopHeader props={{ navigation: navigation, title: "Orders" }} />
       </View>
       <ScrollView
         style={{
           height: "65%",
           width: "100%",
           // paddingBottom: "70%",
-          marginTop:20
+          marginTop: 20,
           // ,borderWidth:1
-
         }}
         showsHorizontalScrollIndicator={false}
       >
         {orderList != [] && orderList.length > 0 ? (
           orderList.map((item) => (
-            <View key={item.orderID} style={{paddingTop:10,}}>
+            <View key={item.orderID} style={{ paddingTop: 10 }}>
               {JSON.parse(item.orders).map((val) => (
                 <TouchableOpacity
                   key={val.itemID}
@@ -138,6 +158,54 @@ function Orders({ navigation }) {
                     handleCancel(orders, orderID);
                   }}
                 >
+                  <View
+                    style={{
+                      position: "absolute",
+                      right: 30,
+                      bottom: 5,
+                      zIndex: 4,
+                    }}
+                  >
+                    <Image
+                      source={phone}
+                      style={{
+                        height: 20,
+                        width: 20,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        fontSize: 10,
+                      }}
+                      onPress={() => {
+                        Linking.openURL(`tel: ${val.adminPhone}`);
+                      }}
+                    >
+                      {val.adminPhone}
+                    </Text>
+                  </View>
+
+                  <Text
+                    style={{
+                      position: "absolute",
+                      right: 40,
+                      fontSize: 15,
+                      top: 5,
+                      color: "rgb(74, 4, 4)",
+                      // borderWidth:1
+                    }}
+                  >
+                    x{val.count}
+                    {"\n"}
+                    <Text
+                      style={{
+                        marginTop: "100%",
+                        marginLeft: -30,
+                      }}
+                    >
+                      {item.status}
+                    </Text>
+                  </Text>
                   <ImageBackground
                     style={{
                       height: 100,
@@ -160,25 +228,6 @@ function Orders({ navigation }) {
                       paddingLeft: 10,
                     }}
                   >
-                    <Text
-                      style={{
-                        position: "absolute",
-                        right: -80,
-                        fontSize: 15,
-                        color: "rgb(74, 4, 4)",
-                      }}
-                    >
-                      x{val.count}
-                      {"\n"}
-                      <Text
-                        style={{
-                          marginTop: "100%",
-                          marginLeft: -30,
-                        }}
-                      >
-                        {item.status}
-                      </Text>
-                    </Text>
                     <Text
                       style={{
                         fontSize: 18,
@@ -220,16 +269,20 @@ function Orders({ navigation }) {
           <View>
             {/* <Loader/> */}
             {loading ? (
-              <Text style={{
-                textAlign:'center'
-                ,marginTop:50
-              }}>Loading...</Text>
+              <Text
+                style={{
+                  textAlign: "center",
+                  marginTop: 50,
+                }}
+              >
+                Loading...
+              </Text>
             ) : (
               <View
                 style={{
                   justifyContent: "center",
                   alignItems: "center",
-                  marginTop:50
+                  marginTop: 50,
                 }}
               >
                 <Loader />
@@ -247,14 +300,13 @@ function Orders({ navigation }) {
                         width: 20,
                         marginTop: 20,
                         transform: [{ rotate: "45deg" }],
-                        borderWidth:1,
-                        borderRadius:100
-                        ,
-                        padding:20
+                        borderWidth: 1,
+                        borderRadius: 100,
+                        padding: 20,
                       }}
                       imageStyle={{
-                        marginTop:10,
-                        marginLeft:10
+                        marginTop: 10,
+                        marginLeft: 10,
                       }}
                     />
                   </TouchableOpacity>
@@ -270,24 +322,45 @@ function Orders({ navigation }) {
         style={{
           // position: "fixed",
           marginBottom: 10,
-          marginLeft:'5%',
-          marginTop:10,
-          borderRadius:10,
-          borderWidth:1,
+          marginLeft: "5%",
+          marginTop: 10,
+          borderRadius: 10,
+          borderWidth: 1,
           width: "90%",
           backgroundColor: "white",
           // paddingTop: 10,
           // paddingBottom: 60,
           // boxShadow: " rgba(149, 157, 165) 0px 3px 15px" ,
           // border: "2px solid red",
-              shadowColor: "black",
-              shadowOffset: { width: 5, height: 5 },
-              shadowOpacity: 0.2,
-              shadowRadius: 8,
-              elevation: 10,
-              backgroundColor:'white',
+          shadowColor: "black",
+          shadowOffset: { width: 5, height: 5 },
+          shadowOpacity: 0.2,
+          shadowRadius: 8,
+          elevation: 10,
+          backgroundColor: "white",
         }}
       >
+        <TouchableOpacity
+          style={{
+            height: 20,
+            width: 20,
+            position: "absolute",
+            right: 40,
+            top: 50,
+            zIndex:5
+          }}
+          onPress={()=>{
+            fetch()
+          }}
+        >
+          <Image source={refresh}
+          style={{
+            height:20
+            ,width:20
+            ,transform:[{rotate:'45deg'}]
+          }}
+          />
+        </TouchableOpacity>
         <View style={styles.totalBox}>
           <Text
             style={{
@@ -370,9 +443,9 @@ function Orders({ navigation }) {
             }}
           >
             {orderList != 0 ? (
-              <Text style={{color:'white'}}>On the way!!</Text>
+              <Text style={{ color: "white" }}>On the way!!</Text>
             ) : (
-              <Text style={{color:'white'}}>Make Order</Text>
+              <Text style={{ color: "white" }}>Make Order</Text>
             )}
           </TouchableOpacity>
         </View>

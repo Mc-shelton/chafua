@@ -101,7 +101,7 @@ function AddAddress({ navigation }) {
     if (checkItems != "") {
       axios({
         method: "POST",
-        url: "http://172.16.60.131/chafua/makeOrder.php",
+        url: "http://172.16.60.25/chafua/makeOrder.php",
         data: {
           userID: userID.userID,
           orders: JSON.stringify(checkItems),
@@ -110,7 +110,7 @@ function AddAddress({ navigation }) {
       })
         .then(async (res) => {
           if (res.data.orders) {
-            alert("Success !!! Order received successfully");
+            alert("Success !!! Order received");
             await AsyncStorage.setItem("cart", JSON.stringify([]));
             navigation.navigate("DelMessage");
           } else {

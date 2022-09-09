@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Text,
+  ScrollView,
   TextInput,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
@@ -21,26 +22,42 @@ function EditProfile({ route, navigation }) {
   const [Email, setEmail] = useState(user.Email);
   const [Phone, setPhone] = useState(user.Phone);
   const [Name, setName] = useState(user.Name);
-  const [Institution, setInstitution] = useState(user.campName);
+  const [Institution, setInstitution] = useState(user.campusID);
   const [Password, setPassword] = useState(user.Password);
   const [prevEmail, setPrevEmail] = useState(user.Email);
   const [userID, setUserID] = useState(user.userID);
-  const [loading, setLoading] = useState(false)
+  const [loadingCamp, setLoading] = useState(true);
+  const [campList, setCampList] = useState([]);
+  const [tempCampName, setCampName] = useState (user.campName)
   useEffect(() => {
-    setLoading(true)
+    // setLoading(true);
     axios({
       method: "GET",
       url: "http://172.16.60.25/chafua/getCamps.php",
-    }).then((res)=>{
-      alert(JSON.stringify(res.data))
-      setLoading(true)
-    }).catch(()=>{
-      setLoading(true)
-      alert('error')
-    });
-  });
+    })
+      .then((res) => {
+        // alert(JSON.stringify(res.data))
+        let filterList = res.data.map((item) => item.name);
+        let filterSpecs = res.data.map((item) => item.regionSpecs);
+
+        let tempCampList = [];
+        filterList.forEach((value, ind) => {
+          let myString = `${filterList[ind]}, ${filterSpecs[ind]}`;
+          tempCampList.push(myString);
+        });
+
+        setCampList(tempCampList);
+        setLoading(false);
+
+      })
+      .catch((err) => {
+        setLoading(false);
+        alert(`Something broke!`)
+      });
+  },[campList]);
+  // alert(user.Name)
   const handleUpdate = () => {
-    setLoading(true)
+    setLoading(true);
     axios({
       method: "POST",
       url: "http://172.16.60.25/chafua/updateProfile.php",
@@ -53,27 +70,30 @@ function EditProfile({ route, navigation }) {
         prevEmail: prevEmail,
         userID: userID,
       },
-    }).then(async (response) => {
-      setLoading(false)
-      try {
-        if (response.data.Name != undefined) {
-          let data = JSON.stringify(response.data);
+    })
+      .then(async (response) => {
+        setLoading(false);
+        try {
+          if (response.data.Name != undefined) {
+            let data = JSON.stringify(response.data);
 
-          await AsyncStorage.setItem("user", data);
-          console.log("response", response.data);
-          alert("Profile Saved");
+            await AsyncStorage.setItem("user", data);
+            console.log("response", response.data);
+            alert("Profile Saved");
 
-          // navigation.navigate('EditProfile')
-          window.location.reload();
-        } else {
-          alert(response.data);
+            navigation.goBack()
+            // window.location.reload();
+          } else {
+            alert(response.data);
+          }
+        } catch (e) {
+          alert("Failed, check on your network");
         }
-      } catch (e) {
-        alert("Failed, check on your network");
-      }
-    }).catch(()=>{
-      setLoading(false)
-    });
+      })
+      .catch((er) => {
+        setLoading(false);
+        alert('er')
+      });
   };
   return (
     <View
@@ -106,17 +126,18 @@ function EditProfile({ route, navigation }) {
       >
         <Logo />
       </View>
-      <View
-        style={[
-          globalStyles.container,
-          {
-            marginTop: 60,
-            // height: "85%",
-            backgroundColor: "white",
-            // border: "none",
-            borderWidth: 0,
-          },
-        ]}
+      <ScrollView
+      style={{
+        // borderWidth:1,
+        marginTop:50
+
+      }}
+      contentContainerStyle={{
+        // borderWidth:1,
+        flexGrow:1
+        // justifyContent:'center'
+        ,alignItems:'center'
+      }}
       >
         <Text>*Leave field blank if you don't want to change it</Text>
         <TextInput
@@ -141,10 +162,10 @@ function EditProfile({ route, navigation }) {
           onChangeText={(e) => setPhone(e)}
         />
         <SelectDropdown
-          data={countries}
-          onSelect={(value) => {
-            setInstitution(value);
-            // alert(value)
+          data={campList}
+          onSelect={(value, ind) => {
+            setInstitution(ind +1);
+            // alert(ind)
           }}
           style={[
             globalStyles.LButtons,
@@ -170,7 +191,7 @@ function EditProfile({ route, navigation }) {
             textAlign: "left",
             color: "grey",
           }}
-          defaultButtonText={Institution}
+          defaultButtonText={tempCampName}
           // placeholder="Choose institution"
           dropdownStyle={{
             backgroundColor: "white",
@@ -178,8 +199,8 @@ function EditProfile({ route, navigation }) {
             backgroundColor: "#FAFAFA",
           }}
           rowTextStyle={{
-            fontSize: 18,
-            paddingLeft: 15,
+            fontSize: 15,
+            paddingLeft: 4,
           }}
           rowStyle={{
             marginTop: 10,
@@ -187,7 +208,7 @@ function EditProfile({ route, navigation }) {
             borderBottom: "2px solid rgb(74, 4, 4)",
           }}
         />
-        {loading?<Text>loading...</Text>:<></>}
+        {loadingCamp ? <Text>loading...</Text> : <></>}
         <TouchableOpacity
           onPress={() => {
             handleUpdate();
@@ -196,14 +217,14 @@ function EditProfile({ route, navigation }) {
             globalStyles.container,
             globalStyles.LButtons,
             {
-              marginTop: 50,
+              marginTop: 20,
               backgroundColor: "rgb(74,4,4)",
             },
           ]}
         >
           <Text style={[globalStyles.bText, { color: "white" }]}>Save</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </View>
   );
 }

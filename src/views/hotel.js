@@ -319,6 +319,7 @@ function Hotel({ route, navigation }) {
                         category: item.category,
                         delivery: item.delivery,
                         status: item.status,
+                        adminPhone: item.phone,
                         description: item.description,
                       },
                     });
