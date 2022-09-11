@@ -110,7 +110,7 @@ function Search({ route, navigation }) {
     setLoading(true)
     axios({
       method: "GET",
-      url: "http://172.16.60.25/chafua/allItems.php",
+      url: "http://social-ci.org/chafua/allItems.php",
     })
       .then((res) => {
         console.log(res);
@@ -260,6 +260,7 @@ function Search({ route, navigation }) {
                 <TouchableOpacity
                   style={styles.item}
                   onPress={() => {
+                  if (item.status == 1) {
                     let ind = hotelList
                       .map((obj) => obj.itemID)
                       .indexOf(item.itemID);
@@ -276,9 +277,14 @@ function Search({ route, navigation }) {
                         packaging: item.packaging,
                         category: item.category,
                         delivery: item.delivery,
+                        status: item.status,
+                        adminPhone: item.phone,
                         description: item.description,
                       },
                     });
+                  } else {
+                    alert("Sorry this item is not available as at now");
+                  }
                   }}
                 >
                   <ImageBackground
@@ -304,6 +310,17 @@ function Search({ route, navigation }) {
                       // paddingLeft:'5%'
                     }}
                   >
+                  <View
+                    style={{
+                      height: 10,
+                      width: 10,
+                      borderRadius: 100,
+                      borderWidth: 0.5,
+                      position: "absolute",
+                      right: 10,
+                      backgroundColor: item.status == 1 ? "green" : "red",
+                    }}
+                  ></View>
                     <Text
                       style={{
                         fontSize: 15,

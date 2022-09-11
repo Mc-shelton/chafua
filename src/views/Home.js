@@ -41,7 +41,7 @@ function Home({ navigation }) {
       let campusID = JSON.parse(res).campusID;
       axios({
         method: "POST",
-        url: "http://172.16.60.25/chafua/ads.php",
+        url: "http://social-ci.org/chafua/ads.php",
         data: { campusID: campusID },
       })
         .then(async (res) => {
@@ -63,7 +63,7 @@ function Home({ navigation }) {
       // alert(campusID)
       axios({
         method: "POST",
-        url: "http://172.16.60.25/chafua/getHotels.php",
+        url: "http://social-ci.org/chafua/getHotels.php",
         data: { campusID: campusID },
       })
         .then(async (res) => {

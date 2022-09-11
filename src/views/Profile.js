@@ -12,13 +12,16 @@ function Profile({ navigation }) {
 
   const [logBox, setLogBox] = useState(false);
   const [user, setUser] = useState(0);
+  const [loader, setLoader]= useState(false)
 
   var globalObject = ["tempUser"];
 
   useEffect(() => {
     const willFocus = navigation.addListener('focus',()=>{
-      AsyncStorage.getItem("user").then((res) => {
+    setLoader(true)
+    AsyncStorage.getItem("user").then((res) => {
         setUser(res);
+        setLoader(false)
       });
     })
     return willFocus
@@ -86,9 +89,9 @@ function Profile({ navigation }) {
             globalStyles.container,
             {
               padding: 100,
-              // position: "fixed",
+              position: "absolute",
               backgroundColor: "white",
-              zIndex: "3",
+              zIndex: 3,
             },
           ]}
         >
@@ -160,6 +163,9 @@ function Profile({ navigation }) {
 {'\n'}
         {JSON.parse(user).Phone}
       </Text>
+      {loader?<Text style={{
+        fontSize:12
+      }}>loading...</Text>:<></>}
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("EditProfile", {
@@ -210,7 +216,8 @@ function Profile({ navigation }) {
     </View>
     <View style={{
       position:'absolute'
-      ,bottom:0
+      ,bottom:0,
+      marginLeft:'5%'
     }}>
     <BottomNav props={navigation} />
 

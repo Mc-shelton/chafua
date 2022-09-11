@@ -32,7 +32,7 @@ function Orders({ navigation }) {
   //   // setLoading(true);
   //   axios({
   //     method: "POST",
-  //     url: "http://172.16.60.25/chafua/getAdmin.php",
+  //     url: "http://social-ci.org/chafua/getAdmin.php",
   //     data:user
   //   })
   //     .then((res) => {
@@ -52,7 +52,7 @@ function Orders({ navigation }) {
     }
     axios({
       method: "POST",
-      url: "http://172.16.60.25/chafua/cancelOrder.php",
+      url: "http://social-ci.org/chafua/cancelOrder.php",
       data: {
         orderID: ind,
         orders: items,
@@ -81,7 +81,7 @@ function Orders({ navigation }) {
       let resData;
       axios({
         method: "POST",
-        url: "http://172.16.60.25/chafua/getOrders.php",
+        url: "http://social-ci.org/chafua/getOrders.php",
         data: {
           userID: user.userID,
         },

@@ -101,7 +101,7 @@ function AddAddress({ navigation }) {
     if (checkItems != "") {
       axios({
         method: "POST",
-        url: "http://172.16.60.25/chafua/makeOrder.php",
+        url: "http://social-ci.org/chafua/makeOrder.php",
         data: {
           userID: userID.userID,
           orders: JSON.stringify(checkItems),

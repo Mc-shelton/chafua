@@ -11,6 +11,7 @@ import { globalStyles } from "../components/commonStyles";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+// import RNRestart from 'react-native-restart'
 function LogIn({ navigation }) {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -23,7 +24,7 @@ function LogIn({ navigation }) {
     if (Email != "" && Password != "") {
       axios({
         method: "POST",
-        url: "http://172.16.60.25/chafua/logIn.php",
+        url: "http://social-ci.org/chafua/logIn.php",
         data: {
           Email: Email,
           Password: Password,
@@ -37,16 +38,15 @@ function LogIn({ navigation }) {
             await AsyncStorage.setItem("cart", JSON.stringify([]));
             await AsyncStorage.setItem("addresses", JSON.stringify([]));
             await AsyncStorage.setItem("favorites", JSON.stringify([]));
-            setLoading(false)
-            // window.location.reload();
-            console.log(window)
-            //  console.log()
+            // RNRestart.Restart()
+              window.location.reload();
+              //  console.log()
           } else {
             alert(response.data);
           }
         } catch (e) {
             setLoading(false)
-            alert("Error storing data");
+            alert("some error occurred");
           console.log(e);
         }
       }).catch((e)=>{
@@ -121,6 +121,7 @@ function LogIn({ navigation }) {
             setPassword(event);
           }}
         />
+        
         <TouchableOpacity
           style={{
             marginTop: 5,
@@ -140,13 +141,16 @@ function LogIn({ navigation }) {
             Forgot Password?
           </Text>
         </TouchableOpacity>
+        {loading?<Text style={{
+          marginTop:20
+        }}>loading...</Text>:<></>}
 
         <TouchableOpacity
           style={[
             globalStyles.container,
             globalStyles.LButtons,
             {
-              marginTop: 50,
+              marginTop: 30,
               backgroundColor: "rgb(74, 4, 4)",
             },
           ]}
@@ -154,7 +158,6 @@ function LogIn({ navigation }) {
         >
           <Text style={[globalStyles.bText, { color: "white" }]}>Login</Text>
         </TouchableOpacity>
-        {loading?<Text>loading...</Text>:<></>}
         <Text
           style={[
             globalStyles.iText,

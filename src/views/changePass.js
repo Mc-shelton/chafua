@@ -22,12 +22,14 @@ function ChangePass({ route, navigation }) {
   const [curPassWord, setCurPassWord] = useState("");
   const [newPassword, setNewPassword] = useState(user.Password);
   const [userID, setUserID] = useState(user.userID);
+  const [loading, setLoading] = useState(false)
 
   const handleUpdate = () => {
+    setLoading(true)
     if (Password == md5(curPassWord)) {
       axios({
         method: "POST",
-        url: "http://localhost/chafua/changePass.php",
+        url: "http://social-ci.org/chafua/changePass.php",
         data: {
           Email: Email,
           Password: Password,
@@ -43,17 +45,20 @@ function ChangePass({ route, navigation }) {
             await AsyncStorage.setItem("user", data);
             console.log("response", user);
             alert("Password Saved");
-
             window.location.reload();
-          } else {
+
+      } else {
             alert(response.data);
-          }
+        setLoading(false)
+      }
         } catch (e) {
-          alert("Failed, check on your network");
-        }
+          alert("error somewhere!");
+        setLoading(false)
+      }
       });
     } else {
       alert("Password wasn't recognized");
+      setLoading(false)
     }
   };
   return (
@@ -120,7 +125,9 @@ function ChangePass({ route, navigation }) {
           onChangeText={(e) => setNewPassword(e)}
           secureTextEntry={true}
         />
-
+        {loading?<Text style={{
+          marginTop:20
+        }}>loading...</Text>:<></>}
         <TouchableOpacity
           onPress={() => {
             handleUpdate();
@@ -129,7 +136,7 @@ function ChangePass({ route, navigation }) {
             globalStyles.container,
             globalStyles.LButtons,
             {
-              marginTop: 50,
+              marginTop: 30,
               backgroundColor:'rgb(74,4,4)'
             },
           ]}

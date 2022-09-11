@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -27,6 +27,38 @@ function SignUp({ navigation }) {
   const [Institution, setInstitution] = useState("");
   const [Password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [campList, setCampList]=useState([])
+  const [reload, setReload]= useState(false)
+  const [loading, setLoading]=useState(true)
+
+  
+  useEffect(() => {
+    // setLoading(true);
+    axios({
+      method: "GET",
+      url: "http://social-ci.org/chafua/getCamps.php",
+    })
+      .then((res) => {
+        // alert(JSON.stringify(res.data))
+        let filterList = res.data.map((item) => item.name);
+        let filterSpecs = res.data.map((item) => item.regionSpecs);
+
+        let tempCampList = [];
+        filterList.forEach((value, ind) => {
+          let myString = `${filterList[ind]}, ${filterSpecs[ind]}`;
+          tempCampList.push(myString);
+        });
+
+        setCampList(tempCampList);
+        setLoading(false);
+
+      })
+      .catch((err) => {
+        setLoading(false);
+        alert(`Something broke!`)
+        setReload(true)
+      });
+  },[campList]);
 
   const handleSignIn = () => {
     if (
@@ -37,7 +69,8 @@ function SignUp({ navigation }) {
       Name != "" &&
       Phone != ""
     ) {
-      if (Password === confirmPassword) {
+      if (Password == confirmPassword) {
+        setLoading(true)
         axios({
           method: "POST",
           url: "http://192.168.0.101/chafua/signUp.php",
@@ -66,6 +99,9 @@ function SignUp({ navigation }) {
             console.log(e);
             alert('Error occurred while storing data')
           }
+        }).catch(()=>{
+          setLoading(false)
+          alart('Sorry, network issues')
         });
       } else {
         alert("Passwords din't match");
@@ -155,7 +191,7 @@ function SignUp({ navigation }) {
           }}
         />
         <SelectDropdown
-          data={countries}
+          data={campList}
           onSelect={(value) => {
             
             setInstitution(value);
@@ -230,7 +266,7 @@ function SignUp({ navigation }) {
               outline: "none",
             },
           ]}
-          placeholder="Confrim Password"
+          placeholder="Confirm Password"
           
           onChangeText={(text) => {
             setConfirmPassword(text);
@@ -284,6 +320,7 @@ function SignUp({ navigation }) {
             </Text>
           </Text>
         </View>
+        {loading?<Text>Loading...</Text>:<></>}
         <TouchableOpacity
           disabled={isDisabled}
           style={[

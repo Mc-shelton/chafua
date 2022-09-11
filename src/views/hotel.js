@@ -33,7 +33,7 @@ function Hotel({ route, navigation }) {
     setLoading(true);
     axios({
       method: "POST",
-      url: "http://172.16.60.25/chafua/getItems.php",
+      url: "http://social-ci.org/chafua/getItems.php",
       data: { hotelID: route.params.params.hotelID },
     })
       .then((res) => {
@@ -61,7 +61,8 @@ function Hotel({ route, navigation }) {
 
   const categFilter = (name) => {
     if (name != "All") {
-      setHotelList(hotelConstList.filter((categ) => (categ.category = name)));
+      setHotelList(hotelConstList.filter((categ) => (categ.category == name)));
+      
     } else {
       setHotelList(hotelConstList);
     }

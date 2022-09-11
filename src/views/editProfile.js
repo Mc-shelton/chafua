@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   ScrollView,
+  ImageBackground,
   TextInput,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
@@ -13,6 +14,7 @@ import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
 import Logo from "../components/logo";
 import axios from "axios";
+import refresh from "../../assets/icons/refresh.png";
 
 function EditProfile({ route, navigation }) {
   const [user, setUser] = useState(route.params.params.userData);
@@ -29,11 +31,12 @@ function EditProfile({ route, navigation }) {
   const [loadingCamp, setLoading] = useState(true);
   const [campList, setCampList] = useState([]);
   const [tempCampName, setCampName] = useState (user.campName)
+  const [reload, setReload]= useState(false)
   useEffect(() => {
     // setLoading(true);
     axios({
       method: "GET",
-      url: "http://172.16.60.25/chafua/getCamps.php",
+      url: "http://social-ci.org/chafua/getCamps.php",
     })
       .then((res) => {
         // alert(JSON.stringify(res.data))
@@ -53,6 +56,7 @@ function EditProfile({ route, navigation }) {
       .catch((err) => {
         setLoading(false);
         alert(`Something broke!`)
+        setReload(true)
       });
   },[campList]);
   // alert(user.Name)
@@ -60,7 +64,7 @@ function EditProfile({ route, navigation }) {
     setLoading(true);
     axios({
       method: "POST",
-      url: "http://172.16.60.25/chafua/updateProfile.php",
+      url: "http://social-ci.org/chafua/updateProfile.php",
       data: {
         Email: Email,
         Phone: Phone,
@@ -209,6 +213,30 @@ function EditProfile({ route, navigation }) {
           }}
         />
         {loadingCamp ? <Text>loading...</Text> : <></>}
+        {reload ?  <View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      fetch();
+                    }}
+                  >
+                    <ImageBackground
+                      source={refresh}
+                      style={{
+                        height: 10,
+                        width: 10,
+                        marginTop: 20,
+                        transform: [{ rotate: "45deg" }],
+                        borderWidth: 1,
+                        borderRadius: 100,
+                        padding: 20,
+                      }}
+                      imageStyle={{
+                        marginTop: 10,
+                        marginLeft: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View> : <></>}
         <TouchableOpacity
           onPress={() => {
             handleUpdate();

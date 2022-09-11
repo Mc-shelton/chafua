@@ -47,7 +47,8 @@ class App extends Component {
     };
   }
 
-  async componentDidMount() {
+  getUser=async()=>{
+
     try {
       let token = await AsyncStorage.getItem("isLoggedIn");
 
@@ -62,6 +63,13 @@ class App extends Component {
       console.log(error);
     }
   }
+   componentDidMount() {
+    this.getUser()
+  }
+  componentDidUpdate(){
+    this.getUser()
+  }
+
   render() {
     if (this.state.isLoggedIn == true) {
       return (

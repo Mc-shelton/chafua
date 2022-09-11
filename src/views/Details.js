@@ -21,6 +21,7 @@ function Details({ route, navigation }) {
   const [reRender, setReRender] = useState(0);
   const [loadObj, setLoadObj] = useState(route.params.cartItems);
   const [favorites, setFavorites] = useState(0);
+  const [force, setForce]= useState(0)
 
   let time = 0;
   setTimeout(() => {
@@ -38,9 +39,10 @@ function Details({ route, navigation }) {
       if (ind > -1) {
         setCountNum(cartList[ind].count);
         setReRender(cartList[ind].count);
+        setForce(cartList[ind].count);
       }
     });
-  });
+  },[]);
 
   const fav = ()=>{
 
@@ -217,17 +219,21 @@ function Details({ route, navigation }) {
             // imageSize={15}
             ratingBackgroundColor="rgb(74, 4, 4)"
             startingValue={favorites}
-            onFinishRating={async () => {
+            onFinishRating={() => {
               let favItem = route.params.cartItems;
               let paramList = [];
               paramList.push(favItem);
-              let storeList = await AsyncStorage.getItem("favorites");
-              console.log(storeList);
-              storeList = JSON.parse(storeList);
-              let set = [...new Set([...storeList, ...paramList])];
-              set = JSON.stringify(set);
-              await AsyncStorage.setItem("favorites", set);
-              fav()
+              AsyncStorage.getItem("favorites").then((res)=>{
+                let storeList = res
+                storeList = JSON.parse(storeList);
+                let set = [...new Set([...storeList, ...paramList])];
+                set = JSON.stringify(set);
+                AsyncStorage.setItem("favorites", set).then(()=>{
+
+                  fav()
+                });
+              });
+             
             }}
             readonly = {favorites == 1?true:false}
           />
@@ -262,8 +268,13 @@ function Details({ route, navigation }) {
         >
           <TouchableOpacity
             onPress={() => {
+              if(force <1){
+                setForce(0)
+              }else{
+                setForce(force - 1)
+              }
               if (countNum > 1) {
-                setReRender(reRender + 1);
+                setReRender(reRender - 1);
                 handleLoadCart("Sub");
               } else {
                 setCountNum(0);
@@ -316,6 +327,11 @@ function Details({ route, navigation }) {
           </View>
           <TouchableOpacity
             onPress={() => {
+              if(force >=0){
+                setForce(force + 1)
+              }else{
+                setForce(0)
+              }
               if(loadObj.status == '1'){
               setReRender(reRender + 1);
               handleLoadCart("Add");
@@ -438,6 +454,7 @@ function Details({ route, navigation }) {
               </Text>
               /=
             </Text>
+            {/* <Text>{force}</Text> */}
             <TouchableOpacity
               style={{
                 position: "absolute",
@@ -467,7 +484,7 @@ function Details({ route, navigation }) {
                     right: 0,
                   }}
                 >
-                  {countNum}
+                  {force}
                 </Text>
               </ImageBackground>
             </TouchableOpacity>
