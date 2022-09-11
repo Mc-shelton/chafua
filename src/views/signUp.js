@@ -27,11 +27,10 @@ function SignUp({ navigation }) {
   const [Institution, setInstitution] = useState("");
   const [Password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [campList, setCampList]=useState([])
-  const [reload, setReload]= useState(false)
-  const [loading, setLoading]=useState(true)
+  const [campList, setCampList] = useState([]);
+  const [reload, setReload] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
     // setLoading(true);
     axios({
@@ -51,16 +50,17 @@ function SignUp({ navigation }) {
 
         setCampList(tempCampList);
         setLoading(false);
-
       })
       .catch((err) => {
         setLoading(false);
-        alert(`Something broke!`)
-        setReload(true)
+        alert(`Something broke!`);
+        setReload(true);
       });
-  },[campList]);
+  }, [campList]);
 
   const handleSignIn = () => {
+    setLoading(true);
+
     if (
       Email != "" &&
       Password != "" &&
@@ -70,10 +70,9 @@ function SignUp({ navigation }) {
       Phone != ""
     ) {
       if (Password == confirmPassword) {
-        setLoading(true)
         axios({
           method: "POST",
-          url: "http://192.168.0.101/chafua/signUp.php",
+          url: "http://social-ci.org/chafua/signUp.php",
           data: {
             Email: Email,
             Phone: Phone,
@@ -81,33 +80,38 @@ function SignUp({ navigation }) {
             Institution: Institution,
             Password: Password,
           },
-        }).then(async (response) => {
-          try {
-            if (response.data.Name != undefined) {
-              let data = JSON.stringify(response.data);
+        })
+          .then(async (response) => {
+            try {
+              if (response.data.Name) {
+                let data = JSON.stringify(response.data);
 
-              await AsyncStorage.setItem("user", data);
-              await AsyncStorage.setItem("isLoggedIn", 'true');
-              await AsyncStorage.setItem("cart", JSON.stringify([]));
-              await AsyncStorage.setItem("addresses", JSON.stringify([]));
-              await AsyncStorage.setItem("favorites", JSON.stringify([]));
-              window.location.reload();
-            } else {
-              alert(response.data);
+                await AsyncStorage.setItem("user", data);
+                await AsyncStorage.setItem("isLoggedIn", "true");
+                await AsyncStorage.setItem("cart", JSON.stringify([]));
+                await AsyncStorage.setItem("addresses", JSON.stringify([]));
+                await AsyncStorage.setItem("favorites", JSON.stringify([]));
+                window.location.reload();
+              } else {
+                alert(response.data);
+                setLoading(false);
+              }
+            } catch (e) {
+              console.log(e);
+              setLoading(false);
             }
-          } catch (e) {
-            console.log(e);
-            alert('Error occurred while storing data')
-          }
-        }).catch(()=>{
-          setLoading(false)
-          alart('Sorry, network issues')
-        });
+          })
+          .catch(() => {
+            alert("Sorry, network issues");
+            setLoading(false);
+          });
       } else {
         alert("Passwords din't match");
+        setLoading(false);
       }
     } else {
       alert("Some fields are not filled");
+      setLoading(false);
     }
   };
   return (
@@ -117,10 +121,12 @@ function SignUp({ navigation }) {
         backgroundColor: "white",
       }}
     >
-      <View style={{
-        flex:1,
-      }}>
-      <BackButton props={{ navigation: navigation, title: "Sign Up" }} />
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
+        <BackButton props={{ navigation: navigation, title: "Sign Up" }} />
       </View>
       <View
         style={[
@@ -149,12 +155,28 @@ function SignUp({ navigation }) {
         >
           create your new account
         </Text>
+        {loading ? (
+          <Text
+            style={{
+              marginTop: 30,
+            }}
+          >
+            Loading...
+          </Text>
+        ) : (
+          <Text
+            style={{
+              marginTop: 30,
+            }}
+          ></Text>
+        )}
+
         <TextInput
           style={[
             globalStyles.LButtons,
             globalStyles.iText,
             {
-              marginTop: 40,
+              marginTop: 10,
               outline: "none",
             },
           ]}
@@ -185,16 +207,14 @@ function SignUp({ navigation }) {
             },
           ]}
           placeholder="firstName secondName"
-          
           onChangeText={(text) => {
             setName(text);
           }}
         />
         <SelectDropdown
           data={campList}
-          onSelect={(value) => {
-            
-            setInstitution(value);
+          onSelect={(value, ind) => {
+            setInstitution(ind + 1);
           }}
           style={[
             globalStyles.LButtons,
@@ -227,13 +247,12 @@ function SignUp({ navigation }) {
               backgroundColor: "white",
               border: "2px solid rgb(74, 4, 4)",
               backgroundColor: "#FAFAFA",
-              textAlign:'left'
+              textAlign: "left",
             },
           ]}
-          
           rowTextStyle={{
             fontSize: 18,
-            textAlign:'left',
+            textAlign: "left",
             // paddingLeft: 15,
           }}
           rowStyle={{
@@ -252,7 +271,6 @@ function SignUp({ navigation }) {
             },
           ]}
           placeholder="Password"
-          
           onChangeText={(text) => {
             setPassword(text);
           }}
@@ -267,7 +285,6 @@ function SignUp({ navigation }) {
             },
           ]}
           placeholder="Confirm Password"
-          
           onChangeText={(text) => {
             setConfirmPassword(text);
           }}
@@ -282,7 +299,7 @@ function SignUp({ navigation }) {
               paddingLeft: 20,
               paddingRight: 20,
               // marginTop: "5%",
-              borderWidth:0 ,
+              borderWidth: 0,
             },
           ]}
         >
@@ -320,7 +337,6 @@ function SignUp({ navigation }) {
             </Text>
           </Text>
         </View>
-        {loading?<Text>Loading...</Text>:<></>}
         <TouchableOpacity
           disabled={isDisabled}
           style={[
@@ -328,12 +344,12 @@ function SignUp({ navigation }) {
             globalStyles.LButtons,
             {
               marginTop: 20,
-    backgroundColor: "rgb(74, 4, 4)",
-  },
+              backgroundColor: "rgb(74, 4, 4)",
+            },
           ]}
           onPress={handleSignIn}
         >
-          <Text style={[globalStyles.bText,{color:'white'}]}>Sign Up</Text>
+          <Text style={[globalStyles.bText, { color: "white" }]}>Sign Up</Text>
         </TouchableOpacity>
 
         <Text

@@ -31,7 +31,9 @@ function EditProfile({ route, navigation }) {
   const [loadingCamp, setLoading] = useState(true);
   const [campList, setCampList] = useState([]);
   const [tempCampName, setCampName] = useState (user.campName)
+  
   const [reload, setReload]= useState(false)
+
   useEffect(() => {
     // setLoading(true);
     axios({

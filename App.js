@@ -54,10 +54,8 @@ class App extends Component {
 
       if (token) {
         this.setState({ isLoggedIn: true });
-        console.log("reloaded true");
       } else {
         this.setState({ isLoggedIn: false });
-        console.log("reloaded flee");
       }
     } catch (error) {
       console.log(error);

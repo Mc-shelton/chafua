@@ -23,6 +23,7 @@ function AddAddress({ navigation }) {
   const [totalPrice, setTotalPrice] = useState();
   const [totalPack, setTotalPack] = useState();
   const [deliveryFee, setDeliveryFee] = useState();
+  const [loading, setLoading]=useState(false)
   useEffect( () => {
     const willFocus = navigation.addListener("focus", () => {
       AsyncStorage.getItem("addresses")
@@ -98,7 +99,9 @@ function AddAddress({ navigation }) {
     return willFocus;
   }, []);
   const handleOrder = () => {
+
     if (checkItems != "") {
+      setLoading(true)
       axios({
         method: "POST",
         url: "http://social-ci.org/chafua/makeOrder.php",
@@ -112,16 +115,20 @@ function AddAddress({ navigation }) {
           if (res.data.orders) {
             alert("Success !!! Order received");
             await AsyncStorage.setItem("cart", JSON.stringify([]));
-            navigation.navigate("DelMessage");
+      setLoading(false)
+      navigation.navigate("DelMessage");
           } else {
             alert(res.data);
-          }
+      setLoading(false)
+    }
         })
         .catch((err) => {
           alert("something went wrong please check on your network");
-        });
+      setLoading(false)
+    });
     } else {
       alert("Nothing to check out!!, please add something to cart");
+      setLoading(false)
     }
   };
 

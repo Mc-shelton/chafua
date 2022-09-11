@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "chafua",
-    "slug": "chafua",
-    "version": "1.0.0",
+    "name": "Chafua",
+    "slug": "Chafua",
+    "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icons/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -23,13 +23,13 @@
     "android": {
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icons/logo.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.mcshelton.chafua"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icons/logo.png"
     }
   }
 }
