@@ -7,7 +7,7 @@
     "icon": "./assets/icons/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/A New Design - Made with PosterMyWall.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
