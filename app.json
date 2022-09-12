@@ -7,7 +7,7 @@
     "icon": "./assets/icons/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/A New Design - Made with PosterMyWall.jpg",
+      "image": "./assets/images/A New Design - Made with PosterMyWall.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -26,7 +26,10 @@
         "foregroundImage": "./assets/icons/logo.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.mcshelton.chafua"
+      "package": "com.mcshelton.Chafua",
+      "versionCode":5,
+      "permissions": []
+
     },
     "web": {
       "favicon": "./assets/icons/logo.png"
