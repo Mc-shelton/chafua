@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View, Text, ImageBackground } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  Linking,
+  ImageBackground,
+} from "react-native";
 import { TextInput } from "react-native";
 import BackButton from "../components/BackButton";
 import { globalStyles } from "../components/commonStyles";
@@ -25,7 +31,7 @@ function ForgotPass({ navigation }) {
         },
       ]}
     >
-      <BackButton props={{navigation:navigation, title:'Recover'}}/>
+      <BackButton props={{ navigation: navigation, title: "Recover" }} />
       <Logo />
       <View
         style={[
@@ -39,8 +45,8 @@ function ForgotPass({ navigation }) {
         <Text
           style={{
             fontSize: 28,
-            color: "rgb(74, 4, 4)"
-            ,marginBottom:50
+            color: "rgb(74, 4, 4)",
+            marginBottom: 50,
           }}
         >
           Forgot Password
@@ -70,14 +76,18 @@ function ForgotPass({ navigation }) {
           }}
         />
         <TouchableOpacity
-          onPress={handleRecover}
-          style={[globalStyles.container, globalStyles.LButtons,{
-            backgroundColor:'rgb(74,4,4)'
-          }]}
+          onPress={() => {
+            Linking.openURL("http://chafua.co.ke/chafua/recover.php");
+          }}
+          style={[
+            globalStyles.container,
+            globalStyles.LButtons,
+            {
+              backgroundColor: "rgb(74,4,4)",
+            },
+          ]}
         >
-          <Text style={[globalStyles.bText, { color: "white" }]}>
-            Submit
-          </Text>
+          <Text style={[globalStyles.bText, { color: "white" }]}>Submit</Text>
         </TouchableOpacity>
       </View>
     </View>

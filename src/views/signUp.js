@@ -35,10 +35,11 @@ function SignUp({ navigation }) {
     // setLoading(true);
     axios({
       method: "GET",
-      url: "http://social-ci.org/chafua/getCamps.php",
+      url: "http://chafua.co.ke/chafua/getCamps.php",
     })
       .then((res) => {
         // alert(JSON.stringify(res.data))
+        if(typeof(res.data)  != 'string'){
         let filterList = res.data.map((item) => item.name);
         let filterSpecs = res.data.map((item) => item.regionSpecs);
 
@@ -50,10 +51,13 @@ function SignUp({ navigation }) {
 
         setCampList(tempCampList);
         setLoading(false);
+      }else{
+        alert(res.data)
+      }
       })
       .catch((err) => {
         setLoading(false);
-        alert(`Something broke!`);
+        alert('Sorry, you might be offline');
         setReload(true);
       });
   }, [campList]);
@@ -72,7 +76,7 @@ function SignUp({ navigation }) {
       if (Password == confirmPassword) {
         axios({
           method: "POST",
-          url: "http://social-ci.org/chafua/signUp.php",
+          url: "http://chafua.co.ke/chafua/signUp.php",
           data: {
             Email: Email,
             Phone: Phone,
@@ -324,13 +328,13 @@ function SignUp({ navigation }) {
               },
             ]}
           >
-            I have read and agreed to your{" "}
+            By clicking  agree to our{" "}
             <Text
               style={{
                 color: "rgb(74, 4, 4)",
               }}
               onPress={() => {
-                Linking.openURL("http://google.com");
+                Linking.openURL("http://chafua.co.ke/chafua/policy.txt");
               }}
             >
               terms and conditions

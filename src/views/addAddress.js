@@ -104,7 +104,7 @@ function AddAddress({ navigation }) {
       setLoading(true)
       axios({
         method: "POST",
-        url: "http://social-ci.org/chafua/makeOrder.php",
+        url: "http://chafua.co.ke/chafua/makeOrder.php",
         data: {
           userID: userID.userID,
           orders: JSON.stringify(checkItems),

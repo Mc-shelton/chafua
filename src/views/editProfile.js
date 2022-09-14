@@ -38,7 +38,7 @@ function EditProfile({ route, navigation }) {
     // setLoading(true);
     axios({
       method: "GET",
-      url: "http://social-ci.org/chafua/getCamps.php",
+      url: "http://chafua.co.ke/chafua/getCamps.php",
     })
       .then((res) => {
         // alert(JSON.stringify(res.data))
@@ -66,7 +66,7 @@ function EditProfile({ route, navigation }) {
     setLoading(true);
     axios({
       method: "POST",
-      url: "http://social-ci.org/chafua/updateProfile.php",
+      url: "http://chafua.co.ke/chafua/updateProfile.php",
       data: {
         Email: Email,
         Phone: Phone,

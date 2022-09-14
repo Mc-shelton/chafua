@@ -24,7 +24,7 @@ function LogIn({ navigation }) {
     if (Email != "" && Password != "") {
       axios({
         method: "POST",
-        url: "http://social-ci.org/chafua/logIn.php",
+        url: "http://chafua.co.ke/chafua/logIn.php",
         data: {
           Email: Email,
           Password: Password,
@@ -43,6 +43,7 @@ function LogIn({ navigation }) {
               //  console.log()
           } else {
             alert(response.data);
+            setLoading(false)
           }
         } catch (e) {
             setLoading(false)
@@ -51,7 +52,7 @@ function LogIn({ navigation }) {
         }
       }).catch((e)=>{
             setLoading(false)
-            alert('You might be offline please check your network')
+            alert("Sorry you might be offline")
       });
     } else {
             setLoading(false)

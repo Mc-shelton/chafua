@@ -110,7 +110,7 @@ function Search({ route, navigation }) {
     setLoading(true)
     axios({
       method: "GET",
-      url: "http://social-ci.org/chafua/allItems.php",
+      url: "http://chafua.co.ke/chafua/allItems.php",
     })
       .then((res) => {
         console.log(res);

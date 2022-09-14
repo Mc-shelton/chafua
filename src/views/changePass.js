@@ -29,7 +29,7 @@ function ChangePass({ route, navigation }) {
     if (Password == md5(curPassWord)) {
       axios({
         method: "POST",
-        url: "http://social-ci.org/chafua/changePass.php",
+        url: "http://chafua.co.ke/chafua/changePass.php",
         data: {
           Email: Email,
           Password: Password,

@@ -18,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mcshelton.Chafua"
     },
     "android": {
       "softwareKeyboardLayoutMode": "pan",
@@ -27,12 +28,16 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.mcshelton.Chafua",
-      "versionCode":5,
+      "versionCode": 7,
       "permissions": []
-
     },
     "web": {
       "favicon": "./assets/icons/logo.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3b1281ec-8077-473a-931e-355f101ef3b9"
+      }
     }
   }
 }

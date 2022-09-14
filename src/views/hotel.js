@@ -33,7 +33,7 @@ function Hotel({ route, navigation }) {
     setLoading(true);
     axios({
       method: "POST",
-      url: "http://social-ci.org/chafua/getItems.php",
+      url: "http://chafua.co.ke/chafua/getItems.php",
       data: { hotelID: route.params.params.hotelID },
     })
       .then((res) => {
